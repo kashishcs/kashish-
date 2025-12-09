@@ -1,36 +1,35 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5;
-}
+// Small interactivity: year, nav toggle, simple contact fallback
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-header {
-  background: #111;
-  color: white;
-  padding: 80px 20px;
-  text-align: center;
-}
+  // nav toggle for mobile
+  const toggle = document.querySelector('.nav-toggle');
+  toggle && toggle.addEventListener('click', () => {
+    const nav = document.querySelector('.nav-links');
+    if(nav.style.display === 'flex') nav.style.display = 'none';
+    else nav.style.display = 'flex';
+  });
 
-.btn {
-  color: white;
-  background: #ff0055;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-}
+  // demo buttons: open links or alert placeholder
+  document.querySelectorAll('[data-demo]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const which = btn.dataset.demo;
+      alert('Demo for "' + which + '" is a placeholder. Deploy a demo and replace this link with the live URL.');
+    });
+  });
+});
 
-section {
-  padding: 40px 20px;
-}
+// Simple contact form handler (mailto fallback)
+function handleContact(e){
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
 
-h2 {
-  color: #333;
-}
-
-.project-card {
-  background: white;
-  padding: 20px;
-  margin: 10px 0;
-  border-radius: 8px;
+  // Use mailto: fallback so this works without a server
+  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  window.location.href = `mailto:kashish.cs@outlook.com?subject=${subject}&body=${body}`;
 }
