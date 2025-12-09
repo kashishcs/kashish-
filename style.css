@@ -1,35 +1,92 @@
-// Small interactivity: year, nav toggle, simple contact fallback
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* Simple, modern, mobile-friendly styles */
+:root{
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa4b2;
+  --accent: #7c3aed;
+  --glass: rgba(255,255,255,0.03);
+  --radius: 14px;
+  --container: 1100px;
+  --gap: 1.25rem;
+  --txt: #e6eef8;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
 
-  // nav toggle for mobile
-  const toggle = document.querySelector('.nav-toggle');
-  toggle && toggle.addEventListener('click', () => {
-    const nav = document.querySelector('.nav-links');
-    if(nav.style.display === 'flex') nav.style.display = 'none';
-    else nav.style.display = 'flex';
-  });
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: linear-gradient(180deg,#071028 0%, #071225 100%);
+  color:var(--txt);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
 
-  // demo buttons: open links or alert placeholder
-  document.querySelectorAll('[data-demo]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const which = btn.dataset.demo;
-      alert('Demo for "' + which + '" is a placeholder. Deploy a demo and replace this link with the live URL.');
-    });
-  });
-});
+/* Container */
+.container{max-width:var(--container);margin:0 auto;padding:2rem;}
 
-// Simple contact form handler (mailto fallback)
-function handleContact(e){
-  e.preventDefault();
-  const form = e.target;
-  const name = form.name.value.trim();
-  const email = form.email.value.trim();
-  const message = form.message.value.trim();
+/* Header */
+.site-header{position:sticky;top:0;background:transparent;padding:0.5rem 0;z-index:50}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-weight:700;color:var(--txt);text-decoration:none;font-size:1.1rem}
+.nav-links{list-style:none;display:flex;align-items:center;gap:0.5rem;margin:0;padding:0}
+.nav-links li a{color:var(--muted);text-decoration:none;padding:0.5rem 0.6rem;border-radius:8px}
+.nav-links li a:hover{color:var(--txt)}
+.btn-outline{border:1px solid rgba(255,255,255,0.06);padding:0.45rem 0.75rem;border-radius:8px;color:var(--txt);text-decoration:none}
+.btn{background:var(--accent);color:white;padding:0.55rem 0.9rem;border-radius:10px;text-decoration:none;display:inline-block}
+.btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:0.55rem 0.9rem;border-radius:10px;color:var(--txt);text-decoration:none}
+.btn-ghost{background:transparent;color:var(--muted);text-decoration:none;padding:0.45rem}
 
-  // Use mailto: fallback so this works without a server
-  const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-  window.location.href = `mailto:kashish.cs@outlook.com?subject=${subject}&body=${body}`;
+/* Hero */
+.hero{display:flex;gap:2rem;align-items:center;padding:3rem 0}
+.hero-text{flex:1}
+.hero-image{width:260px;height:260px;border-radius:20px;overflow:hidden;background:var(--glass);display:flex;align-items:center;justify-content:center}
+.hero img{width:100%;height:100%;object-fit:cover}
+.lead{color:var(--muted);margin-top:0.5rem}
+.hero-ctas{margin-top:1rem;display:flex;gap:0.6rem}
+
+/* About */
+.about{padding:2rem 0}
+.about-grid{display:grid;grid-template-columns:1fr 320px;gap:1.5rem}
+.about-list{margin-top:1rem;color:var(--muted)}
+.accent{color:var(--accent)}
+
+/* Skills */
+.skills{padding:2rem 0}
+.skill-grid{display:flex;gap:1rem;flex-wrap:wrap}
+.skill{background:var(--glass);padding:1rem;border-radius:12px;flex:1;min-width:180px}
+.progress-row{margin-top:1.25rem;display:grid;gap:0.6rem}
+.progress{background:rgba(255,255,255,0.03);height:10px;border-radius:8px;overflow:hidden}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#4f46e5)}
+
+/* Projects */
+.projects{padding:2rem 0}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.card{background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:0.6rem}
+.card h3{margin:0.35rem 0}
+.card p{color:var(--muted)}
+.card-actions{display:flex;gap:0.6rem;margin-top:0.8rem;align-items:center}
+
+/* Contact */
+.contact{padding:2rem 0}
+.contact-form{max-width:640px;background:rgba(255,255,255,0.02);padding:1rem;border-radius:12px}
+.contact-form label{display:block;margin-bottom:0.6rem;color:var(--muted)}
+.contact-form input,.contact-form textarea{width:100%;padding:0.6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--txt);margin-top:0.3rem}
+.form-actions{display:flex;gap:0.6rem;margin-top:0.5rem;align-items:center}
+
+/* Footer */
+.site-footer{padding:1rem 0;margin-top:2rem;border-top:1px solid rgba(255,255,255,0.03)}
+.footer-grid{display:flex;justify-content:space-between;align-items:center}
+
+/* Responsive */
+@media (max-width:800px){
+  .hero{flex-direction:column-reverse;align-items:flex-start}
+  .about-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-toggle{display:inline-block}
+}
+@media (min-width:801px){
+  .nav-toggle{display:none}
 }
