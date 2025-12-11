@@ -1,189 +1,66 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kashish — CS Student Portfolio</title>
-  <meta name="description" content="Kashish — Aspiring Computer Science student. Projects: Data Analyzer, Portfolio, Chatbot.">
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="favicon.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kashish Portfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <nav class="nav container">
-      <a class="logo" href="#">Kashish</a>
-      <ul class="nav-links">
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a class="btn-outline" href="resume.pdf" download>Download Resume</a></li>
-      </ul>
-      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
-    </nav>
-  </header>
 
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="intro">HI, I’m <span>Kashish</span></h1>
+    <p class="sub">Scroll down to explore</p>
+
+    <div class="scroll-btn" id="scrollBtn">⬇</div>
+  </section>
+
+  <!-- MAIN SECTION -->
   <main>
-    <!-- Hero / Landing -->
-    <section id="home" class="hero container">
-      <div class="hero-text">
-        <h1>Hi, I’m <span class="accent">Kashish</span>.</h1>
-        <p class="lead">Aspiring Computer Science student — building web apps, Python tools, and simple AI projects.</p>
-        <div class="hero-ctas">
-          <a class="btn" href="#projects">View Projects</a>
-          <a class="btn-secondary" href="resume.pdf" download>Resume</a>
-          <a class="btn-ghost" href="https://github.com/kashishcs" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-      <div class="hero-image" aria-hidden="true">
-        <!-- Replace with your portrait or illustration -->
-        <img src="assets/hero-placeholder.png" alt="Portrait illustration"/>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="container about">
-      <h2>Who I Am</h2>
-      <div class="about-grid">
-        <div>
-          <p>I’m a Computer Science student learning Python, HTML/CSS, and basic AI concepts. I enjoy solving real problems and building projects that I can show recruiters and teachers.</p>
-          <ul class="about-list">
-            <li><strong>Why CS:</strong> I love logic, problem-solving, and building useful software.</li>
-            <li><strong>Learning:</strong> Python, Web (HTML/CSS + JS), Git, Data basics.</li>
-            <li><strong>Achievement:</strong> Top performer in school CS project / completed online course (add details).</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Outside Tech</h3>
-          <p>I enjoy music, short stories, and spending time with friends. I believe balance helps creativity.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="container skills">
-      <h2>Skills</h2>
-      <div class="skill-grid">
-        <div class="skill">
-          <h4>Programming</h4>
-          <p>Python • HTML • CSS • JavaScript (basic)</p>
-        </div>
-        <div class="skill">
-          <h4>Tools</h4>
-          <p>Git • GitHub • VS Code • Replit</p>
-        </div>
-        <div class="skill">
-          <h4>Areas</h4>
-          <p>Web development • Data handling • Basic ML concepts</p>
-        </div>
-      </div>
-
-      <div class="progress-row">
-        <label>Python</label>
-        <div class="progress"><span style="width:70%"></span></div>
-
-        <label>HTML / CSS</label>
-        <div class="progress"><span style="width:80%"></span></div>
-
-        <label>Git & GitHub</label>
-        <div class="progress"><span style="width:65%"></span></div>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="container projects">
-      <h2>Projects</h2>
-      <p class="muted">Three showcase projects that highlight my coding & problem solving.</p>
-
-      <div class="project-grid">
-        <!-- Project 1 -->
-        <article class="card">
-          <img src="assets/project-data.png" alt="Data analyzer screenshot" />
-          <h3>Python Data Analyzer</h3>
-          <p>Reads CSV files, computes stats, and visualizes simple charts. Great for learning data handling and Python scripting.</p>
-          <ul>
-            <li>Parses CSV, computes mean/median/std</li>
-            <li>Generates simple charts (matplotlib)</li>
-            <li>Command-line and simple GUI version</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn-outline" href="https://github.com/kashishcs/data-analyzer" target="_blank" rel="noopener">View Source</a>
-            <a class="btn" href="#" data-demo="data">Live Demo</a>
+    <div class="cards">
+      <div class="card" data-card="about">
+        <h3>About Me</h3>
+        <p>Click to expand</p>
+        <div class="panel" id="panel-about">
+          <div class="bio-card">
+            <div class="bio-avatar">K</div>
+            <div class="bio-text">
+              Replace this with your real intro. This is your aesthetic bio box.
+            </div>
           </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="card">
-          <img src="assets/project-portfolio.png" alt="Portfolio screenshot" />
-          <h3>Interactive Portfolio Website</h3>
-          <p>Responsive portfolio built with HTML/CSS and small JS for interactions. Clean, accessible layout.</p>
-          <ul>
-            <li>Accessible markup and responsive styles</li>
-            <li>CSS animations for micro-interactions</li>
-            <li>Hosted on GitHub Pages</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn-outline" href="https://github.com/kashishcs/portfolio" target="_blank" rel="noopener">View Source</a>
-            <a class="btn" href="#" data-demo="portfolio">Live Demo</a>
-          </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="card">
-          <img src="assets/project-chatbot.png" alt="Chatbot screenshot" />
-          <h3>Mini Chatbot / Sentiment Tool</h3>
-          <p>A small rule-based chatbot and simple sentiment analyzer using Python libraries or JS heuristics.</p>
-          <ul>
-            <li>Basic NLP sentiment checks</li>
-            <li>Interactive demo with input/output</li>
-            <li>Shows interest in AI/ML</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn-outline" href="https://github.com/kashishcs/chatbot-mini" target="_blank" rel="noopener">View Source</a>
-            <a class="btn" href="#" data-demo="chatbot">Live Demo</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="container contact">
-      <h2>Contact</h2>
-      <p>Want to collaborate or ask about a project? Email me: <a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a></p>
-
-      <form class="contact-form" onsubmit="handleContact(event)">
-        <label>
-          Your name
-          <input type="text" name="name" required />
-        </label>
-        <label>
-          Your email
-          <input type="email" name="email" required />
-        </label>
-        <label>
-          Message
-          <textarea name="message" rows="4" required></textarea>
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="btn">Send</button>
-          <a class="btn-outline" href="resume.pdf" download>Download Resume</a>
-        </div>
-        <p class="small muted">This form uses mailto: fallback. Replace with netlify/formspree or server-side when ready.</p>
-      </form>
-    </section>
-
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>© <span id="year"></span> Kashish</div>
-        <div class="social">
-          <a href="https://github.com/kashishcs" target="_blank" rel="noopener">GitHub</a>
-          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
+
+      <div class="card" data-card="skills">
+        <h3>Skills</h3>
+        <p>Click to expand</p>
+        <div class="panel" id="panel-skills">
+          <div class="note">
+            <strong>Technical</strong><br>
+            HTML • CSS • JS • React • Git<br><br>
+            <strong>Other</strong><br>
+            Communication • Design • Problem Solving
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-card="projects">
+        <h3>Projects</h3>
+        <p>Coming soon</p>
+        <div class="panel" id="panel-projects">
+          Add your projects here.
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Find me on GitHub</p>
+      <a href="#">GitHub Link</a>
     </footer>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
