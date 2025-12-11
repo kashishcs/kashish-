@@ -1,17 +1,20 @@
-// scroll arrow
+// Smooth scroll from hero arrow to first panel
 const scrollArrow = document.getElementById("scrollArrow");
-const mainSection = document.getElementById("mainSection");
+const firstPanel = document.querySelector(".panel-screen");
 
-scrollArrow.addEventListener("click", () => {
-  mainSection.scrollIntoView({ behavior: "smooth" });
-});
+if (scrollArrow && firstPanel) {
+  scrollArrow.addEventListener("click", () => {
+    firstPanel.scrollIntoView({ behavior: "smooth" });
+  });
+}
 
-// panel -> overlay open
-const panels = document.querySelectorAll(".panel");
+// Open overlays when clicking panel buttons
+const openButtons = document.querySelectorAll(".panel-open");
 
-panels.forEach(panel => {
-  panel.addEventListener("click", () => {
-    const targetId = panel.getAttribute("data-overlay-target");
+openButtons.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const targetId = btn.getAttribute("data-overlay-target");
     if (!targetId) return;
     const overlay = document.getElementById(targetId);
     if (!overlay) return;
@@ -19,20 +22,22 @@ panels.forEach(panel => {
   });
 });
 
-// close buttons and click outside
+// Close overlays via close button or clicking backdrop
 const overlays = document.querySelectorAll(".overlay");
 
-overlays.forEach(overlay => {
+overlays.forEach((overlay) => {
   const closeBtn = overlay.querySelector("[data-close]");
+  const backdrop = overlay.querySelector(".overlay-backdrop");
+
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       overlay.classList.remove("active");
     });
   }
 
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
+  if (backdrop) {
+    backdrop.addEventListener("click", () => {
       overlay.classList.remove("active");
-    }
-  });
+    });
+  }
 });
