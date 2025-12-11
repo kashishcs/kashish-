@@ -1,18 +1,38 @@
-// Scroll down button
-document.getElementById("scrollBtn").onclick = () => {
-  document.querySelector("main").scrollIntoView({ behavior: "smooth" });
-};
+// scroll arrow
+const scrollArrow = document.getElementById("scrollArrow");
+const mainSection = document.getElementById("mainSection");
 
-// Cards open/close logic
-const cards = document.querySelectorAll(".card");
+scrollArrow.addEventListener("click", () => {
+  mainSection.scrollIntoView({ behavior: "smooth" });
+});
 
-cards.forEach(card => {
-  card.addEventListener("click", () => {
-    const target = card.dataset.card;
-    const panel = document.getElementById("panel-" + target);
+// panel -> overlay open
+const panels = document.querySelectorAll(".panel");
 
-    document.querySelectorAll(".panel").forEach(p => p.classList.remove("show"));
-    panel.classList.add("show");
+panels.forEach(panel => {
+  panel.addEventListener("click", () => {
+    const targetId = panel.getAttribute("data-overlay-target");
+    if (!targetId) return;
+    const overlay = document.getElementById(targetId);
+    if (!overlay) return;
+    overlay.classList.add("active");
   });
 });
 
+// close buttons and click outside
+const overlays = document.querySelectorAll(".overlay");
+
+overlays.forEach(overlay => {
+  const closeBtn = overlay.querySelector("[data-close]");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.remove("active");
+    });
+  }
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove("active");
+    }
+  });
+});
