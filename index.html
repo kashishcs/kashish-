@@ -2,211 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Kashish | Portfolio</title>
+  <title>Kashish | Cosmic Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Font: Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- HERO SECTION -->
   <section class="hero">
-    <div class="hero-bg-orbit"></div>
-    <div class="hero-glass"></div>
+    <div class="hero-galaxy"></div>
+    <div class="hero-stars"></div>
 
-    <div class="hero-heading">
-      <span class="hero-hi">HI,</span>
-      <span class="hero-im">I'M</span>
-      <span class="hero-name">KASHISH</span>
-    </div>
-
-    <div class="hero-sub">
-      <div class="hero-sub-tag">
-        <span class="hero-sub-tag-dot"></span>
-        <span>portfolio preview</span>
+    <div class="hero-content">
+      <div class="hero-heading">
+        <span class="hero-hi">HI,</span>
+        <span class="hero-im">I'M</span>
+        <span class="hero-name">KASHISH</span>
       </div>
-      <span class="hero-sub-text">
-        A soft, minimal first glance of who I am, what I can do, and what I’m building next.
-      </span>
+
+      <p class="hero-sub">
+        A soft, cosmic first glance into who I am, what I create, and what I’m quietly building next.
+      </p>
     </div>
 
-    <div class="scroll-arrow" id="scrollArrow">
-      <div class="scroll-arrow-inner"></div>
-    </div>
+    <button class="scroll-arrow" id="scrollArrow" aria-label="Scroll down">
+      <span class="scroll-arrow-dot"></span>
+    </button>
   </section>
 
-  <!-- MAIN PANELS -->
-  <main class="main" id="mainSection">
-    <div class="panel-grid">
+  <!-- FULL SCREEN PANELS -->
+  <main>
 
-      <article class="panel" data-overlay-target="aboutOverlay">
+    <!-- ABOUT PANEL -->
+    <section class="panel-screen">
+      <div class="panel-shell">
         <div class="panel-header">
+          <span class="panel-kicker">SECTION · 01</span>
           <h2 class="panel-title">About me</h2>
-          <span class="panel-tag">snapshot</span>
         </div>
-        <div class="panel-body">
-          A quick, soft-focus overview of who I am, what I love building, and how I move through projects.
-        </div>
-        <div class="panel-footer">
-          <button class="panel-link" type="button">
-            <span>Open</span>
-            <span class="panel-link-icon">↗</span>
-          </button>
-        </div>
-      </article>
+        <p class="panel-text">
+          A calm snapshot of who I am and how I like to move through ideas, spaces, and projects.
+        </p>
+        <button class="panel-open" data-overlay-target="aboutOverlay">
+          <span>Open</span>
+          <span class="panel-open-icon">↗</span>
+        </button>
+      </div>
+    </section>
 
-      <article class="panel" data-overlay-target="skillsOverlay">
+    <!-- SKILLS PANEL -->
+    <section class="panel-screen">
+      <div class="panel-shell">
         <div class="panel-header">
+          <span class="panel-kicker">SECTION · 02</span>
           <h2 class="panel-title">Skills</h2>
-          <span class="panel-tag">toolkit</span>
         </div>
-        <div class="panel-body">
-          A note-style list of my current skills, tools, and strengths I use to turn ideas into real things.
-        </div>
-        <div class="panel-footer">
-          <button class="panel-link" type="button">
-            <span>Open</span>
-            <span class="panel-link-icon">↗</span>
-          </button>
-        </div>
-      </article>
+        <p class="panel-text">
+          A small, handwritten-feeling note of the tools, skills, and strengths I use to bring ideas to life.
+        </p>
+        <button class="panel-open" data-overlay-target="skillsOverlay">
+          <span>Open</span>
+          <span class="panel-open-icon">↗</span>
+        </button>
+      </div>
+    </section>
 
-      <article class="panel" data-overlay-target="projectsOverlay">
+    <!-- PROJECTS PANEL -->
+    <section class="panel-screen">
+      <div class="panel-shell">
         <div class="panel-header">
+          <span class="panel-kicker">SECTION · 03</span>
           <h2 class="panel-title">Projects</h2>
-          <span class="panel-tag">coming soon</span>
         </div>
-        <div class="panel-body">
-          Space reserved for future projects. This section is intentionally blank for now.
-        </div>
-        <div class="panel-footer">
-          <button class="panel-link" type="button">
-            <span>Open</span>
-            <span class="panel-link-icon">↗</span>
-          </button>
-        </div>
-      </article>
+        <p class="panel-text">
+          A reserved space for future work. Quiet for now, but ready to hold the projects that feel like me.
+        </p>
+        <button class="panel-open" data-overlay-target="projectsOverlay">
+          <span>Open</span>
+          <span class="panel-open-icon">↗</span>
+        </button>
+      </div>
+    </section>
 
-    </div>
   </main>
 
   <!-- ABOUT OVERLAY -->
   <div class="overlay" id="aboutOverlay">
-    <div class="overlay-card">
-      <div class="overlay-highlight"></div>
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-card overlay-card-about">
+      <button class="overlay-close" type="button" data-close>✕</button>
 
-      <div class="overlay-header">
-        <div>
-          <div class="overlay-section-label">Section</div>
-          <h2 class="overlay-title">About me</h2>
-        </div>
-        <button class="overlay-close" type="button" data-close>✕</button>
-      </div>
+      <div class="overlay-inner">
+        <header class="overlay-header">
+          <span class="overlay-label">About</span>
+          <h2 class="overlay-title">A soft introduction</h2>
+        </header>
 
-      <div class="overlay-body">
-        <div class="about-grid">
-          <div class="about-main">
-            <p>
-              I’m Kashish — someone who loves combining clean design,
-              soft aesthetics, and clear structure to make things feel calm and intentional.
-            </p>
-            <p>
-              Whether it’s a website, a small project, or a tiny idea on paper,
-              I like turning it into something that looks neat, feels smooth, 
-              and actually works.
-            </p>
-            <div class="about-tags">
-              <span class="about-tag">Curious learner</span>
-              <span class="about-tag">Frontend vibes</span>
-              <span class="about-tag">Aesthetic-first</span>
-            </div>
-          </div>
-
-          <div class="about-side">
-            <div class="about-chip-card">
-              <div class="about-chip-title">How I work</div>
-              <div>Simple layouts, soft colors, and small details that make the experience feel gentle but polished.</div>
-            </div>
-            <div class="about-chip-card">
-              <div class="about-chip-title">What I care about</div>
-              <div>Clarity, consistency, and making sure even “first glance” feels intentional and welcoming.</div>
-            </div>
-          </div>
+        <div class="overlay-body overlay-body-about">
+          <p>
+            I’m Kashish — someone who loves blending calm visuals, gentle motion, and intentional structure to make
+            things feel quietly beautiful rather than loud.
+          </p>
+          <p>
+            I enjoy taking small ideas and turning them into layouts, pages, and interfaces that feel like a space you
+            can breathe in: soft, minimal, and thought through.
+          </p>
+          <p>
+            I care about details, emotional tone, and the way a “first glance” can already tell you that something has
+            been crafted with patience and care.
+          </p>
         </div>
       </div>
 
+      <div class="overlay-flower overlay-flower-left"></div>
+      <div class="overlay-flower overlay-flower-right"></div>
     </div>
   </div>
 
   <!-- SKILLS OVERLAY -->
   <div class="overlay" id="skillsOverlay">
-    <div class="overlay-card">
-      <div class="overlay-highlight"></div>
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-card overlay-card-skills">
+      <button class="overlay-close" type="button" data-close>✕</button>
 
-      <div class="overlay-header">
-        <div>
-          <div class="overlay-section-label">Section</div>
-          <h2 class="overlay-title">Skills note</h2>
+      <div class="overlay-inner">
+        <header class="overlay-header">
+          <span class="overlay-label">Skills</span>
+          <h2 class="overlay-title">My quiet toolkit</h2>
+        </header>
+
+        <div class="overlay-body overlay-body-skills">
+          <div class="skills-note-card">
+            <h3 class="skills-note-title">Core</h3>
+            <ul class="skills-list">
+              <li>HTML & clean, semantic structure</li>
+              <li>CSS layouts, gradients, and soft animations</li>
+              <li>Aesthetic-first UI thinking</li>
+            </ul>
+          </div>
+
+          <div class="skills-note-card">
+            <h3 class="skills-note-title">Growing</h3>
+            <ul class="skills-list">
+              <li>JavaScript for gentle interactivity</li>
+              <li>Responsive design and polished states</li>
+            </ul>
+          </div>
+
+          <div class="skills-note-card">
+            <h3 class="skills-note-title">Style</h3>
+            <ul class="skills-list">
+              <li>Soft color palettes and visual balance</li>
+              <li>Making things feel calm, intentional, and personal</li>
+            </ul>
+          </div>
         </div>
-        <button class="overlay-close" type="button" data-close>✕</button>
       </div>
 
-      <div class="overlay-body">
-        <div class="skills-note">
-          <div class="skills-note-header">
-            <span class="skills-note-title">Skill sheet</span>
-            <span class="skills-note-date">Updated · now</span>
-          </div>
-
-          <div class="skills-list">
-            <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">HTML</span><span class="skill-level">core</span></div>
-            <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">CSS & Animations</span><span class="skill-level">core</span></div>
-            <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">JavaScript Basics</span><span class="skill-level">learning</span></div>
-            <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Aesthetic UI</span><span class="skill-level">strong</span></div>
-          </div>
-
-          <div class="skills-note-footer">
-            <span>▶ Next: deeper JS</span>
-            <span>▶ Style: soft & minimal</span>
-          </div>
-        </div>
-      </div>
-
+      <div class="overlay-flower overlay-flower-left"></div>
+      <div class="overlay-flower overlay-flower-right"></div>
     </div>
   </div>
 
-  <!-- PROJECTS OVERLAY -->
+  <!-- PROJECTS OVERLAY (blank) -->
   <div class="overlay" id="projectsOverlay">
-    <div class="overlay-card">
-      <div class="overlay-highlight"></div>
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-card overlay-card-projects">
+      <button class="overlay-close" type="button" data-close>✕</button>
 
-      <div class="overlay-header">
-        <div>
-          <div class="overlay-section-label">Section</div>
-          <h2 class="overlay-title">Projects</h2>
+      <div class="overlay-inner">
+        <header class="overlay-header">
+          <span class="overlay-label">Projects</span>
+          <h2 class="overlay-title">Coming soon</h2>
+        </header>
+
+        <div class="overlay-body overlay-body-projects">
+          <!-- intentionally left soft and empty for now -->
         </div>
-        <button class="overlay-close" type="button" data-close>✕</button>
       </div>
 
-      <div class="overlay-body">
-        <!-- intentionally blank -->
-      </div>
-
+      <div class="overlay-flower overlay-flower-left"></div>
+      <div class="overlay-flower overlay-flower-right"></div>
     </div>
   </div>
 
   <!-- CONTACT -->
   <section class="contact">
     <div class="contact-card">
-      <div class="contact-title">Contact</div>
-      <p class="contact-sub">You can connect through the links below.</p>
+      <h2 class="contact-title">Contact</h2>
+      <p class="contact-subtitle">
+        Quietly reachable here:
+      </p>
 
       <div class="contact-links">
-        <a class="contact-chip" href="#"><span class="contact-chip-label">GitHub</span></a>
-        <a class="contact-chip" href="#"><span class="contact-chip-label">Email</span></a>
-        <a class="contact-chip" href="#"><span class="contact-chip-label">LinkedIn</span></a>
+        <a class="contact-chip" href="https://github.com/your-github-username" target="_blank">
+          <span class="contact-chip-label">GitHub</span>
+          <span class="contact-chip-value">@your-github-username</span>
+        </a>
+        <a class="contact-chip" href="mailto:your-email@example.com">
+          <span class="contact-chip-label">Email</span>
+          <span class="contact-chip-value">your-email@example.com</span>
+        </a>
+        <a class="contact-chip" href="#" target="_blank">
+          <span class="contact-chip-label">LinkedIn</span>
+          <span class="contact-chip-value">/in/your-profile</span>
+        </a>
       </div>
-
-      <div class="contact-note">Replace with your real links.</div>
     </div>
   </section>
 
