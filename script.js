@@ -1,22 +1,17 @@
-/* script.js — Galaxy portal interactions
-   - Renders projects grid
-   - Opens a full-screen portal overlay for each project (same-page)
-   - Portal includes media preview (gif/video) or fallback
-   - Strong hero name animation triggers and subtle parallax
-   - Galaxy canvas with nebula blobs and twinkling stars (optimized)
-   - Accessible focus trap for portal
-   - All original content preserved
+/* script.js
+   Galaxy portal interactions, heavy hero animations, portal overlay per project,
+   galaxy canvas, particle canvas, focus trap, and project rendering.
 */
 
 /* -------------------------
-   Utility helpers
+   Small helpers
    ------------------------- */
 function $(sel, ctx=document) { return ctx.querySelector(sel); }
 function $all(sel, ctx=document) { return Array.from(ctx.querySelectorAll(sel)); }
 function escapeHtml(s){ return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 /* -------------------------
-   DOM references
+   DOM refs
    ------------------------- */
 const projectsGrid = $('#projects-grid');
 const portalOverlay = $('#portal-overlay');
@@ -33,71 +28,65 @@ const portalMedia = $('#portal-media');
 const portalGithub = $('#portal-github');
 const portalDemo = $('#portal-demo');
 
-/* -------------------------
-   Project data loader
-   ------------------------- */
-async function loadProjects() {
-  try {
-    const res = await fetch('projects.json', {cache: "no-store"});
-    if (!res.ok) throw new Error('no json');
-    const data = await res.json();
-    return data.projects || [];
-  } catch (e) {
-    // fallback (keeps content intact)
-    return [
-      {
-        id: "algorithm-visual-playground",
-        title: "Algorithm Visual Playground",
-        desc: "A visual tool that demonstrates how core algorithms work through step‑by‑step animations. Includes sorting, recursion, BFS/DFS, and pathfinding. Focuses on clarity and algorithmic thinking.",
-        tech: "Python / JavaScript; Algorithms; Data Structures; Git; VS Code",
-        github: "",
-        demo: "",
-        demo_gif: "",
-        demo_video: ""
-      },
-      {
-        id: "plagiarism-checker",
-        title: "Plagiarism Checker",
-        desc: "A text‑comparison system that detects similarity between documents using Jaccard, Cosine Similarity, and sequence matching. Preprocesses text and calculates similarity scores.",
-        tech: "Python; difflib; SQL (optional); Git; VS Code",
-        github: "",
-        demo: "",
-        demo_gif: "",
-        demo_video: ""
-      },
-      {
-        id: "quiz-app",
-        title: "Quiz App",
-        desc: "A multiple‑choice quiz application with scoring, results, and a question bank. Demonstrates OOP concepts and structured programming.",
-        tech: "Python / Java; OOP; Git; VS Code",
-        github: "",
-        demo: "",
-        demo_gif: "",
-        demo_video: ""
-      },
-      {
-        id: "student-study-analyzer",
-        title: "Student Study Analyzer",
-        desc: "An analytics tool that tracks study sessions and identifies productivity patterns (hours, consistency, subject focus).",
-        tech: "Python; CSV/JSON; Git; VS Code",
-        github: "",
-        demo: "",
-        demo_gif: "",
-        demo_video: ""
-      }
-    ];
-  }
-}
+const heroName = $('#hero-name');
+const heroLeft = document.querySelector('.hero-left');
+const heroRight = document.querySelector('.hero-right');
 
 /* -------------------------
-   Render projects grid (massive, strict layout)
+   Project data
+   (You can replace or extend this array or load from projects.json)
+   ------------------------- */
+const PROJECTS = [
+  {
+    id: "algorithm-visual-playground",
+    title: "Algorithm Visual Playground",
+    desc: "A visual tool that demonstrates how core algorithms work through step‑by‑step animations. Includes sorting, recursion, BFS/DFS, and pathfinding. Focuses on clarity and algorithmic thinking.",
+    tech: "Python / JavaScript; Algorithms; Data Structures; Git; VS Code",
+    github: "",
+    demo: "",
+    demo_gif: "",
+    demo_video: ""
+  },
+  {
+    id: "plagiarism-checker",
+    title: "Plagiarism Checker",
+    desc: "A text‑comparison system that detects similarity between documents using Jaccard, Cosine Similarity, and sequence matching. Preprocesses text and calculates similarity scores.",
+    tech: "Python; difflib; SQL (optional); Git; VS Code",
+    github: "",
+    demo: "",
+    demo_gif: "",
+    demo_video: ""
+  },
+  {
+    id: "quiz-app",
+    title: "Quiz App",
+    desc: "A multiple‑choice quiz application with scoring, results, and a question bank. Demonstrates OOP concepts and structured programming.",
+    tech: "Python / Java; OOP; Git; VS Code",
+    github: "",
+    demo: "",
+    demo_gif: "",
+    demo_video: ""
+  },
+  {
+    id: "student-study-analyzer",
+    title: "Student Study Analyzer",
+    desc: "An analytics tool that tracks study sessions and identifies productivity patterns (hours, consistency, subject focus).",
+    tech: "Python; CSV/JSON; Git; VS Code",
+    github: "",
+    demo: "",
+    demo_gif: "",
+    demo_video: ""
+  }
+];
+
+/* -------------------------
+   Render projects (unique only)
    ------------------------- */
 function renderProjects(list) {
+  if (!projectsGrid) return;
   projectsGrid.innerHTML = '';
-  // ensure a fuller grid: repeat items to reach at least 9 cards
-  const target = Math.max(9, list.length);
-  for (let i = 0; i < target; i++) {
-    const p = list[i % list.length];
+
+  list.forEach(p => {
     const card = document.createElement('article');
     card.className = 'project-card';
     card.innerHTML = `
@@ -122,7 +111,7 @@ function renderProjects(list) {
       </div>
     `;
     projectsGrid.appendChild(card);
-  }
+  });
 
   // attach handlers
   $all('.open-portal').forEach(btn => {
@@ -187,7 +176,7 @@ function openPortal(meta) {
   // set media
   setPortalMedia(meta);
 
-  // show portal
+  // show portal and hide everything else
   portalOverlay.setAttribute('aria-hidden','false');
   document.querySelectorAll('main, header, footer').forEach(el => el.setAttribute('aria-hidden','true'));
   lastFocused = document.activeElement;
@@ -214,8 +203,11 @@ function closePortal() {
   if (lastFocused) lastFocused.focus();
 }
 
+portalClose.addEventListener('click', closePortal);
+portalBackdrop.addEventListener('click', closePortal);
+
 /* -------------------------
-   Portal media handling (gif/video/fallback)
+   Portal media handling
    ------------------------- */
 function setPortalMedia(meta) {
   const fallback = portalMedia.querySelector('.portal-media-fallback');
@@ -276,14 +268,6 @@ function setPortalMedia(meta) {
 }
 
 /* -------------------------
-   Event bindings
-   ------------------------- */
-document.addEventListener('click', (e) => {
-  if (e.target === portalBackdrop) closePortal();
-});
-portalClose.addEventListener('click', closePortal);
-
-/* -------------------------
    Reveal on scroll
    ------------------------- */
 function initReveal(){
@@ -306,7 +290,7 @@ function initReveal(){
 }
 
 /* -------------------------
-   Galaxy canvas (nebula + stars)
+   Galaxy canvas
    ------------------------- */
 function initGalaxyCanvas() {
   const canvas = document.getElementById('galaxy-canvas');
@@ -324,14 +308,14 @@ function initGalaxyCanvas() {
   function createScene(){
     stars = [];
     nebulas = [];
-    const STAR_COUNT = Math.max(80, Math.floor((w*h)/9000));
-    const NEBULA_COUNT = Math.max(3, Math.floor((w*h)/200000));
+    const STAR_COUNT = Math.max(120, Math.floor((w*h)/7000));
+    const NEBULA_COUNT = Math.max(4, Math.floor((w*h)/180000));
     for (let i=0;i<STAR_COUNT;i++){
       stars.push({
         x: rand(0,w),
         y: rand(0,h),
-        r: rand(0.4,1.8),
-        tw: rand(0.02,0.12),
+        r: rand(0.4,2.2),
+        tw: rand(0.02,0.14),
         hue: rand(200,320),
         alphaBase: rand(0.4,1)
       });
@@ -340,9 +324,9 @@ function initGalaxyCanvas() {
       nebulas.push({
         x: rand(-w*0.2,w*1.2),
         y: rand(-h*0.2,h*1.2),
-        r: rand(Math.min(w,h)*0.25, Math.min(w,h)*0.6),
+        r: rand(Math.min(w,h)*0.25, Math.min(w,h)*0.7),
         hue: rand(240,320),
-        alpha: rand(0.06,0.18),
+        alpha: rand(0.06,0.22),
         vx: rand(-0.02,0.02),
         vy: rand(-0.01,0.01)
       });
@@ -378,7 +362,7 @@ function initGalaxyCanvas() {
     // stars twinkle
     stars.forEach(s => {
       const t = Date.now()*s.tw + s.x;
-      const alpha = Math.max(0.15, s.alphaBase * (0.7 + 0.2*Math.sin(t)));
+      const alpha = Math.max(0.12, s.alphaBase * (0.7 + 0.25*Math.sin(t)));
       ctx.fillStyle = `rgba(255,255,255,${alpha})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
@@ -403,12 +387,74 @@ function initGalaxyCanvas() {
 }
 
 /* -------------------------
-   Hero subtle parallax
+   Particle canvas for subtle motion and portal particles
+   ------------------------- */
+function initParticleCanvas() {
+  const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = canvas.offsetWidth;
+  let h = canvas.height = canvas.offsetHeight;
+
+  const particles = [];
+  const MAX = 120;
+
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+
+  function createParticles(){
+    particles.length = 0;
+    for (let i=0;i<MAX;i++){
+      particles.push({
+        x: rand(0,w),
+        y: rand(0,h),
+        vx: rand(-0.2,0.2),
+        vy: rand(-0.05,0.05),
+        r: rand(0.6,2.6),
+        hue: rand(200,320),
+        alpha: rand(0.06,0.22)
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
+      g.addColorStop(0, `hsla(${p.hue},70%,70%,${p.alpha})`);
+      g.addColorStop(1, `rgba(8,12,22,0)`);
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+    });
+    requestAnimationFrame(draw);
+  }
+
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+    createParticles();
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+}
+
+/* -------------------------
+   Hero parallax and micro interactions
    ------------------------- */
 function initHeroParallax() {
   const hero = document.querySelector('.hero');
-  const heroName = $('#hero-name');
-  const heroRight = document.querySelector('.hero-right');
   if (!hero) return;
   hero.addEventListener('mousemove', (e) => {
     const rect = hero.getBoundingClientRect();
@@ -428,20 +474,20 @@ function initHeroParallax() {
 /* -------------------------
    Init sequence
    ------------------------- */
-async function init() {
+function init() {
   // footer year
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // load and render projects
-  const projects = await loadProjects();
-  renderProjects(projects);
+  // render projects
+  renderProjects(PROJECTS);
 
-  // init reveals
+  // reveal
   initReveal();
 
-  // init galaxy canvas
+  // canvases
   initGalaxyCanvas();
+  initParticleCanvas();
 
   // hero parallax
   initHeroParallax();
@@ -470,6 +516,12 @@ async function init() {
       }
     });
   });
+
+  // small entrance reveal for hero
+  setTimeout(() => {
+    document.querySelector('.hero-left')?.classList.add('visible');
+    document.querySelector('.hero-right')?.classList.add('visible');
+  }, 260);
 }
 
 /* -------------------------

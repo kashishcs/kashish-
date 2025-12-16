@@ -6,7 +6,7 @@
   <title>Kashish — Computer Science Student | Portfolio</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
@@ -44,22 +44,22 @@
   <!-- HERO -->
   <main>
     <section id="home" class="hero" aria-label="Hero section">
-      <!-- layered canvas for galaxy effects -->
+      <!-- layered canvases for galaxy effects -->
       <canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
+      <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
 
       <div class="hero-inner container">
         <div class="hero-left">
-          <!-- Animated name in-between layout -->
-          <div class="hero-line top-line">Computer Science Student</div>
+          <div class="hero-topline">Computer Science Student</div>
 
           <div class="hero-name-wrap" aria-hidden="false">
             <h1 class="hero-name" id="hero-name">Kashish</h1>
             <div class="name-glow" aria-hidden="true"></div>
           </div>
 
-          <div class="hero-line bottom-line">Software, Logic &amp; Innovation</div>
+          <div class="hero-subtitle">Software, Logic &amp; Innovation</div>
 
-          <p class="hero-sub">Building clear systems, visualizing algorithms, and creating practical tools.</p>
+          <p class="hero-blurb">Building clear systems, visualizing algorithms, and creating practical tools.</p>
 
           <div class="hero-cta">
             <a class="btn-primary" href="#projects" id="view-projects-btn">View My Projects</a>
@@ -131,7 +131,7 @@
     <!-- PROJECTS -->
     <section id="projects" class="projects container" aria-label="Projects">
       <h2>Projects</h2>
-      <p class="projects-intro">Click a project to open its portal. Each project opens a focused, full-screen project portal with details, media, and links.</p>
+      <p class="projects-intro">Click a project to open its portal. Each project opens a focused, full-screen portal with details, media, and links. While a portal is open everything else is hidden to keep the reviewer focused.</p>
 
       <div id="projects-grid" class="projects-grid" aria-live="polite">
         <!-- Project cards injected by script.js -->
@@ -162,7 +162,7 @@
     </section>
   </main>
 
-  <!-- PROJECT PORTAL OVERLAY (same-page portal) -->
+  <!-- PROJECT PORTAL OVERLAY -->
   <div id="portal-overlay" class="portal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="portal-backdrop" id="portal-backdrop"></div>
 
@@ -175,7 +175,6 @@
       </header>
 
       <div class="portal-media" id="portal-media" aria-hidden="false">
-        <!-- media (gif/video) or fallback inserted by script.js -->
         <div class="portal-media-fallback">Preview not available</div>
       </div>
 
@@ -210,7 +209,7 @@
     </div>
   </div>
 
-  <!-- FOOTER (location only at the end) -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>Built with cosmic velvet energy and quiet determination ✦</p>
