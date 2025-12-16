@@ -1,223 +1,708 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kashish — Computer Science Student | Portfolio</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <meta name="theme-color" content="#071021">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kashish - Computer Science Student Portfolio | Algorithmic Thinking & Problem Solving">
+    <meta name="keywords" content="Computer Science, Portfolio, Algorithms, Data Structures, Programming">
+    <meta name="author" content="Kashish">
+    
+    <title>Kashish - Computer Science Portfolio</title>
+    
+    <!-- Preconnect to external resources for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Professional Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>K</text></svg>">
 </head>
 <body>
-  <!-- NAV -->
-  <header class="nav-wrap" role="banner">
-    <nav class="nav container" role="navigation" aria-label="Main navigation">
-      <div class="brand">
-        <span class="brand-name">Kashish</span>
-      </div>
-
-      <button id="nav-toggle" aria-expanded="false" aria-controls="nav-list" class="nav-toggle" title="Toggle navigation">
-        <span class="hamburger"></span>
-      </button>
-
-      <ul id="nav-list" class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a class="btn-outline" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <main>
-    <section id="home" class="hero" aria-label="Hero section">
-      <!-- layered canvases for galaxy effects -->
-      <canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
-      <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
-
-      <div class="hero-inner container">
-        <div class="hero-left">
-          <div class="hero-topline">Computer Science Student</div>
-
-          <div class="hero-name-wrap" aria-hidden="false">
-            <h1 class="hero-name" id="hero-name">Kashish</h1>
-            <div class="name-glow" aria-hidden="true"></div>
-          </div>
-
-          <div class="hero-subtitle">Software, Logic &amp; Innovation</div>
-
-          <p class="hero-blurb">Building clear systems, visualizing algorithms, and creating practical tools.</p>
-
-          <div class="hero-cta">
-            <a class="btn-primary" href="#projects" id="view-projects-btn">View My Projects</a>
-            <a class="btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-          </div>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+    
+    <!-- Particle Canvas Background -->
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+    
+    <!-- Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-bar"></div>
+            <p class="loader-text">Loading Experience</p>
         </div>
-
-        <div class="hero-right" aria-hidden="true">
-          <div class="visual-card">
-            <div class="visual-title">Featured</div>
-            <div class="visual-body">
-              <p class="visual-line">Algorithm Visual Playground</p>
-              <p class="visual-sub">Sorting • Pathfinding • Recursion</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about container">
-      <div class="about-grid">
-        <div class="about-text">
-          <h2>About Me</h2>
-          <p>
-            I am a Computer Science student driven by a deep interest in programming, algorithms, and the development of efficient, well‑structured systems. I enjoy exploring how software, logic, and system architectures connect, and I consistently seek out new tools and frameworks to strengthen my technical foundation.
-          </p>
-          <p>
-            My goal is to pursue Computer Science at a leading institution where I can advance my skills through real‑world projects, challenging problem‑solving, and continuous, hands‑on learning.
-          </p>
-        </div>
-
-        <aside class="about-card" aria-labelledby="quick-facts">
-          <div class="card-inner">
-            <h3 id="quick-facts">Quick Facts</h3>
-            <ul class="facts">
-              <li><strong>Email:</strong> <a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a></li>
-              <li><strong>GitHub:</strong> <a href="https://github.com/kashishcs" target="_blank" rel="noopener">github.com/kashishcs</a></li>
-              <li><strong>Goal:</strong> Study CS at a leading institution</li>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" data-magnetic>
+                <span class="logo-letter">K</span>
+                <span class="logo-dot"></span>
+            </a>
+            
+            <ul class="nav-menu" role="navigation">
+                <li><a href="#home" class="nav-link active" data-magnetic-light>
+                    <span class="nav-link-text">Home</span>
+                    <span class="nav-link-hover"></span>
+                </a></li>
+                <li><a href="#about" class="nav-link" data-magnetic-light>
+                    <span class="nav-link-text">About</span>
+                    <span class="nav-link-hover"></span>
+                </a></li>
+                <li><a href="#skills" class="nav-link" data-magnetic-light>
+                    <span class="nav-link-text">Skills</span>
+                    <span class="nav-link-hover"></span>
+                </a></li>
+                <li><a href="#projects" class="nav-link" data-magnetic-light>
+                    <span class="nav-link-text">Projects</span>
+                    <span class="nav-link-hover"></span>
+                </a></li>
+                <li><a href="#contact" class="nav-link" data-magnetic-light>
+                    <span class="nav-link-text">Contact</span>
+                    <span class="nav-link-hover"></span>
+                </a></li>
             </ul>
-          </div>
-        </aside>
-      </div>
+            
+            <button class="menu-toggle" aria-label="Toggle Menu" data-magnetic>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+        </div>
+        
+        <div class="nav-progress-bar"></div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Animated gradient background layers -->
+        <div class="hero-bg-layer layer-1"></div>
+        <div class="hero-bg-layer layer-2"></div>
+        <div class="hero-bg-layer layer-3"></div>
+        
+        <!-- Geometric floating elements -->
+        <div class="floating-elements">
+            <div class="float-element float-1" data-parallax-speed="0.5"></div>
+            <div class="float-element float-2" data-parallax-speed="0.3"></div>
+            <div class="float-element float-3" data-parallax-speed="0.7"></div>
+            <div class="float-element float-4" data-parallax-speed="0.4"></div>
+            <div class="float-element float-5" data-parallax-speed="0.6"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">Available for Opportunities</span>
+            </div>
+            
+            <h1 class="hero-name">
+                <span class="name-line">
+                    <span class="char">K</span><span class="char">a</span><span class="char">s</span><span class="char">h</span><span class="char">i</span><span class="char">s</span><span class="char">h</span>
+                </span>
+            </h1>
+            
+            <div class="hero-title-wrapper">
+                <h2 class="hero-title">
+                    <span class="title-line">Computer Science &</span>
+                    <span class="title-line">Algorithmic Thinking</span>
+                </h2>
+            </div>
+            
+            <p class="hero-subtitle">
+                <span class="subtitle-word">Focused</span>
+                <span class="subtitle-word">on</span>
+                <span class="subtitle-word">systems,</span>
+                <span class="subtitle-word">logic,</span>
+                <span class="subtitle-word">and</span>
+                <span class="subtitle-word">structured</span>
+                <span class="subtitle-word">problem-solving.</span>
+            </p>
+            
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary" data-magnetic>
+                    <span class="btn-text">View Projects</span>
+                    <span class="btn-bg"></span>
+                    <span class="btn-hover-effect"></span>
+                </a>
+                <a href="#" class="btn btn-secondary" data-magnetic>
+                    <span class="btn-text">Download Resume</span>
+                    <span class="btn-bg"></span>
+                    <span class="btn-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 12L8 4M8 12L11 9M8 12L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15 13V15H1V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+            
+            <div class="hero-scroll-indicator">
+                <div class="scroll-line"></div>
+                <span class="scroll-text">Scroll to explore</span>
+            </div>
+        </div>
+        
+        <!-- Stats Counter -->
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number" data-count="4">0</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="7">0</span>
+                <span class="stat-label">Languages</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="100">0</span>
+                <span class="stat-label-plus">+</span>
+                <span class="stat-label">Hours Coding</span>
+            </div>
+        </div>
     </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="skills container">
-      <h2>Skills &amp; Tools</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>Programming Languages</h4>
-          <p>Python; Java; C / C++; HTML &amp; CSS; SQL</p>
+    
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="section-bg-grid"></div>
+        
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">
+                    <span class="title-word">About</span>
+                    <span class="title-word">Me</span>
+                </h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="text-reveal-wrapper">
+                        <p class="about-paragraph">
+                            <span class="paragraph-line">Kashish is a computer science student focused on understanding</span>
+                            <span class="paragraph-line">core programming principles, algorithms, and structured</span>
+                            <span class="paragraph-line">problem-solving.</span>
+                        </p>
+                    </div>
+                    
+                    <div class="text-reveal-wrapper">
+                        <p class="about-paragraph">
+                            <span class="paragraph-line">She enjoys breaking complex problems into clear, logical</span>
+                            <span class="paragraph-line">components and building solutions that are simple, efficient,</span>
+                            <span class="paragraph-line">and well-reasoned.</span>
+                        </p>
+                    </div>
+                    
+                    <div class="text-reveal-wrapper">
+                        <p class="about-paragraph">
+                            <span class="paragraph-line">Her interests lie in algorithmic thinking, data structures, and</span>
+                            <span class="paragraph-line">applying foundational concepts through hands-on projects.</span>
+                        </p>
+                    </div>
+                    
+                    <div class="about-values">
+                        <h3 class="values-title">Core Values</h3>
+                        <div class="values-grid">
+                            <div class="value-item" data-tilt>
+                                <div class="value-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <h4>Structured Thinking</h4>
+                                <p>Approaching problems with systematic analysis</p>
+                            </div>
+                            
+                            <div class="value-item" data-tilt>
+                                <div class="value-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <h4>Efficiency</h4>
+                                <p>Building optimal solutions with clean code</p>
+                            </div>
+                            
+                            <div class="value-item" data-tilt>
+                                <div class="value-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <h4>Continuous Learning</h4>
+                                <p>Constantly expanding technical knowledge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="visual-card" data-tilt-strong>
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="code-window">
+                                <div class="code-header">
+                                    <span class="code-dot red"></span>
+                                    <span class="code-dot yellow"></span>
+                                    <span class="code-dot green"></span>
+                                </div>
+                                <div class="code-body">
+                                    <pre><code><span class="code-keyword">class</span> <span class="code-class">ProblemSolver</span> {
+    <span class="code-keyword">constructor</span>() {
+        <span class="code-keyword">this</span>.approach = <span class="code-string">'systematic'</span>;
+        <span class="code-keyword">this</span>.mindset = <span class="code-string">'analytical'</span>;
+    }
+    
+    <span class="code-function">solve</span>(problem) {
+        <span class="code-keyword">return</span> <span class="code-keyword">this</span>.<span class="code-function">analyze</span>(problem)
+            .<span class="code-function">decompose</span>()
+            .<span class="code-function">implement</span>()
+            .<span class="code-function">optimize</span>();
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="skill-card">
-          <h4>Core CS Skills</h4>
-          <p>Problem‑solving &amp; logical reasoning; Algorithms &amp; data structures; OOP; Database concepts &amp; SQL querying; Debugging &amp; code optimization; System architecture fundamentals</p>
-        </div>
-        <div class="skill-card">
-          <h4>Tools &amp; Technologies</h4>
-          <p>Git &amp; GitHub; VS Code; Basic Linux / Command Line; MySQL</p>
-        </div>
-        <div class="skill-card">
-          <h4>Soft Skills</h4>
-          <p>Analytical thinking; Attention to detail; Communication; Teamwork &amp; collaboration; Adaptability and continuous learning</p>
-        </div>
-      </div>
     </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="projects container" aria-label="Projects">
-      <h2>Projects</h2>
-      <p class="projects-intro">Click a project to open its portal. Each project opens a focused, full-screen portal with details, media, and links. While a portal is open everything else is hidden to keep the reviewer focused.</p>
-
-      <div id="projects-grid" class="projects-grid" aria-live="polite">
-        <!-- Project cards injected by script.js -->
-      </div>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">
+                    <span class="title-word">Technical</span>
+                    <span class="title-word">Skills</span>
+                </h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="skills-layout">
+                <div class="skills-grid">
+                    <!-- Programming Languages -->
+                    <article class="skill-category" data-category="languages">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3 class="category-title">Programming Languages</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Python</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Java</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">JavaScript</span>
+                            </li>
+                        </ul>
+                        <div class="category-glow"></div>
+                    </article>
+                    
+                    <!-- Core Concepts -->
+                    <article class="skill-category" data-category="concepts">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3 class="category-title">Core Concepts</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Algorithms</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Data Structures</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Object-Oriented Programming</span>
+                            </li>
+                        </ul>
+                        <div class="category-glow"></div>
+                    </article>
+                    
+                    <!-- Tools & Technologies -->
+                    <article class="skill-category" data-category="tools">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3 class="category-title">Tools & Technologies</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">Git</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">VS Code</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">SQL (basics)</span>
+                            </li>
+                        </ul>
+                        <div class="category-glow"></div>
+                    </article>
+                    
+                    <!-- Data Handling -->
+                    <article class="skill-category" data-category="data">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3 class="category-title">Data Handling</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">CSV Processing</span>
+                            </li>
+                            <li class="skill-item">
+                                <span class="skill-marker"></span>
+                                <span class="skill-name">JSON Manipulation</span>
+                            </li>
+                        </ul>
+                        <div class="category-glow"></div>
+                    </article>
+                </div>
+                
+                <!-- Skills Visualization -->
+                <div class="skills-visual">
+                    <div class="visual-orbit">
+                        <div class="orbit-ring ring-1"></div>
+                        <div class="orbit-ring ring-2"></div>
+                        <div class="orbit-ring ring-3"></div>
+                        <div class="orbit-center">
+                            <span class="center-text">Core Skills</span>
+                        </div>
+                        <div class="orbit-node node-1" data-skill="Python"></div>
+                        <div class="orbit-node node-2" data-skill="Java"></div>
+                        <div class="orbit-node node-3" data-skill="JavaScript"></div>
+                        <div class="orbit-node node-4" data-skill="Algorithms"></div>
+                        <div class="orbit-node node-5" data-skill="Data Structures"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="contact container">
-      <h2>Contact</h2>
-      <p>If you'd like to reach out for collaboration, questions, or admissions queries, here's how to contact me.</p>
-
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h4>Email</h4>
-          <p><a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a></p>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">
+                    <span class="title-word">Featured</span>
+                    <span class="title-word">Projects</span>
+                </h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card" data-project="1">
+                    <div class="project-number">01</div>
+                    <div class="project-visual">
+                        <div class="project-visual-bg"></div>
+                        <div class="project-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Algorithm Visual Playground</h3>
+                        <p class="project-description">
+                            A visual tool that demonstrates core algorithms through step-by-step animations. 
+                            Includes sorting, recursion, BFS/DFS, and pathfinding. Focuses on clarity and algorithmic thinking.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Data Structures</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>View Project</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33334M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>Source Code</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M10 3.33334L13.3333 8L10 12.6667M6 12.6667L2.66663 8L6 3.33334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-glow"></div>
+                </article>
+                
+                <!-- Project 2 -->
+                <article class="project-card" data-project="2">
+                    <div class="project-number">02</div>
+                    <div class="project-visual">
+                        <div class="project-visual-bg"></div>
+                        <div class="project-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Plagiarism Checker</h3>
+                        <p class="project-description">
+                            A text-comparison system that detects similarity between documents using Jaccard similarity, 
+                            cosine similarity, and sequence matching. Includes text preprocessing and similarity scoring.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Algorithms</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>View Project</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33334M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>Source Code</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M10 3.33334L13.3333 8L10 12.6667M6 12.6667L2.66663 8L6 3.33334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-glow"></div>
+                </article>
+                
+                <!-- Project 3 -->
+                <article class="project-card" data-project="3">
+                    <div class="project-number">03</div>
+                    <div class="project-visual">
+                        <div class="project-visual-bg"></div>
+                        <div class="project-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Quiz Application</h3>
+                        <p class="project-description">
+                            A multiple-choice quiz application with scoring, results analysis, and a question bank. 
+                            Demonstrates OOP principles and structured programming.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">OOP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>View Project</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33334M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>Source Code</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M10 3.33334L13.3333 8L10 12.6667M6 12.6667L2.66663 8L6 3.33334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-glow"></div>
+                </article>
+                
+                <!-- Project 4 -->
+                <article class="project-card" data-project="4">
+                    <div class="project-number">04</div>
+                    <div class="project-visual">
+                        <div class="project-visual-bg"></div>
+                        <div class="project-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Student Study Analyzer</h3>
+                        <p class="project-description">
+                            An analytics tool that tracks study sessions and identifies productivity patterns 
+                            such as consistency, duration, and subject focus.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">CSV</span>
+                            <span class="tech-tag">JSON</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>View Project</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33334M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" data-magnetic-light>
+                                <span>Source Code</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M10 3.33334L13.3333 8L10 12.6667M6 12.6667L2.66663 8L6 3.33334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-glow"></div>
+                </article>
+            </div>
         </div>
-
-        <div class="contact-card">
-          <h4>GitHub</h4>
-          <p><a href="https://github.com/kashishcs" target="_blank" rel="noopener">github.com/kashishcs</a></p>
-        </div>
-
-        <div class="contact-card">
-          <h4>Other</h4>
-          <p>Open to collaboration and mentorship opportunities.</p>
-        </div>
-      </div>
     </section>
-  </main>
-
-  <!-- PROJECT PORTAL OVERLAY -->
-  <div id="portal-overlay" class="portal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="portal-backdrop" id="portal-backdrop"></div>
-
-    <div class="portal-frame" role="document" aria-labelledby="portal-title">
-      <button id="portal-close" class="portal-close" aria-label="Close project portal">✕</button>
-
-      <header class="portal-header">
-        <h2 id="portal-title"></h2>
-        <p id="portal-sub" class="portal-sub"></p>
-      </header>
-
-      <div class="portal-media" id="portal-media" aria-hidden="false">
-        <div class="portal-media-fallback">Preview not available</div>
-      </div>
-
-      <main class="portal-body" id="portal-body">
-        <section class="portal-section">
-          <h3>Project Summary</h3>
-          <p id="portal-desc"></p>
-        </section>
-
-        <section class="portal-section">
-          <h3>Tech Used</h3>
-          <p id="portal-tech"></p>
-        </section>
-
-        <section class="portal-section">
-          <h3>Repository & Demo</h3>
-          <p id="portal-links"></p>
-        </section>
-
-        <section class="portal-section">
-          <h3>Notes on Logic</h3>
-          <p id="portal-logic">Explain the problem solved, approach, and core logic here.</p>
-        </section>
-      </main>
-
-      <footer class="portal-footer">
-        <div class="portal-actions">
-          <a id="portal-github" class="btn-small" href="#" target="_blank" rel="noopener">GitHub</a>
-          <a id="portal-demo" class="btn-small ghost" href="#" target="_blank" rel="noopener">Live Demo</a>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">
+                    <span class="title-word">Get</span>
+                    <span class="title-word">In</span>
+                    <span class="title-word">Touch</span>
+                </h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-text">
+                    <p class="contact-description">
+                        Interested in collaborating on a project or discussing opportunities?
+                        Feel free to reach out through any of the channels below.
+                    </p>
+                    
+                    <div class="contact-methods">
+                        <a href="mailto:contact@example.com" class="contact-method" data-magnetic>
+                            <div class="method-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <span class="method-label">Email</span>
+                                <span class="method-value">contact@example.com</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com" target="_blank" rel="noopener" class="contact-method" data-magnetic>
+                            <div class="method-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <span class="method-label">GitHub</span>
+                                <span class="method-value">github.com/kashish</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-method" data-magnetic>
+                            <div class="method-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <span class="method-label">LinkedIn</span>
+                                <span class="method-value">linkedin.com/in/kashish</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </footer>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>Built with cosmic velvet energy and quiet determination ✦</p>
-      <small>© <span id="year"></span> Kashish • Ahmedabad, India</small>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">K</span>
+                    <p class="footer-tagline">Building intelligent solutions through code</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Navigate</h4>
+                        <ul class="footer-list">
+                            <li><a href="#home" class="footer-link">Home</a></li>
+                            <li><a href="#about" class="footer-link">About</a></li>
+                            <li><a href="#skills" class="footer-link">Skills</a></li>
+                            <li><a href="#projects" class="footer-link">Projects</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Connect</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://github.com" target="_blank" rel="noopener" class="footer-link">GitHub</a></li>
+                            <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-link">LinkedIn</a></li>
+                            <li><a href="mailto:contact@example.com" class="footer-link">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 Kashish. Built with precision and intention.</p>
+                <div class="footer-badges">
+                    <span class="footer-badge">Designed with Purpose</span>
+                    <span class="footer-badge">Developed with Care</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script src="script.js"></script>
 </body>
-</html>
+                  </html>
