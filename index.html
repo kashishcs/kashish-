@@ -1,215 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kashish — Computer Science Student | Portfolio</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <meta name="theme-color" content="#071021">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kashish - CS Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- NAV -->
-  <header class="nav-wrap">
-    <nav class="nav container" role="navigation" aria-label="Main navigation">
-      <div class="brand">
-        <span class="brand-name">Kashish</span>
-      </div>
-
-      <button id="nav-toggle" aria-expanded="false" aria-controls="nav-list" class="nav-toggle" title="Toggle navigation">
-        <span class="hamburger"></span>
-      </button>
-
-      <ul id="nav-list" class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a class="btn-outline" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <main>
-    <section id="home" class="hero" aria-label="Hero section">
-      <!-- Nebula + stars canvas -->
-      <canvas id="nebula-canvas" class="nebula-canvas" aria-hidden="true"></canvas>
-
-      <div class="hero-inner container">
-        <div class="hero-left">
-          <h1 class="hero-name" id="hero-name">Kashish</h1>
-          <h2 class="hero-title">Computer Science Student | Software, Logic &amp; Innovation</h2>
-          <p class="hero-sub">Building clear systems, visualizing algorithms, and creating practical tools.</p>
-
-          <div class="hero-cta">
-            <a class="btn-primary" href="#projects" id="view-projects-btn">View My Projects</a>
-            <a class="btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-          </div>
-
-          <div class="intensity-control">
-            <label for="intensity">Animation Intensity</label>
-            <input id="intensity" type="range" min="0" max="100" value="50" />
-          </div>
-        </div>
-
-        <div class="hero-right" aria-hidden="true">
-          <div class="visual-card">
-            <div class="visual-title">Featured</div>
-            <div class="visual-body">
-              <p class="visual-line">Algorithm Visual Playground</p>
-              <p class="visual-sub">Sorting • Pathfinding • Recursion</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about container">
-      <div class="about-grid">
-        <div class="about-text">
-          <h2>About Me</h2>
-          <p>
-            I am a Computer Science student driven by a deep interest in programming, algorithms, and the development of efficient, well‑structured systems. I enjoy exploring how software, logic, and system architectures connect, and I consistently seek out new tools and frameworks to strengthen my technical foundation.
-          </p>
-          <p>
-            My goal is to pursue Computer Science at a leading institution where I can advance my skills through real‑world projects, challenging problem‑solving, and continuous, hands‑on learning.
-          </p>
-        </div>
-
-        <aside class="about-card" aria-labelledby="quick-facts">
-          <div class="card-inner">
-            <h3 id="quick-facts">Quick Facts</h3>
-            <ul class="facts">
-              <li><strong>Location:</strong> Ahmedabad, India</li>
-              <li><strong>Email:</strong> <a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a></li>
-              <li><strong>GitHub:</strong> <a href="https://github.com/kashishcs" target="_blank" rel="noopener">github.com/kashishcs</a></li>
-              <li><strong>Goal:</strong> Study CS at a leading institution</li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Kashish</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-          </div>
-        </aside>
-      </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Computer Science Student</h1>
+            <p class="hero-subtitle">Software, Logic & Innovation</p>
+            <p class="hero-description">Building logic, visuals, and digital stories with a cosmic touch.</p>
+            <a href="#projects" class="cta-button">View My Work</a>
+        </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="skills container">
-      <h2>Skills &amp; Tools</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>Programming Languages</h4>
-          <p>Python; Java; C / C++; HTML &amp; CSS; SQL</p>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I am a Computer Science student driven by a deep interest in programming, algorithms, and the development of efficient, well-structured systems. I enjoy exploring how software, logic, and system architectures connect, and I consistently seek out new tools and frameworks to strengthen my technical foundation.</p>
+                <p>My goal is to pursue Computer Science at a leading institution where I can advance my skills through real-world projects, challenging problem-solving, and continuous, hands-on learning.</p>
+                <a href="resume.pdf" class="resume-btn" download>Download Resume</a>
+            </div>
         </div>
-        <div class="skill-card">
-          <h4>Core CS Skills</h4>
-          <p>Problem‑solving &amp; logical reasoning; Algorithms &amp; data structures; OOP; Database concepts &amp; SQL querying; Debugging &amp; code optimization; System architecture fundamentals</p>
-        </div>
-        <div class="skill-card">
-          <h4>Tools &amp; Technologies</h4>
-          <p>Git &amp; GitHub; VS Code; Basic Linux / Command Line; MySQL</p>
-        </div>
-        <div class="skill-card">
-          <h4>Soft Skills</h4>
-          <p>Analytical thinking; Attention to detail; Communication; Teamwork &amp; collaboration; Adaptability and continuous learning</p>
-        </div>
-      </div>
     </section>
 
-    <!-- PROJECTS (massive grid) -->
-    <section id="projects" class="projects container" aria-label="Projects">
-      <h2>Projects</h2>
-      <p class="projects-intro">Click a project to open its details. The page will focus on the project and hide the rest of the site while open.</p>
-
-      <div id="projects-grid" class="projects-grid" aria-live="polite">
-        <!-- Project cards injected by script.js -->
-      </div>
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Tools</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>C / C++</li>
+                        <li>HTML & CSS</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Core CS Skills</h3>
+                    <ul>
+                        <li>Problem-solving & logical reasoning</li>
+                        <li>Algorithms & data structures</li>
+                        <li>Object-oriented programming</li>
+                        <li>Database concepts & SQL querying</li>
+                        <li>Debugging & code optimization</li>
+                        <li>System architecture fundamentals</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Technologies</h3>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>Basic Linux / Command Line</li>
+                        <li>MySQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <ul>
+                        <li>Analytical thinking</li>
+                        <li>Attention to detail</li>
+                        <li>Communication</li>
+                        <li>Teamwork & collaboration</li>
+                        <li>Adaptability and continuous learning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact container">
-      <h2>Contact</h2>
-      <p>If you'd like to reach out for collaboration, questions, or admissions queries, here's how to contact me.</p>
-
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h4>Email</h4>
-          <p><a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a></p>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid" id="projectsContainer">
+                <!-- Projects will be loaded from projects.json -->
+            </div>
         </div>
-
-        <div class="contact-card">
-          <h4>GitHub</h4>
-          <p><a href="https://github.com/kashishcs" target="_blank" rel="noopener">github.com/kashishcs</a></p>
-        </div>
-
-        <div class="contact-card">
-          <h4>Location</h4>
-          <p>Ahmedabad, India</p>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <!-- PROJECT OVERLAY (opens in same page) -->
-  <div id="project-overlay" class="project-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="overlay-backdrop" id="overlay-backdrop"></div>
-    <div class="overlay-panel" role="document" aria-labelledby="overlay-title">
-      <button id="overlay-close" class="overlay-close" aria-label="Close project">✕</button>
-      <header class="overlay-header">
-        <h2 id="overlay-title"></h2>
-        <p id="overlay-sub" class="overlay-sub"></p>
-      </header>
-
-      <main class="overlay-body" id="overlay-body">
-        <section class="overlay-section">
-          <h3>Project Summary</h3>
-          <p id="overlay-desc"></p>
-        </section>
-
-        <section class="overlay-section">
-          <h3>Tech Used</h3>
-          <p id="overlay-tech"></p>
-        </section>
-
-        <section class="overlay-section">
-          <h3>Repository & Demo</h3>
-          <p id="overlay-links"></p>
-        </section>
-
-        <section class="overlay-section">
-          <h3>Notes on Logic</h3>
-          <p id="overlay-logic">Explain the problem solved, approach, and core logic here.</p>
-        </section>
-      </main>
-
-      <footer class="overlay-footer">
-        <div class="overlay-controls">
-          <label for="overlay-intensity">Animation Intensity</label>
-          <input id="overlay-intensity" type="range" min="0" max="100" value="60" />
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>Email:</strong>
+                        <a href="mailto:kashish.cs@outlook.com">kashish.cs@outlook.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>GitHub:</strong>
+                        <a href="https://github.com/kashishcs" target="_blank">github.com/kashishcs</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Location:</strong>
+                        <span>Ahmedabad, India</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </footer>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Kashish. All rights reserved.</p>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <div id="modalTech"></div>
+            <div class="modal-links">
+                <a id="modalGithub" href="#" target="_blank">View on GitHub</a>
+                <a id="modalDemo" href="#" target="_blank">Live Demo</a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>Built with cosmic velvet energy and quiet determination ✦</p>
-      <small>© <span id="year"></span> Kashish</small>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
+</html>
 </html>
