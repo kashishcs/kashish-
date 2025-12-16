@@ -1,530 +1,939 @@
-/* script.js
-   Galaxy portal interactions, heavy hero animations, portal overlay per project,
-   galaxy canvas, particle canvas, focus trap, and project rendering.
-*/
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// KASHISH - COMPUTER SCIENCE PORTFOLIO
+// Advanced JavaScript with GSAP Animations & Interactive Effects
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/* -------------------------
-   Small helpers
-   ------------------------- */
-function $(sel, ctx=document) { return ctx.querySelector(sel); }
-function $all(sel, ctx=document) { return Array.from(ctx.querySelectorAll(sel)); }
-function escapeHtml(s){ return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+'use strict';
 
-/* -------------------------
-   DOM refs
-   ------------------------- */
-const projectsGrid = $('#projects-grid');
-const portalOverlay = $('#portal-overlay');
-const portalBackdrop = $('#portal-backdrop');
-const portalFrame = $('.portal-frame');
-const portalClose = $('#portal-close');
-const portalTitle = $('#portal-title');
-const portalSub = $('#portal-sub');
-const portalDesc = $('#portal-desc');
-const portalTech = $('#portal-tech');
-const portalLinks = $('#portal-links');
-const portalLogic = $('#portal-logic');
-const portalMedia = $('#portal-media');
-const portalGithub = $('#portal-github');
-const portalDemo = $('#portal-demo');
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GLOBAL CONFIGURATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-const heroName = $('#hero-name');
-const heroLeft = document.querySelector('.hero-left');
-const heroRight = document.querySelector('.hero-right');
-
-/* -------------------------
-   Project data
-   (You can replace or extend this array or load from projects.json)
-   ------------------------- */
-const PROJECTS = [
-  {
-    id: "algorithm-visual-playground",
-    title: "Algorithm Visual Playground",
-    desc: "A visual tool that demonstrates how core algorithms work through step‑by‑step animations. Includes sorting, recursion, BFS/DFS, and pathfinding. Focuses on clarity and algorithmic thinking.",
-    tech: "Python / JavaScript; Algorithms; Data Structures; Git; VS Code",
-    github: "",
-    demo: "",
-    demo_gif: "",
-    demo_video: ""
-  },
-  {
-    id: "plagiarism-checker",
-    title: "Plagiarism Checker",
-    desc: "A text‑comparison system that detects similarity between documents using Jaccard, Cosine Similarity, and sequence matching. Preprocesses text and calculates similarity scores.",
-    tech: "Python; difflib; SQL (optional); Git; VS Code",
-    github: "",
-    demo: "",
-    demo_gif: "",
-    demo_video: ""
-  },
-  {
-    id: "quiz-app",
-    title: "Quiz App",
-    desc: "A multiple‑choice quiz application with scoring, results, and a question bank. Demonstrates OOP concepts and structured programming.",
-    tech: "Python / Java; OOP; Git; VS Code",
-    github: "",
-    demo: "",
-    demo_gif: "",
-    demo_video: ""
-  },
-  {
-    id: "student-study-analyzer",
-    title: "Student Study Analyzer",
-    desc: "An analytics tool that tracks study sessions and identifies productivity patterns (hours, consistency, subject focus).",
-    tech: "Python; CSV/JSON; Git; VS Code",
-    github: "",
-    demo: "",
-    demo_gif: "",
-    demo_video: ""
-  }
-];
-
-/* -------------------------
-   Render projects (unique only)
-   ------------------------- */
-function renderProjects(list) {
-  if (!projectsGrid) return;
-  projectsGrid.innerHTML = '';
-
-  list.forEach(p => {
-    const card = document.createElement('article');
-    card.className = 'project-card';
-    card.innerHTML = `
-      <div class="project-content">
-        <h3>${escapeHtml(p.title)}</h3>
-        <p class="project-desc">${escapeHtml(p.desc)}</p>
-        <p class="project-tech"><strong>Tech Used:</strong> ${escapeHtml(p.tech)}</p>
-        <div class="project-links">
-          <button class="btn-small open-portal" 
-            data-id="${escapeHtml(p.id)}"
-            data-title="${escapeHtml(p.title)}"
-            data-desc="${escapeHtml(p.desc)}"
-            data-tech="${escapeHtml(p.tech)}"
-            data-github="${escapeHtml(p.github || '')}"
-            data-demo="${escapeHtml(p.demo || '')}"
-            data-demo_gif="${escapeHtml(p.demo_gif || '')}"
-            data-demo_video="${escapeHtml(p.demo_video || '')}"
-          >Open Portal</button>
-          <a class="btn-small" href="${p.github || '#'}" ${p.github ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'}>${p.github ? 'GitHub' : 'GitHub (to be added)'}</a>
-          <a class="btn-small ghost" href="${p.demo || '#'}" ${p.demo ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'}>${p.demo ? 'Live Demo' : 'Live Demo (to be added)'}</a>
-        </div>
-      </div>
-    `;
-    projectsGrid.appendChild(card);
-  });
-
-  // attach handlers
-  $all('.open-portal').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const el = e.currentTarget;
-      const meta = {
-        id: el.dataset.id,
-        title: el.dataset.title,
-        desc: el.dataset.desc,
-        tech: el.dataset.tech,
-        github: el.dataset.github,
-        demo: el.dataset.demo,
-        demo_gif: el.dataset.demo_gif,
-        demo_video: el.dataset.demo_video
-      };
-      openPortal(meta);
-    });
-  });
-}
-
-/* -------------------------
-   Portal open/close & focus trap
-   ------------------------- */
-let lastFocused = null;
-let removeTrap = null;
-
-function trapFocus(container) {
-  const focusable = container.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-  if (!focusable.length) return () => {};
-  const first = focusable[0];
-  const last = focusable[focusable.length - 1];
-  function handler(e) {
-    if (e.key === 'Tab') {
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus();
-      }
-    } else if (e.key === 'Escape') {
-      closePortal();
+const CONFIG = {
+    particles: {
+        count: 80,
+        maxSpeed: 0.5,
+        minSpeed: 0.1,
+        maxSize: 3,
+        minSize: 1,
+        connectionDistance: 150,
+        mouseInfluence: 100
+    },
+    cursor: {
+        dotLag: 0.15,
+        outlineLag: 0.3,
+        magneticStrength: 0.3,
+        magneticLightStrength: 0.15
+    },
+    scroll: {
+        hideNavThreshold: 100,
+        smoothScrollDuration: 1.2
     }
-  }
-  container.addEventListener('keydown', handler);
-  return () => container.removeEventListener('keydown', handler);
-}
+};
 
-function openPortal(meta) {
-  // populate portal
-  portalTitle.textContent = meta.title;
-  portalSub.textContent = meta.id.replace(/-/g,' ');
-  portalDesc.textContent = meta.desc;
-  portalTech.textContent = meta.tech;
-  portalLinks.innerHTML = '';
-  portalGithub.href = meta.github || '#';
-  portalDemo.href = meta.demo || '#';
-  portalGithub.setAttribute('aria-disabled', meta.github ? 'false' : 'true');
-  portalDemo.setAttribute('aria-disabled', meta.demo ? 'false' : 'true');
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GSAP SETUP & REGISTRATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  // set logic placeholder
-  portalLogic.textContent = 'Explain the problem solved, approach, and core logic here.';
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-  // set media
-  setPortalMedia(meta);
+// Configure GSAP defaults for smooth animations
+gsap.defaults({
+    ease: 'power3.out',
+    duration: 0.8
+});
 
-  // show portal and hide everything else
-  portalOverlay.setAttribute('aria-hidden','false');
-  document.querySelectorAll('main, header, footer').forEach(el => el.setAttribute('aria-hidden','true'));
-  lastFocused = document.activeElement;
-  portalClose.focus();
-  removeTrap = trapFocus(portalFrame);
-  document.documentElement.style.overflow = 'hidden';
-  document.body.style.overflow = 'hidden';
-}
+// Configure ScrollTrigger for optimized performance
+ScrollTrigger.config({
+    limitCallbacks: true,
+    syncInterval: 150
+});
 
-function closePortal() {
-  // cleanup media
-  const vid = portalMedia.querySelector('video');
-  if (vid) { try { vid.pause(); vid.currentTime = 0; } catch(e){} vid.remove(); }
-  const img = portalMedia.querySelector('img');
-  if (img) img.remove();
-  $all('.media-play, .media-controls').forEach(n => n.remove());
-  portalMedia.querySelector('.portal-media-fallback').style.display = 'flex';
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CUSTOM CURSOR SYSTEM
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  portalOverlay.setAttribute('aria-hidden','true');
-  document.querySelectorAll('main, header, footer').forEach(el => el.removeAttribute('aria-hidden'));
-  if (removeTrap) removeTrap();
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
-  if (lastFocused) lastFocused.focus();
-}
-
-portalClose.addEventListener('click', closePortal);
-portalBackdrop.addEventListener('click', closePortal);
-
-/* -------------------------
-   Portal media handling
-   ------------------------- */
-function setPortalMedia(meta) {
-  const fallback = portalMedia.querySelector('.portal-media-fallback');
-  // clear previous
-  $all('#portal-media img, #portal-media video, #portal-media .media-play, #portal-media .media-controls').forEach(n => n.remove());
-  fallback.style.display = 'none';
-
-  const gif = meta.demo_gif || '';
-  const video = meta.demo_video || '';
-
-  if (video) {
-    const vid = document.createElement('video');
-    vid.className = 'portal-video';
-    vid.src = video;
-    vid.preload = 'metadata';
-    vid.muted = true;
-    vid.loop = true;
-    vid.playsInline = true;
-    vid.controls = false;
-    portalMedia.appendChild(vid);
-
-    const play = document.createElement('button');
-    play.className = 'media-play';
-    play.innerHTML = '▶';
-    portalMedia.appendChild(play);
-
-    const controls = document.createElement('div');
-    controls.className = 'media-controls';
-    const playToggle = document.createElement('button');
-    playToggle.className = 'btn-small';
-    playToggle.textContent = 'Play';
-    controls.appendChild(playToggle);
-    portalMedia.appendChild(controls);
-
-    play.addEventListener('click', () => {
-      if (vid.paused) { vid.play().catch(()=>{}); playToggle.textContent = 'Pause'; play.style.opacity = '0.6'; }
-      else { vid.pause(); playToggle.textContent = 'Play'; play.style.opacity = '1'; }
-    });
-    playToggle.addEventListener('click', () => {
-      if (vid.paused) { vid.play().catch(()=>{}); playToggle.textContent = 'Pause'; play.style.opacity = '0.6'; }
-      else { vid.pause(); playToggle.textContent = 'Play'; play.style.opacity = '1'; }
-    });
-    vid.addEventListener('click', () => {
-      if (vid.paused) { vid.play().catch(()=>{}); playToggle.textContent = 'Pause'; play.style.opacity = '0.6'; }
-      else { vid.pause(); playToggle.textContent = 'Play'; play.style.opacity = '1'; }
-    });
-
-  } else if (gif) {
-    const img = document.createElement('img');
-    img.className = 'portal-gif';
-    img.alt = meta.title + ' preview';
-    img.loading = 'lazy';
-    img.src = gif;
-    portalMedia.appendChild(img);
-  } else {
-    fallback.style.display = 'flex';
-  }
-}
-
-/* -------------------------
-   Reveal on scroll
-   ------------------------- */
-function initReveal(){
-  const items = document.querySelectorAll('.skill-card, .project-card, .contact-card, .about-text, .about-card, .hero-left');
-  const obs = new IntersectionObserver((entries, o) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting){
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = 'translateY(0)';
-        o.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.12});
-  items.forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = 'translateY(12px)';
-    el.style.transition = 'opacity 700ms ease-out, transform 700ms ease-out';
-    obs.observe(el);
-  });
-}
-
-/* -------------------------
-   Galaxy canvas
-   ------------------------- */
-function initGalaxyCanvas() {
-  const canvas = document.getElementById('galaxy-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = canvas.offsetWidth;
-  let h = canvas.height = canvas.offsetHeight;
-
-  let stars = [];
-  let nebulas = [];
-  let lastResize = 0;
-
-  function rand(min,max){ return Math.random()*(max-min)+min; }
-
-  function createScene(){
-    stars = [];
-    nebulas = [];
-    const STAR_COUNT = Math.max(120, Math.floor((w*h)/7000));
-    const NEBULA_COUNT = Math.max(4, Math.floor((w*h)/180000));
-    for (let i=0;i<STAR_COUNT;i++){
-      stars.push({
-        x: rand(0,w),
-        y: rand(0,h),
-        r: rand(0.4,2.2),
-        tw: rand(0.02,0.14),
-        hue: rand(200,320),
-        alphaBase: rand(0.4,1)
-      });
+class CustomCursor {
+    constructor() {
+        this.dot = document.querySelector('[data-cursor-dot]');
+        this.outline = document.querySelector('[data-cursor-outline]');
+        
+        if (!this.dot || !this.outline) return;
+        
+        this.mouse = { x: 0, y: 0 };
+        this.dotPos = { x: 0, y: 0 };
+        this.outlinePos = { x: 0, y: 0 };
+        
+        this.init();
     }
-    for (let i=0;i<NEBULA_COUNT;i++){
-      nebulas.push({
-        x: rand(-w*0.2,w*1.2),
-        y: rand(-h*0.2,h*1.2),
-        r: rand(Math.min(w,h)*0.25, Math.min(w,h)*0.7),
-        hue: rand(240,320),
-        alpha: rand(0.06,0.22),
-        vx: rand(-0.02,0.02),
-        vy: rand(-0.01,0.01)
-      });
+    
+    init() {
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            this.dot.classList.add('hidden');
+            this.outline.classList.add('hidden');
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            this.dot.classList.remove('hidden');
+            this.outline.classList.remove('hidden');
+        });
+        
+        // Handle hover states
+        this.setupHoverStates();
+        
+        // Start animation loop
+        this.animate();
     }
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-
-    // base gradient
-    const g = ctx.createLinearGradient(0,0,w,h);
-    g.addColorStop(0, 'rgba(6,10,20,1)');
-    g.addColorStop(1, 'rgba(8,12,22,1)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0,0,w,h);
-
-    // nebulas
-    nebulas.forEach(n => {
-      n.x += n.vx * 0.6;
-      n.y += n.vy * 0.6;
-      const rg = ctx.createRadialGradient(n.x, n.y, n.r*0.1, n.x, n.y, n.r);
-      rg.addColorStop(0, `hsla(${n.hue},70%,70%,${(n.alpha).toFixed(3)})`);
-      rg.addColorStop(0.4, `hsla(${n.hue},60%,55%,${(n.alpha*0.6).toFixed(3)})`);
-      rg.addColorStop(1, `rgba(8,12,22,0)`);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.fillStyle = rg;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-      ctx.fill();
-      ctx.globalCompositeOperation = 'source-over';
-    });
-
-    // stars twinkle
-    stars.forEach(s => {
-      const t = Date.now()*s.tw + s.x;
-      const alpha = Math.max(0.12, s.alphaBase * (0.7 + 0.25*Math.sin(t)));
-      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-      ctx.fill();
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  function resize(){
-    const now = Date.now();
-    if (now - lastResize < 120) return;
-    lastResize = now;
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-    createScene();
-  }
-
-  window.addEventListener('resize', resize);
-  resize();
-  draw();
-}
-
-/* -------------------------
-   Particle canvas for subtle motion and portal particles
-   ------------------------- */
-function initParticleCanvas() {
-  const canvas = document.getElementById('particle-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = canvas.offsetWidth;
-  let h = canvas.height = canvas.offsetHeight;
-
-  const particles = [];
-  const MAX = 120;
-
-  function rand(min,max){ return Math.random()*(max-min)+min; }
-
-  function createParticles(){
-    particles.length = 0;
-    for (let i=0;i<MAX;i++){
-      particles.push({
-        x: rand(0,w),
-        y: rand(0,h),
-        vx: rand(-0.2,0.2),
-        vy: rand(-0.05,0.05),
-        r: rand(0.6,2.6),
-        hue: rand(200,320),
-        alpha: rand(0.06,0.22)
-      });
+    
+    setupHoverStates() {
+        const hoverElements = document.querySelectorAll('a, button, [data-magnetic], [data-magnetic-light]');
+        
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                this.outline.classList.add('hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                this.outline.classList.remove('hover');
+            });
+            
+            el.addEventListener('mousedown', () => {
+                this.dot.classList.add('active');
+                this.outline.classList.add('active');
+            });
+            
+            el.addEventListener('mouseup', () => {
+                this.dot.classList.remove('active');
+                this.outline.classList.remove('active');
+            });
+        });
     }
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < -10) p.x = w + 10;
-      if (p.x > w + 10) p.x = -10;
-      if (p.y < -10) p.y = h + 10;
-      if (p.y > h + 10) p.y = -10;
-
-      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
-      g.addColorStop(0, `hsla(${p.hue},70%,70%,${p.alpha})`);
-      g.addColorStop(1, `rgba(8,12,22,0)`);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
-      ctx.fill();
-      ctx.globalCompositeOperation = 'source-over';
-    });
-    requestAnimationFrame(draw);
-  }
-
-  function resize(){
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-    createParticles();
-  }
-
-  window.addEventListener('resize', resize);
-  resize();
-  draw();
+    
+    animate() {
+        // Smooth lag effect using lerp (linear interpolation)
+        this.dotPos.x += (this.mouse.x - this.dotPos.x) * CONFIG.cursor.dotLag;
+        this.dotPos.y += (this.mouse.y - this.dotPos.y) * CONFIG.cursor.dotLag;
+        
+        this.outlinePos.x += (this.mouse.x - this.outlinePos.x) * CONFIG.cursor.outlineLag;
+        this.outlinePos.y += (this.mouse.y - this.outlinePos.y) * CONFIG.cursor.outlineLag;
+        
+        // Apply transforms
+        this.dot.style.transform = `translate(${this.dotPos.x - 4}px, ${this.dotPos.y - 4}px)`;
+        this.outline.style.transform = `translate(${this.outlinePos.x - 16}px, ${this.outlinePos.y - 16}px)`;
+        
+        requestAnimationFrame(() => this.animate());
+    }
 }
 
-/* -------------------------
-   Hero parallax and micro interactions
-   ------------------------- */
-function initHeroParallax() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const tx = (x - 0.5) * 18;
-    const ty = (y - 0.5) * 12;
-    heroName.style.transform = `translate(${tx/8}px, ${ty/8}px)`;
-    if (heroRight) heroRight.style.transform = `translate(${tx/6}px, ${ty/6}px) rotate(${tx/40}deg)`;
-  });
-  hero.addEventListener('mouseleave', () => {
-    heroName.style.transform = '';
-    if (heroRight) heroRight.style.transform = '';
-  });
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MAGNETIC BUTTON EFFECT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class MagneticEffect {
+    constructor() {
+        this.magneticElements = document.querySelectorAll('[data-magnetic]');
+        this.lightMagneticElements = document.querySelectorAll('[data-magnetic-light]');
+        this.init();
+    }
+    
+    init() {
+        this.magneticElements.forEach(el => this.applyMagneticEffect(el, CONFIG.cursor.magneticStrength));
+        this.lightMagneticElements.forEach(el => this.applyMagneticEffect(el, CONFIG.cursor.magneticLightStrength));
+    }
+    
+    applyMagneticEffect(element, strength) {
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(element, {
+                x: x * strength,
+                y: y * strength,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            gsap.to(element, {
+                x: 0,
+                y: 0,
+                duration: 0.5,
+                ease: 'elastic.out(1, 0.3)'
+            });
+        });
+    }
 }
 
-/* -------------------------
-   Init sequence
-   ------------------------- */
-function init() {
-  // footer year
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PARTICLE SYSTEM (CANVAS)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  // render projects
-  renderProjects(PROJECTS);
-
-  // reveal
-  initReveal();
-
-  // canvases
-  initGalaxyCanvas();
-  initParticleCanvas();
-
-  // hero parallax
-  initHeroParallax();
-
-  // mobile nav toggle
-  const navToggle = document.getElementById('nav-toggle');
-  const navList = document.getElementById('nav-list');
-  if (navToggle && navList) {
-    navToggle.addEventListener('click', () => {
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!expanded));
-      navList.style.display = expanded ? '' : 'flex';
-    });
-  }
-
-  // smooth scroll for internal links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e){
-      const href = this.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (target){
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (window.innerWidth < 900 && navList) navList.style.display = '';
-      }
-    });
-  });
-
-  // small entrance reveal for hero
-  setTimeout(() => {
-    document.querySelector('.hero-left')?.classList.add('visible');
-    document.querySelector('.hero-right')?.classList.add('visible');
-  }, 260);
+class ParticleSystem {
+    constructor() {
+        this.canvas = document.getElementById('particle-canvas');
+        if (!this.canvas) return;
+        
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: null, y: null };
+        
+        this.init();
+    }
+    
+    init() {
+        this.resize();
+        this.createParticles();
+        this.setupEventListeners();
+        this.animate();
+    }
+    
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+    
+    setupEventListeners() {
+        window.addEventListener('resize', () => this.resize());
+        
+        window.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        });
+    }
+    
+    createParticles() {
+        for (let i = 0; i < CONFIG.particles.count; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * CONFIG.particles.maxSpeed,
+                vy: (Math.random() - 0.5) * CONFIG.particles.maxSpeed,
+                size: Math.random() * (CONFIG.particles.maxSize - CONFIG.particles.minSize) + CONFIG.particles.minSize
+            });
+        }
+    }
+    
+    updateParticles() {
+        this.particles.forEach(particle => {
+            // Update position
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            
+            // Mouse interaction
+            if (this.mouse.x !== null && this.mouse.y !== null) {
+                const dx = this.mouse.x - particle.x;
+                const dy = this.mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < CONFIG.particles.mouseInfluence) {
+                    const force = (CONFIG.particles.mouseInfluence - distance) / CONFIG.particles.mouseInfluence;
+                    particle.vx -= (dx / distance) * force * 0.2;
+                    particle.vy -= (dy / distance) * force * 0.2;
+                }
+            }
+            
+            // Boundary check
+            if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+            if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+            
+            // Speed limit
+            const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+            if (speed > CONFIG.particles.maxSpeed) {
+                particle.vx = (particle.vx / speed) * CONFIG.particles.maxSpeed;
+                particle.vy = (particle.vy / speed) * CONFIG.particles.maxSpeed;
+            }
+        });
+    }
+    
+    drawParticles() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw particles
+        this.particles.forEach(particle => {
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = 'rgba(74, 124, 199, 0.6)';
+            this.ctx.fill();
+            
+            // Add glow
+            const gradient = this.ctx.createRadialGradient(
+                particle.x, particle.y, 0,
+                particle.x, particle.y, particle.size * 3
+            );
+            gradient.addColorStop(0, 'rgba(74, 124, 199, 0.3)');
+            gradient.addColorStop(1, 'rgba(74, 124, 199, 0)');
+            this.ctx.fillStyle = gradient;
+            this.ctx.fill();
+        });
+        
+        // Draw connections
+        this.particles.forEach((p1, i) => {
+            this.particles.slice(i + 1).forEach(p2 => {
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < CONFIG.particles.connectionDistance) {
+                    const opacity = (1 - distance / CONFIG.particles.connectionDistance) * 0.3;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p1.x, p1.y);
+                    this.ctx.lineTo(p2.x, p2.y);
+                    this.ctx.strokeStyle = `rgba(74, 124, 199, ${opacity})`;
+                    this.ctx.lineWidth = 1;
+                    this.ctx.stroke();
+                }
+            });
+        });
+    }
+    
+    animate() {
+        this.updateParticles();
+        this.drawParticles();
+        requestAnimationFrame(() => this.animate());
+    }
 }
 
-/* -------------------------
-   Start
-   ------------------------- */
-document.addEventListener('DOMContentLoaded', init);
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PAGE LOADER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class PageLoader {
+    constructor() {
+        this.loader = document.querySelector('.page-loader');
+        if (!this.loader) return;
+        
+        this.init();
+    }
+    
+    init() {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                this.loader.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+                
+                // Trigger hero animations after loader
+                this.triggerHeroAnimations();
+            }, 1000);
+        });
+    }
+    
+    triggerHeroAnimations() {
+        // Hero animations are handled by CSS, but we can add GSAP enhancements
+        const heroTimeline = gsap.timeline();
+        
+        heroTimeline
+            .from('.hero-badge', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'expo.out'
+            })
+            .from('.hero-stats .stat-item', {
+                opacity: 0,
+                y: 20,
+                stagger: 0.15,
+                duration: 0.6,
+                ease: 'back.out(1.7)'
+            }, '-=0.5');
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// NAVIGATION SYSTEM
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class Navigation {
+    constructor() {
+        this.navbar = document.getElementById('navbar');
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.menuToggle = document.querySelector('.menu-toggle');
+        this.navMenu = document.querySelector('.nav-menu');
+        this.progressBar = document.querySelector('.nav-progress-bar');
+        
+        this.lastScrollTop = 0;
+        this.scrollThreshold = CONFIG.scroll.hideNavThreshold;
+        
+        this.init();
+    }
+    
+    init() {
+        this.setupScrollBehavior();
+        this.setupActiveSection();
+        this.setupMobileMenu();
+        this.setupSmoothScroll();
+        this.setupProgressBar();
+    }
+    
+    setupScrollBehavior() {
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    this.handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    }
+    
+    handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Add scrolled class for styling
+        if (scrollTop > 50) {
+            this.navbar.classList.add('scrolled');
+        } else {
+            this.navbar.classList.remove('scrolled');
+        }
+        
+        // Hide/show navbar on scroll
+        if (scrollTop > this.scrollThreshold) {
+            if (scrollTop > this.lastScrollTop) {
+                this.navbar.classList.add('hidden');
+            } else {
+                this.navbar.classList.remove('hidden');
+            }
+        }
+        
+        this.lastScrollTop = scrollTop;
+    }
+    
+    setupActiveSection() {
+        const sections = document.querySelectorAll('.section, .hero');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    this.setActiveLink(id);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '-100px 0px -100px 0px'
+        });
+        
+        sections.forEach(section => observer.observe(section));
+    }
+    
+    setActiveLink(id) {
+        this.navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    setupMobileMenu() {
+        if (!this.menuToggle || !this.navMenu) return;
+        
+        this.menuToggle.addEventListener('click', () => {
+            this.menuToggle.classList.toggle('active');
+            this.navMenu.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+        
+        // Close menu when clicking a link
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                this.menuToggle.classList.remove('active');
+                this.navMenu.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+    }
+    
+    setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                
+                if (target) {
+                    gsap.to(window, {
+                        duration: CONFIG.scroll.smoothScrollDuration,
+                        scrollTo: {
+                            y: target,
+                            offsetY: 100
+                        },
+                        ease: 'expo.inOut'
+                    });
+                }
+            });
+        });
+    }
+    
+    setupProgressBar() {
+        if (!this.progressBar) return;
+        
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            this.progressBar.style.width = `${scrolled}%`;
+        });
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ANIMATED COUNTER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class AnimatedCounter {
+    constructor() {
+        this.counters = document.querySelectorAll('[data-count]');
+        this.init();
+    }
+    
+    init() {
+        this.counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            
+            ScrollTrigger.create({
+                trigger: counter,
+                start: 'top 80%',
+                onEnter: () => this.animateCounter(counter, target),
+                once: true
+            });
+        });
+    }
+    
+    animateCounter(element, target) {
+        gsap.to(element, {
+            innerHTML: target,
+            duration: 2,
+            snap: { innerHTML: 1 },
+            ease: 'power2.out',
+            onUpdate: function() {
+                element.innerHTML = Math.ceil(element.innerHTML);
+            }
+        });
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SCROLL-TRIGGERED ANIMATIONS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class ScrollAnimations {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        this.animateSectionHeaders();
+        this.animateAboutSection();
+        this.animateSkillsSection();
+        this.animateProjectsSection();
+        this.animateContactSection();
+        this.animateFooter();
+        this.setupParallax();
+    }
+    
+    animateSectionHeaders() {
+        document.querySelectorAll('.section-header').forEach(header => {
+            const number = header.querySelector('.section-number');
+            const words = header.querySelectorAll('.title-word');
+            const line = header.querySelector('.section-line');
+            
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: header,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    toggleActions: 'play none none none'
+                }
+            });
+            
+            tl.from(number, {
+                opacity: 0,
+                x: -30,
+                duration: 0.6,
+                ease: 'expo.out'
+            })
+            .from(words, {
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: 'expo.out'
+            }, '-=0.4')
+            .from(line, {
+                opacity: 0,
+                scaleX: 0,
+                duration: 0.8,
+                ease: 'expo.out'
+            }, '-=0.6');
+        });
+    }
+    
+    animateAboutSection() {
+        // Animate paragraph lines
+        document.querySelectorAll('.paragraph-line').forEach((line, index) => {
+            gsap.from(line, {
+                opacity: 0,
+                y: '100%',
+                duration: 0.8,
+                ease: 'expo.out',
+                scrollTrigger: {
+                    trigger: line,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        
+        // Animate value items
+        gsap.from('.value-item', {
+            opacity: 0,
+            y: 50,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+                trigger: '.values-grid',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        // Animate code window
+        gsap.from('.visual-card', {
+            opacity: 0,
+            scale: 0.9,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.visual-card',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+    
+    animateSkillsSection() {
+        // Animate skill categories
+        gsap.from('.skill-category', {
+            opacity: 0,
+            y: 60,
+            stagger: 0.12,
+            duration: 0.9,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.skills-grid',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        // Animate skill list items with stagger
+        document.querySelectorAll('.skill-category').forEach(category => {
+            gsap.from(category.querySelectorAll('.skill-item'), {
+                opacity: 0,
+                x: -20,
+                stagger: 0.08,
+                duration: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: category,
+                    start: 'top 75%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        
+        // Animate orbital visualization
+        gsap.from('.orbit-ring', {
+            opacity: 0,
+            scale: 0,
+            stagger: 0.15,
+            duration: 1.2,
+            ease: 'elastic.out(1, 0.5)',
+            scrollTrigger: {
+                trigger: '.visual-orbit',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        gsap.from('.orbit-node', {
+            opacity: 0,
+            scale: 0,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: 'back.out(2)',
+            scrollTrigger: {
+                trigger: '.visual-orbit',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+    
+    animateProjectsSection() {
+        // Animate project cards
+        gsap.from('.project-card', {
+            opacity: 0,
+            y: 80,
+            stagger: 0.2,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.projects-grid',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        // Advanced hover animation for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                gsap.to(this.querySelector('.project-visual-bg'), {
+                    scale: 1.15,
+                    rotate: 3,
+                    duration: 0.6,
+                    ease: 'expo.out'
+                });
+                
+                gsap.to(this.querySelectorAll('.tech-tag'), {
+                    y: -3,
+                    stagger: 0.05,
+                    duration: 0.3,
+                    ease: 'back.out(2)'
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                gsap.to(this.querySelector('.project-visual-bg'), {
+                    scale: 1,
+                    rotate: 0,
+                    duration: 0.6,
+                    ease: 'expo.out'
+                });
+                
+                gsap.to(this.querySelectorAll('.tech-tag'), {
+                    y: 0,
+                    stagger: 0.05,
+                    duration: 0.3,
+                    ease: 'back.out(2)'
+                });
+            });
+        });
+    }
+    
+    animateContactSection() {
+        gsap.from('.contact-description', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.contact-description',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        gsap.from('.contact-method', {
+            opacity: 0,
+            x: -50,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.contact-methods',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+    
+    animateFooter() {
+        gsap.from('.footer-brand', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.footer',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        gsap.from('.footer-column', {
+            opacity: 0,
+            y: 30,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.footer-links',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        gsap.from('.footer-bottom', {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: '.footer-bottom',
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+    
+    setupParallax() {
+        // Parallax effect for floating elements
+        document.querySelectorAll('[data-parallax-speed]').forEach(el => {
+            const speed = parseFloat(el.getAttribute('data-parallax-speed'));
+            
+            gsap.to(el, {
+                y: () => window.innerHeight * speed,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1.5
+                }
+            });
+        });
+        
+        // Parallax for hero background layers
+        gsap.to('.hero-bg-layer.layer-1', {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 2
+            }
+        });
+        
+        gsap.to('.hero-bg-layer.layer-2', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 3D TILT EFFECT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class TiltEffect {
+    constructor() {
+        this.tiltElements = document.querySelectorAll('[data-tilt]');
+        this.strongTiltElements = document.querySelectorAll('[data-tilt-strong]');
+        this.init();
+    }
+    
+    init() {
+        this.tiltElements.forEach(el => this.applyTilt(el, 10));
+        this.strongTiltElements.forEach(el => this.applyTilt(el, 20));
+    }
+    
+    applyTilt(element, maxTilt) {
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * maxTilt;
+            const rotateY = ((centerX - x) / centerX) * maxTilt;
+            
+            gsap.to(element, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                duration: 0.5,
+                ease: 'power2.out',
+                transformPerspective: 1000,
+                transformOrigin: 'center'
+            });
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            gsap.to(element, {
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INITIALIZATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all systems
+    new CustomCursor();
+    new MagneticEffect();
+    new ParticleSystem();
+    new PageLoader();
+    new Navigation();
+    new AnimatedCounter();
+    new ScrollAnimations();
+    new TiltEffect();
+    
+    // Refresh ScrollTrigger after all elements are loaded
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+    });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PERFORMANCE MONITORING (DEV MODE)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+if (process.env.NODE_ENV === 'development') {
+    let fps = 0;
+    let lastTime = performance.now();
+    
+    function measureFPS() {
+        const currentTime = performance.now();
+        fps = Math.round(1000 / (currentTime - lastTime));
+        lastTime = currentTime;
+        
+        if (fps < 30) {
+            console.warn(`Low FPS detected: ${fps}`);
+        }
+        
+        requestAnimationFrame(measureFPS);
+    }
+    
+    measureFPS();
+}
