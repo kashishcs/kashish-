@@ -1,914 +1,357 @@
-
-<!-- index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kashish - Computer Science Portfolio showcasing algorithmic thinking, systematic problem-solving, and disciplined software engineering.">
-    <meta name="author" content="Kashish">
-    <meta name="theme-color" content="#0a0e27">
-    <title>Kashish | Computer Science Portfolio</title>
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/variables.css">
-    <link rel="stylesheet" href="styles/base.css">
-    <link rel="stylesheet" href="styles/typography.css">
-    <link rel="stylesheet" href="styles/layout.css">
-    <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    
-    <!-- GSAP Core -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    
-    <!-- Application Scripts -->
-    <script src="scripts/main.js" type="module" defer></script>
-    <script src="scripts/animations.js" type="module" defer></script>
-    <script src="scripts/observers.js" type="module" defer></script>
-    <script src="scripts/interactions.js" type="module" defer></script>
+  <!-- =========================
+       META & BASIC SETTINGS
+       ========================= -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kashish — Computer Science Portfolio</title>
+  <meta name="description" content="Portfolio of Kashish, 12th-grade Computer Science student — algorithms, systems, and web projects." />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- =========================
+       FONTS
+       ========================= -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- =========================
+       STYLESHEET
+       ========================= -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- =========================
+       PRELOAD KEY ASSETS
+       ========================= -->
+  <link rel="preload" href="assets/placeholder.svg" as="image" />
 </head>
 <body>
-    <!-- Galaxy Background Layers -->
-    <div class="galaxy-container" aria-hidden="true">
-        <div class="galaxy-layer galaxy-layer-1"></div>
-        <div class="galaxy-layer galaxy-layer-2"></div>
-        <div class="galaxy-layer galaxy-layer-3"></div>
-        <div class="stars-layer stars-layer-1"></div>
-        <div class="stars-layer stars-layer-2"></div>
-        <div class="nebula-glow nebula-glow-1"></div>
-        <div class="nebula-glow nebula-glow-2"></div>
+  <!-- =========================
+       GALAXY BACKGROUND LAYERS
+       ========================= -->
+  <div class="galaxy-overlay" aria-hidden="true"></div>
+  <div class="stars-layer" aria-hidden="true"></div>
+
+  <!-- =========================
+       SCROLL PROGRESS
+       ========================= -->
+  <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- =========================
+       HEADER NAVIGATION
+       ========================= -->
+  <header class="site-header" role="banner">
+    <div class="container nav-inner">
+      <div class="logo" aria-label="Kashish portfolio">Kashish</div>
+
+      <!-- Accessible nav toggle -->
+      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primaryNav" class="nav-links" role="navigation" aria-label="Primary">
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Navigation System -->
-    <nav class="navigation" id="main-navigation" role="navigation" aria-label="Main navigation">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="#hero" class="nav-logo" aria-label="Kashish - Home">
-                    <span class="logo-text">Kashish</span>
-                </a>
-            </div>
-            
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span class="nav-toggle-line"></span>
-                <span class="nav-toggle-line"></span>
-                <span class="nav-toggle-line"></span>
+  <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero" role="region" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <!-- small tag -->
+          <div class="hero-tag" aria-hidden="true">
+            <span class="dot" aria-hidden="true"></span>
+            12th Grade • Computer Science
+          </div>
+
+          <!-- animated name -->
+          <h1 class="hero-name" id="heroName">Kashish</h1>
+
+          <!-- typewriter tagline -->
+          <div class="hero-tagline" id="heroTagline" aria-hidden="true">
+            Computer Science Student | Software, Logic &amp; Innovation
+          </div>
+
+          <!-- short description -->
+          <p class="hero-desc">
+            I build clear, testable programs and explore how algorithms and systems scale.
+            I focus on depth, correctness, and thoughtful design.
+          </p>
+
+          <!-- CTA buttons -->
+          <div class="hero-actions">
+            <button class="btn-primary" data-scroll="#contact" id="contactCta" aria-label="Contact Kashish">
+              Contact Me
+              <span class="btn-icon">↗</span>
             </button>
-            
-            <ul class="nav-menu" id="nav-menu" role="menubar">
-                <li class="nav-item" role="none">
-                    <a href="#about" class="nav-link" role="menuitem" data-section="about">
-                        <span class="nav-link-text">About</span>
-                        <span class="nav-link-indicator"></span>
-                    </a>
-                </li>
-                <li class="nav-item" role="none">
-                    <a href="#skills" class="nav-link" role="menuitem" data-section="skills">
-                        <span class="nav-link-text">Skills</span>
-                        <span class="nav-link-indicator"></span>
-                    </a>
-                </li>
-                <li class="nav-item" role="none">
-                    <a href="#projects" class="nav-link" role="menuitem" data-section="projects">
-                        <span class="nav-link-text">Projects</span>
-                        <span class="nav-link-indicator"></span>
-                    </a>
-                </li>
-                <li class="nav-item" role="none">
-                    <a href="#contact" class="nav-link" role="menuitem" data-section="contact">
-                        <span class="nav-link-text">Contact</span>
-                        <span class="nav-link-indicator"></span>
-                    </a>
-                </li>
-            </ul>
+            <button class="btn-secondary" data-scroll="#projects" aria-label="View Projects">
+              View Projects
+            </button>
+          </div>
+
+          <!-- meta -->
+          <div class="hero-meta" aria-hidden="true">
+            <span><strong>Focus:</strong> algorithms, data, systems thinking</span>
+            <span><strong>Location:</strong> Ahmedabad, India</span>
+          </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        
-        <!-- Hero Section -->
-        <section class="hero-section" id="hero" aria-labelledby="hero-heading">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="hero-label">
-                        <span class="hero-label-text">Computer Science Student</span>
-                    </div>
-                    
-                    <h1 class="hero-heading" id="hero-heading">
-                        <span class="hero-heading-line">
-                            <span class="hero-heading-word">Kashish</span>
-                        </span>
-                    </h1>
-                    
-                    <div class="hero-subtitle">
-                        <span class="hero-subtitle-line">
-                            <span class="hero-subtitle-text">Computer Science & Algorithmic Thinking</span>
-                        </span>
-                    </div>
-                    
-                    <div class="hero-description">
-                        <p class="hero-description-text">
-                            Focused on logic, structure, systems, and disciplined problem-solving.
-                        </p>
-                    </div>
-                    
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary" aria-label="View Projects">
-                            <span class="btn-text">View Projects</span>
-                            <span class="btn-icon" aria-hidden="true">→</span>
-                        </a>
-                        <a href="#contact" class="btn btn-secondary" aria-label="Get in Touch">
-                            <span class="btn-text">Get in Touch</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="hero-scroll-indicator" aria-label="Scroll down">
-                    <div class="scroll-indicator-wrapper">
-                        <div class="scroll-indicator-line"></div>
-                        <div class="scroll-indicator-dot"></div>
-                    </div>
-                    <span class="scroll-indicator-text">Scroll</span>
-                </div>
+        <!-- hero visual with orbit and subtle animation -->
+        <aside class="hero-visual" aria-hidden="true">
+          <div class="orbit" role="img" aria-label="Orbit visual">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring orbit-ring--slow"></div>
+            <div class="orbit-core"></div>
+            <div class="orbit-label">software • logic • innovation</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-label="About">
+      <div class="container">
+        <h2 class="section-title reveal">About Me</h2>
+        <p class="section-sub reveal">
+          I treat Computer Science as both a language and a lens: precise, composable, and human-centered.
+        </p>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <!-- Paragraph 1 -->
+            <p class="reveal" data-delay="0.05">
+              <strong>Why Computer Science</strong> — Curiosity about systems, structured problem-solving,
+              and understanding fundamentals drives me. I enjoy tracing how small operations produce
+              large-scale behavior.
+            </p>
+
+            <!-- Paragraph 2 -->
+            <p class="reveal" data-delay="0.15">
+              <strong>How I Learn</strong> — I learn by building: prototypes, visualizations, and tests.
+              I prefer depth over breadth, focusing on edge cases, invariants, and readable code.
+            </p>
+
+            <!-- Paragraph 3 -->
+            <p class="reveal" data-delay="0.25">
+              <strong>Current Focus</strong> — Algorithm practice, small apps, and system-level thinking.
+              I experiment with visual tools to make abstract ideas tangible.
+            </p>
+
+            <!-- Paragraph 4 -->
+            <p class="reveal" data-delay="0.35">
+              <strong>Long-Term Perspective</strong> — Lifelong learning in CS and contributing meaningfully
+              to dependable systems that help people make better decisions.
+            </p>
+          </div>
+
+          <div class="about-illustration reveal" data-delay="0.45" aria-hidden="true">
+            <h3 class="about-illustration-title">How I approach a new idea</h3>
+            <div class="about-illustration-sub">
+              Understand, implement, test, refactor, and explain.
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="about-section section" id="about" aria-labelledby="about-heading">
-            <div class="section-container">
-                <header class="section-header">
-                    <span class="section-label">Background</span>
-                    <h2 class="section-heading" id="about-heading">About</h2>
-                </header>
-                
-                <div class="about-content">
-                    <div class="about-intro subsection">
-                        <div class="subsection-content">
-                            <p class="text-large">
-                                I approach computer science as a structured discipline built on fundamental principles rather than isolated techniques. My work emphasizes clarity, logical progression, and systematic problem decomposition.
-                            </p>
-                            <p class="text-medium">
-                                Rather than seeking shortcuts or surface-level implementations, I invest time in understanding core mechanisms—how algorithms function at their foundation, why certain data structures suit specific contexts, and how object-oriented principles enable maintainable system architecture. This deliberate approach has shaped both my learning methodology and my engineering philosophy.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="about-philosophy subsection">
-                        <h3 class="subsection-heading">Technical Philosophy</h3>
-                        <div class="subsection-content">
-                            <p class="text-medium">
-                                I believe that effective software engineering begins with disciplined thinking. Before writing code, I prioritize understanding the problem space completely—identifying constraints, edge cases, and potential failure modes. This upfront investment in comprehension consistently yields more robust solutions than reactive debugging.
-                            </p>
-                            <p class="text-medium">
-                                My preference for strongly typed languages like Java stems from their enforcement of explicit structure. The compilation process serves as an early verification layer, catching type mismatches and contract violations before runtime. This aligns with my broader belief that constraints, when thoughtfully applied, enhance rather than limit creative problem-solving.
-                            </p>
-                            <p class="text-medium">
-                                I view algorithms not as memorized recipes but as compositions of fundamental operations—comparisons, assignments, iterations, and recursions. By deconstructing complex algorithms into these atomic components, I can reason about time complexity, space requirements, and correctness proofs with greater precision. This granular understanding proves essential when adapting standard algorithms to domain-specific requirements.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="about-approach subsection">
-                        <h3 class="subsection-heading">Learning Approach</h3>
-                        <div class="subsection-content">
-                            <p class="text-medium">
-                                My learning process follows a deliberate cycle: study foundational concepts through authoritative sources, implement them in isolated environments to verify comprehension, then apply them within larger system contexts to understand integration challenges. This progression from theory to practice to application has proven more durable than alternative approaches.
-                            </p>
-                            <p class="text-medium">
-                                When encountering new data structures or algorithmic paradigms, I resist the temptation to immediately utilize library implementations. Instead, I first build minimal versions from scratch—implementing a binary search tree manually, coding sorting algorithms without external dependencies, or constructing graph traversal logic using only primitive data types. This hands-on construction phase solidifies understanding in ways that passive consumption cannot achieve.
-                            </p>
-                            <p class="text-medium">
-                                I maintain detailed documentation of my learning process—not as polished artifacts, but as working notes that capture decision points, alternative approaches considered, and lessons extracted from failures. These records serve dual purposes: they externalize my reasoning for future review, and they train me to articulate technical decisions clearly, a skill essential for collaborative engineering environments.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="about-mindset subsection">
-                        <h3 class="subsection-heading">Technical Mindset</h3>
-                        <div class="subsection-content">
-                            <p class="text-medium">
-                                I approach debugging as an investigative discipline. Rather than applying random fixes or immediately consulting external resources, I first instrument code with strategic logging, reproduce failures consistently, and form hypotheses about root causes. This systematic debugging methodology often reveals deeper issues than the surface symptom initially suggested.
-                            </p>
-                            <p class="text-medium">
-                                Performance optimization, in my view, requires measurement before modification. I've learned to profile code empirically rather than optimizing based on intuition, as actual bottlenecks frequently diverge from predicted ones. This data-driven approach extends to algorithm selection—choosing appropriate structures based on access patterns and scale requirements rather than theoretical ideals.
-                            </p>
-                            <p class="text-medium">
-                                Code readability represents a form of technical communication. I structure programs to minimize cognitive load for future readers—preferring explicit variable names over abbreviations, decomposing complex expressions into intermediate steps, and organizing logic to match conceptual flow. Well-architected code should read as a clear explanation of its own purpose, reducing the maintenance burden across a project's lifecycle.
-                            </p>
-                            <p class="text-medium">
-                                Ultimately, I view computer science as an intellectual discipline that demands rigor, patience, and continuous refinement. Each project serves as both a practical deliverable and a learning artifact—an opportunity to strengthen fundamental skills while producing functional systems. This dual perspective on work product ensures sustained growth alongside tangible output.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="about-illustration-diagram" role="list">
+              <span role="listitem">Read &amp; map the concept</span>
+              <span role="listitem">Build a small project</span>
+              <span role="listitem">Design edge cases</span>
+              <span role="listitem">Refactor &amp; document</span>
+              <span role="listitem">Explain to someone else</span>
             </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section class="skills-section section" id="skills" aria-labelledby="skills-heading">
-            <div class="section-container">
-                <header class="section-header">
-                    <span class="section-label">Technical Foundation</span>
-                    <h2 class="section-heading" id="skills-heading">Skills</h2>
-                </header>
-                
-                <div class="skills-content">
-                    <div class="skills-intro">
-                        <p class="text-large">
-                            My technical foundation emphasizes depth in core computer science principles rather than breadth across frameworks. These capabilities reflect deliberate practice in fundamental domains.
-                        </p>
-                    </div>
-
-                    <div class="skills-grid">
-                        <!-- Programming Languages Category -->
-                        <div class="skill-category">
-                            <div class="skill-category-header">
-                                <h3 class="skill-category-heading">Programming Languages</h3>
-                                <span class="skill-category-icon" aria-hidden="true">{ }</span>
-                            </div>
-                            <div class="skill-category-content">
-                                <p class="skill-category-description">
-                                    Primary languages chosen for their distinct characteristics and pedagogical value in understanding different programming paradigms.
-                                </p>
-                                <ul class="skill-list">
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Python</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Applied for algorithmic prototyping, data processing pipelines, and text analysis systems. Valued for its readable syntax that maps cleanly to pseudocode, facilitating rapid iteration during problem-solving phases.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Java</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Primary language for studying object-oriented design patterns, type systems, and large-scale program architecture. Strong typing discipline enforces explicit contracts and interface definitions.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">JavaScript</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Used for implementing algorithm visualizations and interactive demonstrations. Experience includes DOM manipulation, event-driven programming, and asynchronous control flow patterns.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Core Concepts Category -->
-                        <div class="skill-category">
-                            <div class="skill-category-header">
-                                <h3 class="skill-category-heading">Core Concepts</h3>
-                                <span class="skill-category-icon" aria-hidden="true">⊕</span>
-                            </div>
-                            <div class="skill-category-content">
-                                <p class="skill-category-description">
-                                    Fundamental computer science domains studied through implementation, analysis, and application to real problem spaces.
-                                </p>
-                                <ul class="skill-list">
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Algorithms</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Comprehensive study of sorting algorithms (merge sort, quick sort, heap sort), searching techniques (binary search, depth-first traversal, breadth-first traversal), and algorithmic paradigms including divide-and-conquer, dynamic programming, and greedy strategies. Emphasis on complexity analysis and proof of correctness.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Data Structures</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Practical experience implementing and applying linear structures (arrays, linked lists, stacks, queues), tree structures (binary search trees, heaps), hash tables, and graph representations. Understanding of when each structure provides optimal performance characteristics.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Object-Oriented Programming</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Applied knowledge of encapsulation, inheritance, polymorphism, and abstraction principles. Experience designing class hierarchies, defining interfaces, and applying design patterns to achieve code reusability and maintainability.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Algorithmic Thinking</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Systematic approach to problem decomposition: identifying subproblems, recognizing patterns that map to known algorithmic solutions, and constructing novel solutions by composing fundamental operations. Practiced through competitive programming exercises and project challenges.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Development Tools Category -->
-                        <div class="skill-category">
-                            <div class="skill-category-header">
-                                <h3 class="skill-category-heading">Development Tools</h3>
-                                <span class="skill-category-icon" aria-hidden="true">⚙</span>
-                            </div>
-                            <div class="skill-category-content">
-                                <p class="skill-category-description">
-                                    Essential tooling for version control, code editing, and development workflow management.
-                                </p>
-                                <ul class="skill-list">
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">Git</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Version control for project history tracking, branch management, and collaborative development workflows. Understanding of commit discipline, meaningful version histories, and conflict resolution strategies.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">VS Code</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Primary development environment configured for efficient code navigation, integrated debugging, and extension-based workflow optimization. Familiarity with keyboard-driven editing and workspace management.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Data Handling Category -->
-                        <div class="skill-category">
-                            <div class="skill-category-header">
-                                <h3 class="skill-category-heading">Data Handling</h3>
-                                <span class="skill-category-icon" aria-hidden="true">□</span>
-                            </div>
-                            <div class="skill-category-content">
-                                <p class="skill-category-description">
-                                    Practical experience with common data formats and introductory database interaction for persistence layers.
-                                </p>
-                                <ul class="skill-list">
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">CSV & JSON</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Parsing, transformation, and generation of structured data files. Experience includes data cleaning pipelines, format conversions, and serialization for application state persistence.
-                                        </p>
-                                    </li>
-                                    <li class="skill-item">
-                                        <div class="skill-item-header">
-                                            <span class="skill-name">SQL (Introductory)</span>
-                                        </div>
-                                        <p class="skill-description">
-                                            Foundational understanding of relational database concepts including schema design, query construction with SELECT statements, and basic join operations. Applied in projects requiring persistent data storage.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="projects-section section" id="projects" aria-labelledby="projects-heading">
-            <div class="section-container">
-                <header class="section-header">
-                    <span class="section-label">Selected Work</span>
-                    <h2 class="section-heading" id="projects-heading">Projects</h2>
-                </header>
-                
-                <div class="projects-intro">
-                    <p class="text-large">
-                        Each project represents an investigation into specific computer science domains. They prioritize clear implementation of fundamental concepts over feature complexity.
-                    </p>
-                </div>
-
-                <div class="projects-list">
-                    
-                    <!-- Project 1: Algorithm Visual Playground -->
-                    <article class="project-item" id="project-algorithm-visualizer">
-                        <div class="project-header">
-                            <div class="project-number">01</div>
-                            <h3 class="project-title">Algorithm Visual Playground</h3>
-                            <div class="project-meta">
-                                <span class="project-category">Educational Tool</span>
-                                <span class="project-year">2025</span>
-                            </div>
-                        </div>
-
-                        <div class="project-content">
-                            <div class="project-overview">
-                                <h4 class="project-section-heading">Overview</h4>
-                                <p class="project-description">
-                                    An interactive platform for visualizing fundamental algorithms through step-by-step execution. The system renders algorithm behavior as animated graphical representations, making abstract computational processes tangible and observable. Users can control execution speed, step through operations individually, and observe state changes at each iteration.
-                                </p>
-                                <p class="project-description">
-                                    The project emerged from a recognition that algorithm comprehension deepens significantly when students can observe intermediate states rather than only initial inputs and final outputs. By externalizing the execution model, the visualizer transforms algorithm study from passive reading into active investigation.
-                                </p>
-                            </div>
-
-                            <div class="project-details-grid">
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Problem Context</h4>
-                                    <p class="project-description">
-                                        Traditional algorithm education relies heavily on static code listings and textual descriptions of execution flow. While these resources convey the mechanics of an algorithm, they fail to illustrate the dynamic transformations that occur during execution. Students often struggle to internalize how data structures evolve across iterations, particularly for recursive algorithms where call stack visualization proves essential for comprehension.
-                                    </p>
-                                    <p class="project-description">
-                                        Existing visualization tools frequently prioritize visual polish over pedagogical clarity, introducing unnecessary complexity that obscures the underlying algorithm. This project aimed to create a minimal, distraction-free environment where the algorithm itself remains the primary focus, with visualizations serving as explanatory aids rather than decorative elements.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Implementation Approach</h4>
-                                    <p class="project-description">
-                                        The architecture separates algorithm logic from visualization rendering through a state management layer. Each algorithm implements a generator function that yields state snapshots at significant operations—comparisons, swaps, recursive calls, or data structure modifications. The visualization engine consumes these state snapshots and renders corresponding graphical updates.
-                                    </p>
-                                    <p class="project-description">
-                                        This separation ensures that algorithm implementations remain clean and readable, mirroring textbook pseudocode closely. The generator pattern allows algorithms to execute step-by-step without complex threading or callback structures, providing natural breakpoints for visualization updates. State snapshots include not only data values but also metadata about the current operation, enabling contextual annotations in the visual display.
-                                    </p>
-                                    <p class="project-description">
-                                        The rendering system employs canvas-based drawing for performance, particularly important when visualizing large datasets or rapid state changes. Transitions between states use interpolation to create smooth animations that guide the viewer's attention to relevant changes rather than forcing them to identify differences manually.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Algorithms Covered</h4>
-                                    <ul class="project-feature-list">
-                                        <li class="project-feature-item">
-                                            <strong>Sorting Algorithms:</strong> Implementations of bubble sort, selection sort, insertion sort, merge sort, quick sort, and heap sort. Each visualization highlights comparison operations, element movements, and partition boundaries. The merge sort visualization explicitly shows the divide and conquer process through tree representation.
-                                        </li>
-                                        <li class="project-feature-item">
-                                            <strong>Recursion Patterns:</strong> Visual call stack representation for recursive functions including factorial calculation, Fibonacci sequence generation, and Tower of Hanoi solution. The stack view shows activation records, parameter values, and return flow.
-                                        </li>
-                                        <li class="project-feature-item">
-                                            <strong>Graph Traversal:</strong> Breadth-first search and depth-first search visualized on configurable graph structures. The system animates frontier expansion, visited node tracking, and parent pointer updates used for path reconstruction.
-                                        </li>
-                                        <li class="project-feature-item">
-                                            <strong>Pathfinding:</strong> Implementation of Dijkstra's algorithm and A* search with weighted graphs. Visualization includes priority queue state, distance label updates, and final path highlighting once the target node is reached.
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Design Focus</h4>
-                                    <p class="project-description">
-                                        The interface prioritizes clarity through minimalism. Controls are limited to essential functions: play, pause, step forward, step backward, and speed adjustment. Algorithm selection uses a sidebar menu organized by category. The visualization area occupies maximum screen space, avoiding unnecessary chrome or decorative elements.
-                                    </p>
-                                    <p class="project-description">
-                                        Color coding follows consistent semantic meaning across all visualizations: elements currently being compared appear in one color, elements being moved in another, and already-sorted or visited elements in a third. This consistency reduces cognitive load when switching between different algorithms, as users can apply learned visual vocabulary universally.
-                                    </p>
-                                    <p class="project-description">
-                                        Annotations appear contextually during execution, explaining what operation is currently occurring without requiring users to consult separate documentation. These annotations are brief—typically a single sentence—and positioned adjacent to the relevant visual elements.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="project-tech">
-                                <h4 class="project-section-heading">Technical Stack</h4>
-                                <ul class="project-tech-list">
-                                    <li class="project-tech-item">Python for algorithm implementations and state generation logic</li>
-                                    <li class="project-tech-item">JavaScript for visualization engine and user interaction handling</li>
-                                    <li class="project-tech-item">HTML5 Canvas API for rendering performance-critical animations</li>
-                                    <li class="project-tech-item">Custom data structures including priority queues, adjacency lists, and tree representations</li>
-                                </ul>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kashishcs" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <span class="project-link-text">View on GitHub</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                                <a href="#" class="project-link project-link-disabled">
-                                    <span class="project-link-text">Live Demo</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 2: Plagiarism Checker -->
-                    <article class="project-item" id="project-plagiarism-checker">
-                        <div class="project-header">
-                            <div class="project-number">02</div>
-                            <h3 class="project-title">Plagiarism Detection System</h3>
-                            <div class="project-meta">
-                                <span class="project-category">Text Analysis</span>
-                                <span class="project-year">2025</span>
-                            </div>
-                        </div>
-
-                        <div class="project-content">
-                            <div class="project-overview">
-                                <h4 class="project-section-heading">Overview</h4>
-                                <p class="project-description">
-                                    A text comparison system that identifies potential plagiarism through multiple similarity detection algorithms. The tool accepts two text documents as input and produces a detailed similarity report including overall similarity scores, matching segments, and algorithm-specific analysis. The system demonstrates practical application of string algorithms, set operations, and statistical text processing techniques.
-                                </p>
-                                <p class="project-description">
-                                    Rather than relying on a single similarity metric, the system implements multiple complementary approaches that capture different aspects of text similarity. This multi-algorithm design provides more robust detection than any single method while also serving as an educational artifact that compares different algorithmic strategies for the same problem domain.
-                                </p>
-                            </div>
-
-                            <div class="project-details-grid">
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Text Preprocessing Pipeline</h4>
-                                    <p class="project-description">
-                                        Before similarity analysis, both documents undergo normalization to ensure consistent comparison. The preprocessing pipeline converts all text to lowercase, removes punctuation that doesn't contribute to semantic meaning, and normalizes whitespace. Optionally, the system can apply stemming to reduce words to their root forms, treating variations like "running," "runs," and "ran" as equivalent.
-                                    </p>
-                                    <p class="project-description">
-                                        This preprocessing phase is critical because raw text contains significant variability unrelated to actual content similarity—differences in capitalization, formatting, or inflectional word forms. By standardizing these surface-level features, the similarity algorithms can focus on substantive content comparison rather than stylistic variations.
-                                    </p>
-                                    <p class="project-description">
-                                        The system preserves the original text alongside the processed version, allowing the final report to highlight matching segments in their original form while performing similarity calculations on normalized text. This dual representation ensures both algorithmic correctness and user-friendly output.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Jaccard Similarity Algorithm</h4>
-                                    <p class="project-description">
-                                        Jaccard similarity treats each document as a set of unique tokens (typically words) and measures overlap as the ratio of shared tokens to total unique tokens across both documents. Formally, Jaccard similarity equals the size of the intersection divided by the size of the union of the two token sets.
-                                    </p>
-                                    <p class="project-description">
-                                        This metric excels at detecting documents with substantial vocabulary overlap regardless of word order. It's particularly effective for identifying cases where content has been paraphrased with synonyms but maintains similar overall vocabulary. However, Jaccard similarity ignores token frequency, treating words that appear once identically to words that appear dozens of times.
-                                    </p>
-                                    <p class="project-description">
-                                        Implementation uses hash sets for efficient set operations. Token insertion, intersection computation, and union calculation all operate in linear time relative to document size, making Jaccard similarity computationally economical even for large documents.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Cosine Similarity Algorithm</h4>
-                                    <p class="project-description">
-                                        Cosine similarity represents documents as vectors in high-dimensional space where each dimension corresponds to a unique token across both documents. Vector components indicate token frequency—typically using term frequency (raw count) or TF-IDF weighting. Similarity is computed as the cosine of the angle between the two document vectors.
-                                    </p>
-                                    <p class="project-description">
-                                        Unlike Jaccard similarity, cosine similarity accounts for token frequency, making it sensitive to documents that not only share vocabulary but use those words with similar emphasis. Documents with proportional word frequency distributions yield high cosine similarity even if absolute frequencies differ, making the metric robust to document length variations.
-                                    </p>
-                                    <p class="project-description">
-                                        The implementation constructs sparse vector representations using dictionaries that map tokens to frequencies. The cosine calculation involves computing dot product (sum of componentwise products) and vector magnitudes (square root of sum of squared components), both implementable in single passes through the token frequency maps.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Sequence Matching Algorithm</h4>
-                                    <p class="project-description">
-                                        Sequence matching identifies contiguous sequences of tokens that appear identically in both documents, using a longest common subsequence approach. This algorithm detects copied passages that maintain original word order, even if surrounded by different content.
-                                    </p>
-                                    <p class="project-description">
-                                        The implementation uses dynamic programming to build a similarity matrix where cell (i,j) represents the length of the longest common sequence ending at position i in document 1 and position j in document 2. Matching tokens extend the sequence length from the previous diagonal cell; mismatches reset to zero. Maximum values in this matrix indicate the longest shared sequences.
-                                    </p>
-                                    <p class="project-description">
-                                        After identifying matching sequences, the system performs backtracking to extract the actual text spans. The final report highlights these sequences in both documents, providing concrete evidence of potential plagiarism rather than abstract similarity scores. This visualization proves particularly valuable for human review of flagged document pairs.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Why Multiple Algorithms</h4>
-                                    <p class="project-description">
-                                        Each algorithm captures different plagiarism patterns. Jaccard similarity excels at detecting rewrites with similar vocabulary. Cosine similarity accounts for emphasis and structure through frequency weighting. Sequence matching catches verbatim copying of passages. By combining all three, the system provides comprehensive analysis that's less susceptible to evasion tactics like synonym substitution or sentence reordering.
-                                    </p>
-                                    <p class="project-description">
-                                        The multi-algorithm approach also serves pedagogical value, demonstrating how different mathematical formulations address the same high-level goal through distinct mechanisms. Users can observe how Jaccard and cosine metrics might yield different scores for the same document pair, building intuition about what each metric measures.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">System Architecture</h4>
-                                    <p class="project-description">
-                                        The codebase separates concerns into distinct modules: a preprocessing module handles text normalization, individual algorithm modules implement each similarity metric with clear input/output contracts, and a report generation module aggregates results and formats output. This modular architecture simplifies testing, as each algorithm can be validated independently using known test cases.
-                                    </p>
-                                    <p class="project-description">
-                                        Optional database integration allows the system to compare submitted documents against a corpus of previously analyzed texts, enabling detection of plagiarism from stored sources rather than just pairwise comparison. The database stores document identifiers and precomputed token sets or vectors, enabling efficient batch comparison without reprocessing the entire corpus for each new submission.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="project-tech">
-                                <h4 class="project-section-heading">Technical Stack</h4>
-                                <ul class="project-tech-list">
-                                    <li class="project-tech-item">Python for core algorithm implementations and text processing pipelines</li>
-                                    <li class="project-tech-item">String algorithms including tokenization, stemming, and normalization</li>
-                                    <li class="project-tech-item">Set operations and hash-based data structures for efficient comparison</li>
-                                    <li class="project-tech-item">Dynamic programming for sequence matching algorithms</li>
-                                    <li class="project-tech-item">Optional SQL integration for corpus-based comparison</li>
-                                    <li class="project-tech-item">JavaScript front-end for browser-based usage with file upload interface</li>
-                                </ul>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kashishcs" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <span class="project-link-text">View on GitHub</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                                <a href="#" class="project-link project-link-disabled">
-                                    <span class="project-link-text">Live Demo</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Project 3: Quiz Application -->
-                    <article class="project-item" id="project-quiz-app">
-                        <div class="project-header">
-                            <div class="project-number">03</div>
-                            <h3 class="project-title">Object-Oriented Quiz System</h3>
-                            <div class="project-meta">
-                                <span class="project-category">Educational Application</span>
-                                <span class="project-year">2025</span>
-                            </div>
-                        </div>
-
-                        <div class="project-content">
-                            <div class="project-overview">
-                                <h4 class="project-section-heading">Overview</h4>
-                                <p class="project-description">
-                                    An interactive quiz application designed as an exercise in object-oriented programming principles. The system manages question banks, tracks user responses, calculates scores, and generates detailed results reports. Beyond its functional purpose, the project serves as a demonstration of class hierarchy design, encapsulation, and separation of concerns in a multi-component application.
-                                </p>
-                                <p class="project-description">
-                                    The architecture prioritizes extensibility—adding new question types, scoring algorithms, or presentation modes requires minimal modification to existing code. This design philosophy reflects real-world software engineering where requirements evolve and systems must accommodate change without requiring complete rewrites.
-                                </p>
-                            </div>
-
-                            <div class="project-details-grid">
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Object-Oriented Architecture</h4>
-                                    <p class="project-description">
-                                        The system centers on a class hierarchy rooted in an abstract Question base class. This base class defines the interface that all concrete question types must implement: methods for displaying the question, validating user input, checking correctness, and retrieving point values. Specific question types—multiple choice, true/false, short answer, and multi-select—inherit from this base and provide their own implementations.
-                                    </p>
-                                    <p class="project-description">
-                                        This inheritance structure demonstrates the open/closed principle: the Quiz controller class operates on Question references without needing knowledge of specific question types. New question formats can be added by creating additional subclasses without modifying the core quiz logic, ensuring that extensions don't introduce regressions in existing functionality.
-                                    </p>
-                                    <p class="project-description">
-                                        A QuestionBank class manages collections of questions, providing methods for random selection, category-based filtering, and difficulty-based sorting. This encapsulation ensures that quiz assembly logic remains separate from individual question behavior, maintaining clean separation of concerns across the codebase.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Question Bank System</h4>
-                                    <p class="project-description">
-                                        Questions are stored in structured data files (JSON format) with schema validation to ensure consistency. Each question entry includes the question text, answer options (for multiple choice types), correct answer(s), point value, difficulty rating, and category tags. This metadata enables sophisticated quiz generation—creating quizzes that target specific topics or difficulty levels.
-                                    </p>
-                                    <p class="project-description">
-                                        The QuestionBank class loads these files at initialization, performing validation to catch malformed data before runtime. Questions are parsed into their appropriate subclass instances based on type indicators in the data file. This parsing logic is encapsulated within factory methods that instantiate the correct question subclass, isolating object creation logic from business logic.
-                                    </p>
-                                    <p class="project-description">
-                                        For applications requiring dynamic question sets, the system supports database-backed question storage. An abstract DataAdapter interface defines methods for question retrieval and storage, with concrete implementations for both file-based and database-backed persistence. The Quiz system depends only on this abstract interface, allowing transparent substitution of data sources without modifying quiz logic.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Quiz Session Management</h4>
-                                    <p class="project-description">
-                                        A Quiz class orchestrates the overall quiz experience. Upon initialization, it accepts a collection of Question objects and configuration parameters including time limits, whether to show immediate feedback, and scoring mode. The Quiz maintains state tracking the current question index, user responses, elapsed time, and whether the session has completed.
-                                    </p>
-                                    <p class="project-description">
-                                        The class provides methods for advancing to the next question, returning to previous questions, submitting answers, and retrieving the current question for display. This interface allows the presentation layer (UI) to remain thin—it need only call these methods and render the returned data, without implementing any quiz logic itself.
-                                    </p>
-                                    <p class="project-description">
-                                        Session state can be serialized to enable pause/resume functionality. The Quiz class exports its state as a data structure capturing current position, user responses, and time remaining. This structure can be persisted to browser storage or a database, then rehydrated later to resume the session from the exact point of interruption.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Scoring and Results Logic</h4>
-                                    <p class="project-description">
-                                        Scoring calculation is delegated to a separate ScoreCalculator class that implements different scoring strategies through a strategy pattern. The base strategy awards points for correct answers and zero points for incorrect ones. Alternative strategies implement negative scoring for wrong answers (discouraging guessing) or partial credit for multi-select questions where some but not all correct answers were selected.
-                                    </p>
-                                    <p class="project-description">
-                                        Results generation produces detailed reports beyond simple scores. The report includes per-question feedback showing what the user answered, the correct answer, and explanatory text for why that answer is correct. Aggregate statistics show performance by category and difficulty level, helping users identify areas needing additional study.
-                                    </p>
-                                    <p class="project-description">
-                                        The reporting system is templatable—a ResultsFormatter abstract class defines the structure of results output, with concrete implementations for plain text, HTML, and JSON formats. This allows the same quiz session to generate results appropriate for terminal display, web rendering, or API responses without duplicating logic.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Design Patterns Applied</h4>
-                                    <p class="project-description">
-                                        Beyond inheritance and polymorphism, the project demonstrates several classical design patterns. The factory pattern encapsulates question instantiation. The strategy pattern enables interchangeable scoring algorithms. The template method pattern structures the quiz flow—the Quiz class defines the overall sequence while delegating specific steps to subclass implementations.
-                                    </p>
-                                    <p class="project-description">
-                                        Observer pattern implementation allows external components to subscribe to quiz events—question answered, quiz completed, time warnings. This decoupling means UI components can react to events without the Quiz class maintaining explicit references to UI elements, reducing coupling between the model and view layers.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Educational Focus</h4>
-                                    <p class="project-description">
-                                        This project deliberately emphasizes structure and maintainability over feature richness. The codebase includes extensive inline documentation explaining why certain design decisions were made, making it serve double duty as both a functional application and a reference implementation of OOP principles.
-                                    </p>
-                                    <p class="project-description">
-                                        Each class maintains a single, well-defined responsibility. Methods are kept short and focused on one task. Dependencies are injected rather than hard-coded, facilitating testing and future refactoring. These practices reflect professional software engineering standards applied to an educational context.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="project-tech">
-                                <h4 class="project-section-heading">Technical Stack</h4>
-                                <ul class="project-tech-list">
-                                    <li class="project-tech-item">Python and Java implementations demonstrating OOP principles in different languages</li>
-                                    <li class="project-tech-item">Class inheritance hierarchies and abstract base classes</li>
-                                    <li class="project-tech-item">Design patterns including Factory, Strategy, Template Method, and Observer</li>
-                                    <li class="project-tech-item">JSON-based data persistence for question banks</li>
-                                    <li class="project-tech-item">Modular architecture with clear separation between model, controller, and view</li>
-                                </ul>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kashishcs" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <span class="project-link-text">View on GitHub</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                                <a href="#" class="project-link project-link-disabled">
-                                    <span class="project-link-text">Live Demo</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article> <!-- Project 4: Student Study Analyzer -->
-                    <article class="project-item" id="project-study-analyzer">
-                        <div class="project-header">
-                            <div class="project-number">04</div>
-                            <h3 class="project-title">Student Study Pattern Analyzer</h3>
-                            <div class="project-meta">
-                                <span class="project-category">Data Analysis Tool</span>
-                                <span class="project-year">2025</span>
-                            </div>
-                        </div>
-
-                        <div class="project-content">
-                            <div class="project-overview">
-                                <h4 class="project-section-heading">Overview</h4>
-                                <p class="project-description">
-                                    A data analysis system that processes student study logs to identify patterns, trends, and insights. The tool accepts structured data files containing study session records—including subjects, durations, times, and performance metrics—and generates analytical reports highlighting productivity patterns, subject-wise time allocation, and temporal trends in study behavior.
-                                </p>
-                                <p class="project-description">
-                                    The project demonstrates practical data processing skills including file parsing, data cleaning, statistical analysis, and insight generation. It transforms raw activity logs into actionable information that students can use to optimize their study strategies based on empirical evidence rather than subjective impressions.
-                                </p>
-                            </div>
-
-                            <div class="project-details-grid">
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Data Tracking and Structure</h4>
-                                    <p class="project-description">
-                                        Study sessions are recorded as structured data entries with standardized fields: timestamp (date and time of session), subject identifier, duration in minutes, session type (reading, problem-solving, review), and optional performance metrics (problems completed, accuracy percentage, comprehension self-rating). This structured format enables consistent parsing and analysis across arbitrary time periods.
-                                    </p>
-                                    <p class="project-description">
-                                        Data can be captured manually through a simple logging interface or automatically via integration with time-tracking applications. The system accepts both CSV and JSON input formats, with validation logic that checks for required fields, verifies data types, and flags anomalous entries (negative durations, future timestamps, invalid subject codes) for correction.
-                                    </p>
-                                    <p class="project-description">
-                                        Historical data accumulates over time, enabling longitudinal analysis. The system maintains data integrity through append-only logging—new sessions are added to the dataset without modifying existing entries, preserving a complete audit trail of study activity.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Pattern Identification Logic</h4>
-                                    <p class="project-description">
-                                        The analysis engine implements several pattern detection algorithms. Temporal clustering identifies preferred study times by grouping sessions into time-of-day buckets (morning, afternoon, evening, night) and calculating total duration and average session length for each period. This reveals whether a student is naturally more productive at certain times, information that can inform schedule optimization.
-                                    </p>
-                                    <p class="project-description">
-                                        Subject balance analysis computes the distribution of study time across different subjects. Visualization as a proportional breakdown highlights whether time allocation aligns with stated priorities or if certain subjects are being neglected. The system can flag significant imbalances—such as spending 80% of time on one subject while three others receive minimal attention—prompting rebalancing.
-                                    </p>
-                                    <p class="project-description">
-                                        Streak detection tracks consecutive days of study activity, identifying both sustained study periods and gaps. Long streaks indicate consistency, an important factor in long-term retention. Gap detection highlights periods of inactivity, which often correlate with decreased performance when study resumes. This metric encourages regular, distributed practice over cramming.
-                                    </p>
-                                    <p class="project-description">
-                                        Performance correlation analysis examines relationships between session characteristics (duration, time of day, session type) and performance metrics when available. For instance, the system might identify that problem-solving sessions in the morning yield higher accuracy than those late at night, suggesting optimal scheduling for intensive work.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Statistical Processing</h4>
-                                    <p class="project-description">
-                                        The system computes summary statistics including total study time, average session duration, median session length, and standard deviation. These aggregate metrics provide context for individual session evaluation—a single long session may be unremarkable if average sessions are lengthy, but noteworthy if typical sessions are brief.
-                                    </p>
-                                    <p class="project-description">
-                                        Trend analysis applies moving averages to smooth day-to-day variability and reveal longer-term patterns. A 7-day moving average of total daily study time shows whether overall study volume is increasing, decreasing, or stable. Comparing recent averages against historical baselines quantifies changes in study behavior.
-                                    </p>
-                                    <p class="project-description">
-                                        Percentile calculations identify outlier sessions. Sessions in the top 10% by duration might represent exceptional focus periods worth analyzing for replication. Sessions with unusually low performance despite adequate duration might indicate external factors affecting comprehension, prompting investigation into environmental or physiological conditions.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Insight Generation</h4>
-                                    <p class="project-description">
-                                        Beyond raw statistics, the system generates natural language insights that interpret the data. These insights follow conditional logic: if study time for a subject has decreased by more than 30% over two weeks, generate a warning about potential neglect. If performance metrics show consistent improvement in a subject, acknowledge the positive trend and encourage continuation.
-                                    </p>
-                                    <p class="project-description">
-                                        Comparative insights contextualize individual metrics against broader patterns. For example, "Your average morning session is 45 minutes, 50% longer than your evening sessions, and morning sessions show 15% higher problem accuracy." This comparison provides specific, actionable information rather than isolated statistics.
-                                    </p>
-                                    <p class="project-description">
-                                        Recommendation generation suggests concrete actions based on detected patterns. If analysis shows consistent study gaps on weekends, the system might recommend scheduling specific weekend time blocks. If certain subjects consistently receive less attention, it can propose reallocation targets to achieve more balanced coverage.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Data Visualization</h4>
-                                    <p class="project-description">
-                                        Results are presented through multiple visualization modes. Time-series charts display study duration over time, with subject-specific series showing how attention allocation evolves. Bar charts compare total time across subjects. Heatmaps visualize study activity across days and time blocks, revealing scheduling patterns at a glance.
-                                    </p>
-                                    <p class="project-description">
-                                        Visualizations emphasize clarity over aesthetics. Axes are clearly labeled with appropriate scales. Color coding is consistent and accessible (avoiding red-green combinations that are problematic for colorblind users). Legends explain all symbols and abbreviations used.
-                                    </p>
-                                </div>
-
-                                <div class="project-detail-section">
-                                    <h4 class="project-section-heading">Architecture and Extensibility</h4>
-                                    <p class="project-description">
-                                        The codebase separates data ingestion, analysis, and presentation into distinct modules. The ingestion layer handles file I/O and parsing, producing standardized internal data structures. The analysis layer operates on these structures, implementing statistical calculations and pattern detection. The presentation layer formats results for output without performing calculations itself.
-                                    </p>
-                                    <p class="project-description">
-                                        This modular design facilitates extension—adding new analysis algorithms requires implementing a single analysis module that conforms to the existing interface. New data sources can be integrated by writing additional parsers that produce the standard internal format. Output formats can be added through new presentation modules without modifying core logic.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="project-tech">
-                                <h4 class="project-section-heading">Technical Stack</h4>
-                                <ul class="project-tech-list">
-                                    <li class="project-tech-item">Python for data processing and statistical analysis</li>
-                                    <li class="project-tech-item">CSV and JSON parsing with schema validation</li>
-                                    <li class="project-tech-item">Statistical algorithms including moving averages, percentile calculations, and correlation analysis</li>
-                                    <li class="project-tech-item">Data visualization through charting libraries</li>
-                                    <li class="project-tech-item">Modular architecture supporting multiple input and output formats</li>
-                                </ul>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://github.com/kashishcs" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <span class="project-link-text">View on GitHub</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                                <a href="#" class="project-link project-link-disabled">
-                                    <span class="project-link-text">Live Demo</span>
-                                    <span class="project-link-icon" aria-hidden="true">↗</span>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="contact-section section" id="contact" aria-labelledby="contact-heading">
-            <div class="section-container">
-                <header class="section-header">
-                    <span class="section-label">Get in Touch</span>
-                    <h2 class="section-heading" id="contact-heading">Contact</h2>
-                </header>
-                
-                <div class="contact-content">
-                    <div class="contact-intro">
-                        <p class="text-large">
-                            I'm open to discussing computer science projects, technical collaborations, or academic opportunities.
-                        </p>
-                    </div>
-
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-method-label">Email</div>
-                            <a href="mailto:kashish.cs@outlook.com" class="contact-method-link">
-                                kashish.cs@outlook.com
-                            </a>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="contact-method-label">GitHub</div>
-                            <a href="https://github.com/kashishcs" class="contact-method-link" target="_blank" rel="noopener noreferrer">
-                                github.com/kashishcs
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    © 2025 Kashish. Built with discipline and attention to structure.
-                </p>
-            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
+    <!-- SKILLS -->
+    <section id="skills" class="section" aria-label="Skills">
+      <div class="container">
+        <h2 class="section-title reveal">Skills &amp; Tools</h2>
+        <p class="section-sub reveal">
+          These are areas where I’ve built hands-on experience through projects and practice.
+          I focus on principles and applying them to real problems.
+        </p>
+
+        <div class="skills-grid">
+          <!-- Programming Foundations -->
+          <article class="skills-card reveal" data-delay="0.05" aria-labelledby="sfTitle1">
+            <h3 id="sfTitle1" class="skills-card-title">Programming Foundations</h3>
+            <p class="skills-card-desc">Core languages and paradigms used for algorithms and prototyping.</p>
+            <div class="skills-list">
+              <button class="skill-pill" data-tooltip="Primary for algorithms and rapid prototyping.">Python</button>
+              <button class="skill-pill" data-tooltip="Front-end interactivity and small tools.">JavaScript</button>
+              <button class="skill-pill" data-tooltip="Performance and memory-aware thinking.">C++</button>
+              <button class="skill-pill" data-tooltip="Object-oriented design practice.">Java</button>
+            </div>
+          </article>
+
+          <!-- Computational Thinking -->
+          <article class="skills-card reveal" data-delay="0.12" aria-labelledby="sfTitle2">
+            <h3 id="sfTitle2" class="skills-card-title">Computational Thinking</h3>
+            <p class="skills-card-desc">Designing solutions with complexity, correctness, and readability in mind.</p>
+            <div class="skills-list">
+              <button class="skill-pill" data-tooltip="Structures that shape algorithms.">Data Structures</button>
+              <button class="skill-pill" data-tooltip="From brute force to optimized solutions.">Algorithms</button>
+              <button class="skill-pill" data-tooltip="Breaking problems into testable parts.">Problem Decomposition</button>
+              <button class="skill-pill" data-tooltip="Code that others can read and maintain.">Readable Code</button>
+            </div>
+          </article>
+
+          <!-- Tools & Environment -->
+          <article class="skills-card reveal" data-delay="0.19" aria-labelledby="sfTitle3">
+            <h3 id="sfTitle3" class="skills-card-title">Tools &amp; Environment</h3>
+            <p class="skills-card-desc">Tools that make development and collaboration reliable and repeatable.</p>
+            <div class="skills-list">
+              <button class="skill-pill" data-tooltip="Branching, commits, and collaboration.">Git &amp; Version Control</button>
+              <button class="skill-pill" data-tooltip="Terminal workflows and scripting.">Command Line</button>
+              <button class="skill-pill" data-tooltip="Daily editor for development.">VS Code</button>
+              <button class="skill-pill" data-tooltip="Basic shell and system understanding.">Linux Basics</button>
+            </div>
+          </article>
+
+          <!-- Web & App Development -->
+          <article class="skills-card reveal" data-delay="0.26" aria-labelledby="sfTitle4">
+            <h3 id="sfTitle4" class="skills-card-title">Web &amp; App Development</h3>
+            <p class="skills-card-desc">Small interactive apps and front-end experiments to visualize ideas.</p>
+            <div class="skills-list">
+              <button class="skill-pill" data-tooltip="Structure and style for responsive pages.">HTML &amp; CSS</button>
+              <button class="skill-pill" data-tooltip="Component-based UI fundamentals.">React Basics</button>
+              <button class="skill-pill" data-tooltip="DOM manipulation and events.">JavaScript DOM</button>
+              <button class="skill-pill" data-tooltip="Simple server-side logic and APIs.">Node.js Basics</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section projects-section" aria-label="Projects">
+      <div class="container">
+        <h2 class="section-title reveal">Projects</h2>
+        <p class="section-sub reveal">
+          Projects that make abstract concepts concrete and teach through building.
+        </p>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project-card reveal" data-delay="0.05" aria-labelledby="p1">
+            <div class="project-meta">Algorithms • Visualization</div>
+            <h3 id="p1" class="project-title">Algorithm Visual Playground</h3>
+            <p class="project-description">
+              Interactive visualizations for sorting, recursion, BFS/DFS, and pathfinding to compare strategies and step counts.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Sorting</span>
+              <span class="project-tag">Recursion</span>
+              <span class="project-tag">Pathfinding</span>
+            </div>
+            <div class="project-tech-icons">Python / JavaScript • Canvas • Data Structures</div>
+            <div class="project-actions">
+              <a class="project-link" href="#" aria-label="Open Algorithm Visual Playground">Live demo</a>
+              <a class="project-link" href="#" aria-label="View repository for Algorithm Visual Playground">Source</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card reveal" data-delay="0.12" aria-labelledby="p2">
+            <div class="project-meta">Text Analysis • Similarity</div>
+            <h3 id="p2" class="project-title">Plagiarism Checker</h3>
+            <p class="project-description">
+              Compares documents using Jaccard, cosine similarity, and sequence matching to highlight overlaps and encourage original work.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Jaccard</span>
+              <span class="project-tag">Cosine</span>
+              <span class="project-tag">Sequence</span>
+            </div>
+            <div class="project-tech-icons">Python • difflib • Optional SQL</div>
+            <div class="project-actions">
+              <a class="project-link" href="#" aria-label="Open Plagiarism Checker demo">Live demo</a>
+              <a class="project-link" href="#" aria-label="View repository for Plagiarism Checker">Source</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card reveal" data-delay="0.19" aria-labelledby="p3">
+            <div class="project-meta">Assessment • OOP</div>
+            <h3 id="p3" class="project-title">Quiz App</h3>
+            <p class="project-description">
+              Multiple-choice quiz with scoring, question bank, and performance summary designed with OOP principles.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Question Bank</span>
+              <span class="project-tag">Scoring</span>
+              <span class="project-tag">OOP</span>
+            </div>
+            <div class="project-tech-icons">Python / Java • CLI or GUI</div>
+            <div class="project-actions">
+              <a class="project-link" href="#" aria-label="Open Quiz App demo">Live demo</a>
+              <a class="project-link" href="#" aria-label="View repository for Quiz App">Source</a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card reveal" data-delay="0.26" aria-labelledby="p4">
+            <div class="project-meta">Data • Habits</div>
+            <h3 id="p4" class="project-title">Student Study Analyzer</h3>
+            <p class="project-description">
+              Tracks study sessions and visualizes productivity patterns to help students reason about their habits.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">CSV</span>
+              <span class="project-tag">JSON</span>
+              <span class="project-tag">Charts</span>
+            </div>
+            <div class="project-tech-icons">Python • CSV/JSON • Charts</div>
+            <div class="project-actions">
+              <a class="project-link" href="#" aria-label="Open Student Study Analyzer demo">Live demo</a>
+              <a class="project-link" href="#" aria-label="View repository for Student Study Analyzer">Source</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-label="Contact">
+      <div class="container">
+        <h2 class="section-title reveal">Contact</h2>
+        <p class="section-sub reveal">
+          I’m open to conversations about algorithms, systems, and educational tools.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-links reveal" data-delay="0.05">
+            <div class="contact-item">📧 <a href="mailto:kashish@example.com">kashish@example.com</a></div>
+            <div class="contact-item">🔗 <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">linkedin.com/in/kashish</a></div>
+            <div class="contact-item">💻 <a href="https://github.com" target="_blank" rel="noreferrer">github.com/kashish</a></div>
+          </div>
+
+          <aside class="contact-card reveal" data-delay="0.12">
+            <strong>What I’m looking for</strong>
+            <p>
+              Opportunities that value curiosity and rigor equally: clean abstractions, thoughtful systems,
+              and educational impact.
+            </p>
+          </aside>
+        </div>
+
+        <footer id="siteFooter" class="site-footer" role="contentinfo">
+          © <span class="footer-name">Kashish</span> 2025 | Ahmedabad, India
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+  <script src="script.js" defer></script>
 </body>
 </html>
