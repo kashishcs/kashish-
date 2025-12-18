@@ -1,357 +1,1184 @@
+<!--
+  PART 1 of 2
+  File: index.html (part 1)
+  Purpose: First half of a long, fully-detailed, light-themed portfolio HTML for "Kashish"
+  Notes:
+    - This is Part 1 of a two-part HTML split. Save both parts and concatenate (Part1 then Part2)
+      to form the complete HTML file if you want a single file.
+    - The document is intentionally verbose with many comments, realistic content, demo snippets,
+      and placeholders to reach the requested "substantial" size and to make the structure clear.
+    - Replace placeholder links, images, and demo code with real content as needed.
+    - Part 2 will continue and complete the HTML (closing tags, additional sections, extended content).
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- =========================
-       META & BASIC SETTINGS
-       ========================= -->
+  <!--
+    Head block: metadata, fonts, critical CSS link, and small inline critical styles.
+    Part 1 includes the head and the beginning of the body. Part 2 will include the remainder.
+  -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kashish — Computer Science Portfolio</title>
-  <meta name="description" content="Portfolio of Kashish, 12th-grade Computer Science student — algorithms, systems, and web projects." />
-  <meta name="color-scheme" content="dark" />
+  <title>Kashish — Computer Science Portfolio (Part 1)</title>
+  <meta name="description" content="Portfolio of Kashish, a 12th-grade Computer Science student. Light pastel theme, accessible, and MIT-friendly." />
+  <meta name="color-scheme" content="light dark" />
 
-  <!-- =========================
-       FONTS
-       ========================= -->
+  <!-- Google Fonts: Poppins for headings, Inter for body -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- =========================
-       STYLESHEET
-       ========================= -->
+  <!-- Link to external stylesheet (styles.css) if you split CSS; otherwise inline CSS can be added in Part 2 -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- =========================
-       PRELOAD KEY ASSETS
-       ========================= -->
-  <link rel="preload" href="assets/placeholder.svg" as="image" />
+  <!-- Inline critical CSS to avoid FOIT for hero -->
+  <style>
+    :root {
+      --bg-1: #f7fbff;
+      --bg-2: #f0f4ff;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --accent-1: #cfe8ff;
+      --accent-2: #ffeef3;
+      --accent-3: #eafaf6;
+      --card: #ffffff;
+      --radius: 12px;
+      --nav-h: 72px;
+      --max-w: 1100px;
+    }
+    html { background: linear-gradient(180deg, var(--bg-1), var(--bg-2)); }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; color: var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.25rem; }
+    /* Minimal hero critical styles so the page looks acceptable before full CSS loads */
+    .hero { min-height: calc(100vh - var(--nav-h)); padding-top: calc(var(--nav-h) + 2rem); display: flex; align-items: center; }
+    .hero-name { font-family: Poppins, Inter, system-ui; font-size: clamp(2.4rem, 5vw, 3.6rem); margin: 0 0 .6rem; font-weight: 700; }
+  </style>
+
+  <!-- Accessibility: prefer-reduced-motion hint -->
+  <meta name="prefers-reduced-motion" content="no-preference" />
 </head>
+
 <body>
-  <!-- =========================
-       GALAXY BACKGROUND LAYERS
-       ========================= -->
-  <div class="galaxy-overlay" aria-hidden="true"></div>
-  <div class="stars-layer" aria-hidden="true"></div>
+  <!--
+    Global UI elements:
+      - scroll progress bar
+      - accessible skip link
+      - header/navigation
+    Comments are intentionally verbose to help reviewers understand structure.
+  -->
 
-  <!-- =========================
-       SCROLL PROGRESS
-       ========================= -->
-  <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
 
-  <!-- =========================
-       HEADER NAVIGATION
-       ========================= -->
-  <header class="site-header" role="banner">
-    <div class="container nav-inner">
-      <div class="logo" aria-label="Kashish portfolio">Kashish</div>
+  <!-- Scroll progress indicator (thin pastel line) -->
+  <div id="scrollProgress" class="scroll-progress" aria-hidden="true" style="position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#cfe8ff,#eafaf6);z-index:9999;border-radius:0 8px 8px 0;"></div>
 
-      <!-- Accessible nav toggle -->
-      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Open navigation">
-        <span></span><span></span><span></span>
+  <!-- Header / Navigation -->
+  <header class="site-header" role="banner" style="position:fixed;top:0;left:0;right:0;height:72px;z-index:80;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,244,255,0.9));backdrop-filter:blur(6px);border-bottom:1px solid rgba(15,23,42,0.04);">
+    <div class="container nav-inner" style="display:flex;align-items:center;justify-content:space-between;height:100%;">
+      <div class="brand" style="display:flex;align-items:center;gap:0.75rem;">
+        <a href="#hero" class="logo" aria-label="Kashish homepage" style="font-family:Poppins;font-weight:700;font-size:1.05rem;color:var(--text);text-decoration:none;">Kashish</a>
+        <span class="role" style="font-size:0.85rem;color:var(--muted);">Computer Science Student</span>
+      </div>
+
+      <!-- Mobile nav toggle -->
+      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation" style="display:none;background:none;border:0;padding:8px;cursor:pointer;">
+        <span class="bar" style="display:block;width:22px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;"></span>
+        <span class="bar" style="display:block;width:22px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;"></span>
+        <span class="bar" style="display:block;width:22px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;"></span>
       </button>
 
-      <nav id="primaryNav" class="nav-links" role="navigation" aria-label="Primary">
-        <a class="nav-link" href="#about">About</a>
-        <a class="nav-link" href="#skills">Skills</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#contact">Contact</a>
+      <!-- Primary navigation -->
+      <nav id="primaryNav" class="nav-links" role="navigation" aria-label="Primary" style="display:flex;gap:1.25rem;align-items:center;">
+        <a class="nav-link" href="#about" style="padding:8px 0;color:var(--muted);text-decoration:none;position:relative;">About</a>
+        <a class="nav-link" href="#skills" style="padding:8px 0;color:var(--muted);text-decoration:none;position:relative;">Skills</a>
+        <a class="nav-link" href="#projects" style="padding:8px 0;color:var(--muted);text-decoration:none;position:relative;">Projects</a>
+        <a class="nav-link" href="#contact" style="padding:8px 0;color:var(--muted);text-decoration:none;position:relative;">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- =========================
-       MAIN CONTENT
-       ========================= -->
-  <main>
-    <!-- HERO -->
-    <section id="hero" class="hero" role="region" aria-label="Hero">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <!-- small tag -->
-          <div class="hero-tag" aria-hidden="true">
-            <span class="dot" aria-hidden="true"></span>
-            12th Grade • Computer Science
-          </div>
+  <!-- Main content anchor for skip link -->
+  <main id="main" tabindex="-1" style="margin-top:72px;">
 
-          <!-- animated name -->
-          <h1 class="hero-name" id="heroName">Kashish</h1>
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero" role="region" aria-label="Hero" style="padding:3rem 0;">
+      <div class="container hero-inner" style="display:grid;grid-template-columns:1fr 380px;gap:2.25rem;align-items:center;">
+        <!-- Left column: text -->
+        <div class="hero-left" style="padding-right:1rem;">
+          <p class="eyebrow" style="margin:0 0 .6rem;font-size:0.9rem;color:var(--muted);">12th Grade • Computer Science</p>
 
-          <!-- typewriter tagline -->
-          <div class="hero-tagline" id="heroTagline" aria-hidden="true">
-            Computer Science Student | Software, Logic &amp; Innovation
-          </div>
+          <!-- Animated name: fade + scale (CSS animation applied in styles.css) -->
+          <h1 class="hero-name" id="heroName" style="margin:0 0 .6rem;font-family:Poppins;font-weight:700;">Kashish</h1>
 
-          <!-- short description -->
-          <p class="hero-desc">
+          <!-- Tagline: typewriter/fade -->
+          <p class="hero-tagline" id="heroTagline" style="margin:0 0 1rem;color:var(--muted);font-weight:600;">Computer Science Student | Software, Logic &amp; Innovation</p>
+
+          <p class="hero-desc" style="margin:0 0 1.25rem;color:var(--muted);max-width:56ch;">
             I build clear, testable programs and explore how algorithms and systems scale.
-            I focus on depth, correctness, and thoughtful design.
+            I focus on depth, correctness, and thoughtful design. Below are projects and skills
+            that reflect my approach to learning and building.
           </p>
 
-          <!-- CTA buttons -->
-          <div class="hero-actions">
-            <button class="btn-primary" data-scroll="#contact" id="contactCta" aria-label="Contact Kashish">
-              Contact Me
-              <span class="btn-icon">↗</span>
-            </button>
-            <button class="btn-secondary" data-scroll="#projects" aria-label="View Projects">
-              View Projects
-            </button>
+          <div class="hero-ctas" style="display:flex;gap:0.8rem;">
+            <button class="btn btn-primary" data-scroll="#contact" style="font-weight:600;border-radius:999px;padding:0.6rem 1rem;border:1px solid rgba(15,23,42,0.06);background:linear-gradient(90deg,#cfe8ff,#eafaf6);cursor:pointer;">Contact Me</button>
+            <button class="btn btn-ghost" data-scroll="#projects" style="font-weight:600;border-radius:999px;padding:0.6rem 1rem;border:1px solid rgba(15,23,42,0.06);background:transparent;cursor:pointer;">View Projects</button>
           </div>
 
-          <!-- meta -->
-          <div class="hero-meta" aria-hidden="true">
-            <span><strong>Focus:</strong> algorithms, data, systems thinking</span>
-            <span><strong>Location:</strong> Ahmedabad, India</span>
+          <div class="hero-meta" style="display:flex;gap:1rem;color:var(--muted);margin-top:1.25rem;">
+            <span>Focus: algorithms, data, systems thinking</span>
+            <span>Ahmedabad, India</span>
           </div>
         </div>
 
-        <!-- hero visual with orbit and subtle animation -->
-        <aside class="hero-visual" aria-hidden="true">
-          <div class="orbit" role="img" aria-label="Orbit visual">
-            <div class="orbit-ring"></div>
-            <div class="orbit-ring orbit-ring--slow"></div>
-            <div class="orbit-core"></div>
-            <div class="orbit-label">software • logic • innovation</div>
+        <!-- Right column: soft pastel illustration -->
+        <aside class="hero-right" aria-hidden="true" style="display:flex;justify-content:center;">
+          <div class="illustration-card" style="background:var(--card);border-radius:12px;padding:1rem;box-shadow:0 8px 24px rgba(15,23,42,0.06);display:flex;flex-direction:column;align-items:center;gap:0.6rem;">
+            <!-- Inline SVG illustration (soft pastel shapes) -->
+            <svg width="320" height="220" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract pastel illustration">
+              <rect x="0" y="0" width="320" height="220" rx="18" fill="#f0f6ff"/>
+              <g opacity="0.95">
+                <circle cx="80" cy="70" r="36" fill="#ffeef3"/>
+                <rect x="140" y="40" width="120" height="80" rx="12" fill="#eafaf6"/>
+                <path d="M40 160c30-20 80-20 120 0s80 20 120 0" stroke="#cfe8ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </svg>
+            <div class="illustration-caption" style="font-size:0.85rem;color:var(--muted);">Soft visual metaphor for systems &amp; layers</div>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section" aria-label="About">
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section about" aria-label="About" style="padding:3.5rem 0;">
       <div class="container">
-        <h2 class="section-title reveal">About Me</h2>
-        <p class="section-sub reveal">
-          I treat Computer Science as both a language and a lens: precise, composable, and human-centered.
-        </p>
+        <h2 class="section-title" style="font-family:Poppins;font-size:1.4rem;margin-bottom:0.4rem;">About Me</h2>
+        <p class="section-sub" style="color:var(--muted);margin-bottom:1.25rem;">I treat Computer Science as both a language and a lens: precise, composable, and human-centered.</p>
 
-        <div class="about-grid">
+        <div class="about-grid" style="display:grid;grid-template-columns:1fr 320px;gap:1.6rem;align-items:start;">
+          <!-- Left: paragraphs with staggered reveal -->
           <div class="about-text">
-            <!-- Paragraph 1 -->
-            <p class="reveal" data-delay="0.05">
-              <strong>Why Computer Science</strong> — Curiosity about systems, structured problem-solving,
-              and understanding fundamentals drives me. I enjoy tracing how small operations produce
-              large-scale behavior.
-            </p>
+            <!-- Paragraph 1: Why CS -->
+            <article class="about-paragraph reveal" data-delay="0.05" style="margin-bottom:1rem;">
+              <h3 style="margin:0 0 0.4rem;font-family:Poppins;font-size:1.05rem;">Why Computer Science</h3>
+              <p style="color:var(--muted);margin:0;">
+                Curiosity about systems and structured problem-solving drew me to CS. I enjoy tracing how
+                small operations produce large-scale behavior and designing solutions that are robust and clear.
+              </p>
+            </article>
 
-            <!-- Paragraph 2 -->
-            <p class="reveal" data-delay="0.15">
-              <strong>How I Learn</strong> — I learn by building: prototypes, visualizations, and tests.
-              I prefer depth over breadth, focusing on edge cases, invariants, and readable code.
-            </p>
+            <!-- Paragraph 2: How I Learn -->
+            <article class="about-paragraph reveal" data-delay="0.15" style="margin-bottom:1rem;">
+              <h3 style="margin:0 0 0.4rem;font-family:Poppins;font-size:1.05rem;">How I Learn</h3>
+              <p style="color:var(--muted);margin:0;">
+                I learn by building: prototypes, visualizations, and tests. I prefer depth over breadth,
+                focusing on edge cases, invariants, and readable code that others can follow.
+              </p>
+            </article>
 
-            <!-- Paragraph 3 -->
-            <p class="reveal" data-delay="0.25">
-              <strong>Current Focus</strong> — Algorithm practice, small apps, and system-level thinking.
-              I experiment with visual tools to make abstract ideas tangible.
-            </p>
+            <!-- Paragraph 3: Current Focus -->
+            <article class="about-paragraph reveal" data-delay="0.25" style="margin-bottom:1rem;">
+              <h3 style="margin:0 0 0.4rem;font-family:Poppins;font-size:1.05rem;">Current Focus</h3>
+              <p style="color:var(--muted);margin:0;">
+                Algorithm practice, small apps, and system-level thinking. I build tools that make abstract
+                ideas tangible—visualizations, analyzers, and small utilities that help people reason about data.
+              </p>
+            </article>
 
-            <!-- Paragraph 4 -->
-            <p class="reveal" data-delay="0.35">
-              <strong>Long-Term Perspective</strong> — Lifelong learning in CS and contributing meaningfully
-              to dependable systems that help people make better decisions.
-            </p>
+            <!-- Paragraph 4: Long-Term Perspective -->
+            <article class="about-paragraph reveal" data-delay="0.35" style="margin-bottom:1rem;">
+              <h3 style="margin:0 0 0.4rem;font-family:Poppins;font-size:1.05rem;">Long-Term Perspective</h3>
+              <p style="color:var(--muted);margin:0;">
+                Lifelong learning in CS and contributing meaningfully to dependable systems that help people
+                make better decisions.
+              </p>
+            </article>
           </div>
 
-          <div class="about-illustration reveal" data-delay="0.45" aria-hidden="true">
-            <h3 class="about-illustration-title">How I approach a new idea</h3>
-            <div class="about-illustration-sub">
-              Understand, implement, test, refactor, and explain.
-            </div>
-            <div class="about-illustration-diagram" role="list">
-              <span role="listitem">Read &amp; map the concept</span>
-              <span role="listitem">Build a small project</span>
-              <span role="listitem">Design edge cases</span>
-              <span role="listitem">Refactor &amp; document</span>
-              <span role="listitem">Explain to someone else</span>
+          <!-- Right: approach card -->
+          <div class="about-visual reveal" data-delay="0.45" aria-hidden="true">
+            <div class="card" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.06);border:1px solid rgba(15,23,42,0.03);">
+              <h4 style="margin:0 0 0.6rem;font-family:Poppins;">How I approach a new idea</h4>
+              <ol style="margin:0;color:var(--muted);padding-left:1.1rem;">
+                <li>Read &amp; map the concept</li>
+                <li>Build a small project</li>
+                <li>Design edge cases &amp; tests</li>
+                <li>Refactor &amp; document</li>
+                <li>Explain to someone else</li>
+              </ol>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="section" aria-label="Skills">
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="section skills" aria-label="Skills" style="padding:3.5rem 0;">
       <div class="container">
-        <h2 class="section-title reveal">Skills &amp; Tools</h2>
-        <p class="section-sub reveal">
-          These are areas where I’ve built hands-on experience through projects and practice.
-          I focus on principles and applying them to real problems.
-        </p>
+        <h2 class="section-title" style="font-family:Poppins;font-size:1.4rem;margin-bottom:0.4rem;">Skills &amp; Tools</h2>
+        <p class="section-sub" style="color:var(--muted);margin-bottom:1.25rem;">These are areas where I’ve built hands-on experience through projects and practice. I focus on principles and applying them to real problems.</p>
 
-        <div class="skills-grid">
-          <!-- Programming Foundations -->
-          <article class="skills-card reveal" data-delay="0.05" aria-labelledby="sfTitle1">
-            <h3 id="sfTitle1" class="skills-card-title">Programming Foundations</h3>
-            <p class="skills-card-desc">Core languages and paradigms used for algorithms and prototyping.</p>
-            <div class="skills-list">
-              <button class="skill-pill" data-tooltip="Primary for algorithms and rapid prototyping.">Python</button>
-              <button class="skill-pill" data-tooltip="Front-end interactivity and small tools.">JavaScript</button>
-              <button class="skill-pill" data-tooltip="Performance and memory-aware thinking.">C++</button>
-              <button class="skill-pill" data-tooltip="Object-oriented design practice.">Java</button>
+        <div class="skills-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+          <!-- Programming Foundations card -->
+          <article class="skills-card reveal" data-delay="0.05" aria-labelledby="sf1" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.06);border:1px solid rgba(15,23,42,0.03);">
+            <h3 id="sf1" class="card-title" style="font-family:Poppins;margin-bottom:0.4rem;">Programming Foundations</h3>
+            <p class="card-desc" style="color:var(--muted);margin-bottom:0.6rem;">Core languages and paradigms used for algorithms and prototyping.</p>
+
+            <div class="skill-pills" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem;">
+              <button class="pill" data-tooltip="Primary for algorithms and rapid prototyping." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Python</button>
+              <button class="pill" data-tooltip="Front-end interactivity and small tools." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">JavaScript</button>
+              <button class="pill" data-tooltip="Performance and memory-aware thinking." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">C++</button>
+              <button class="pill" data-tooltip="Object-oriented design practice." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Java</button>
+            </div>
+
+            <!-- Skill bars (animated in CSS/JS) -->
+            <div class="skill-bars" style="margin-top:0.6rem;">
+              <div class="skill-bar" style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+                <label style="width:110px;font-size:0.85rem;color:var(--muted);">Python</label>
+                <div class="bar" style="flex:1;height:10px;background:linear-gradient(90deg, rgba(15,23,42,0.04), rgba(15,23,42,0.02));border-radius:999px;overflow:hidden;">
+                  <div class="fill" style="height:100%;width:85%;background:linear-gradient(90deg,#cfe8ff,#eafaf6);border-radius:999px;transition:width .6s;"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar" style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+                <label style="width:110px;font-size:0.85rem;color:var(--muted);">JavaScript</label>
+                <div class="bar" style="flex:1;height:10px;background:linear-gradient(90deg, rgba(15,23,42,0.04), rgba(15,23,42,0.02));border-radius:999px;overflow:hidden;">
+                  <div class="fill" style="height:100%;width:70%;background:linear-gradient(90deg,#cfe8ff,#eafaf6);border-radius:999px;transition:width .6s;"></div>
+                </div>
+              </div>
             </div>
           </article>
 
-          <!-- Computational Thinking -->
-          <article class="skills-card reveal" data-delay="0.12" aria-labelledby="sfTitle2">
-            <h3 id="sfTitle2" class="skills-card-title">Computational Thinking</h3>
-            <p class="skills-card-desc">Designing solutions with complexity, correctness, and readability in mind.</p>
-            <div class="skills-list">
-              <button class="skill-pill" data-tooltip="Structures that shape algorithms.">Data Structures</button>
-              <button class="skill-pill" data-tooltip="From brute force to optimized solutions.">Algorithms</button>
-              <button class="skill-pill" data-tooltip="Breaking problems into testable parts.">Problem Decomposition</button>
-              <button class="skill-pill" data-tooltip="Code that others can read and maintain.">Readable Code</button>
+          <!-- Computational Thinking card -->
+          <article class="skills-card reveal" data-delay="0.12" aria-labelledby="sf2" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.06);border:1px solid rgba(15,23,42,0.03);">
+            <h3 id="sf2" class="card-title" style="font-family:Poppins;margin-bottom:0.4rem;">Computational Thinking</h3>
+            <p class="card-desc" style="color:var(--muted);margin-bottom:0.6rem;">Designing solutions with complexity, correctness, and readability in mind.</p>
+
+            <div class="skill-pills" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem;">
+              <button class="pill" data-tooltip="Structures that shape algorithms." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Data Structures</button>
+              <button class="pill" data-tooltip="From brute force to optimized solutions." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Algorithms</button>
+              <button class="pill" data-tooltip="Breaking problems into testable parts." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Problem Decomposition</button>
+              <button class="pill" data-tooltip="Code that others can read and maintain." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Readable Code</button>
+            </div>
+
+            <div class="skill-bars" style="margin-top:0.6rem;">
+              <div class="skill-bar" style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+                <label style="width:110px;font-size:0.85rem;color:var(--muted);">Algorithms</label>
+                <div class="bar" style="flex:1;height:10px;background:linear-gradient(90deg, rgba(15,23,42,0.04), rgba(15,23,42,0.02));border-radius:999px;overflow:hidden;">
+                  <div class="fill" style="height:100%;width:78%;background:linear-gradient(90deg,#cfe8ff,#eafaf6);border-radius:999px;transition:width .6s;"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar" style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+                <label style="width:110px;font-size:0.85rem;color:var(--muted);">Data Structures</label>
+                <div class="bar" style="flex:1;height:10px;background:linear-gradient(90deg, rgba(15,23,42,0.04), rgba(15,23,42,0.02));border-radius:999px;overflow:hidden;">
+                  <div class="fill" style="height:100%;width:80%;background:linear-gradient(90deg,#cfe8ff,#eafaf6);border-radius:999px;transition:width .6s;"></div>
+                </div>
+              </div>
             </div>
           </article>
 
-          <!-- Tools & Environment -->
-          <article class="skills-card reveal" data-delay="0.19" aria-labelledby="sfTitle3">
-            <h3 id="sfTitle3" class="skills-card-title">Tools &amp; Environment</h3>
-            <p class="skills-card-desc">Tools that make development and collaboration reliable and repeatable.</p>
-            <div class="skills-list">
-              <button class="skill-pill" data-tooltip="Branching, commits, and collaboration.">Git &amp; Version Control</button>
-              <button class="skill-pill" data-tooltip="Terminal workflows and scripting.">Command Line</button>
-              <button class="skill-pill" data-tooltip="Daily editor for development.">VS Code</button>
-              <button class="skill-pill" data-tooltip="Basic shell and system understanding.">Linux Basics</button>
+          <!-- Tools & Environment card -->
+          <article class="skills-card reveal" data-delay="0.19" aria-labelledby="sf3" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.06);border:1px solid rgba(15,23,42,0.03);">
+            <h3 id="sf3" class="card-title" style="font-family:Poppins;margin-bottom:0.4rem;">Tools &amp; Environment</h3>
+            <p class="card-desc" style="color:var(--muted);margin-bottom:0.6rem;">Tools that make development and collaboration reliable and repeatable.</p>
+
+            <div class="skill-pills" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              <button class="pill" data-tooltip="Branching, commits, and collaboration." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Git &amp; Version Control</button>
+              <button class="pill" data-tooltip="Terminal workflows and scripting." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Command Line</button>
+              <button class="pill" data-tooltip="Daily editor for development." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">VS Code</button>
+              <button class="pill" data-tooltip="Basic shell and system understanding." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Linux Basics</button>
             </div>
           </article>
 
-          <!-- Web & App Development -->
-          <article class="skills-card reveal" data-delay="0.26" aria-labelledby="sfTitle4">
-            <h3 id="sfTitle4" class="skills-card-title">Web &amp; App Development</h3>
-            <p class="skills-card-desc">Small interactive apps and front-end experiments to visualize ideas.</p>
-            <div class="skills-list">
-              <button class="skill-pill" data-tooltip="Structure and style for responsive pages.">HTML &amp; CSS</button>
-              <button class="skill-pill" data-tooltip="Component-based UI fundamentals.">React Basics</button>
-              <button class="skill-pill" data-tooltip="DOM manipulation and events.">JavaScript DOM</button>
-              <button class="skill-pill" data-tooltip="Simple server-side logic and APIs.">Node.js Basics</button>
+          <!-- Web & App Development card -->
+          <article class="skills-card reveal" data-delay="0.26" aria-labelledby="sf4" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.06);border:1px solid rgba(15,23,42,0.03);">
+            <h3 id="sf4" class="card-title" style="font-family:Poppins;margin-bottom:0.4rem;">Web &amp; App Development</h3>
+            <p class="card-desc" style="color:var(--muted);margin-bottom:0.6rem;">Small interactive apps and front-end experiments to visualize ideas.</p>
+
+            <div class="skill-pills" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              <button class="pill" data-tooltip="Structure and style for responsive pages." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">HTML &amp; CSS</button>
+              <button class="pill" data-tooltip="Component-based UI fundamentals." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">React Basics</button>
+              <button class="pill" data-tooltip="DOM manipulation and events." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">JavaScript DOM</button>
+              <button class="pill" data-tooltip="Simple server-side logic and APIs." style="background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border-radius:999px;padding:0.35rem 0.6rem;border:1px solid rgba(15,23,42,0.04);">Node.js Basics</button>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="section projects-section" aria-label="Projects">
+    <!-- PROJECTS SECTION (beginning) -->
+    <section id="projects" class="section projects" aria-label="Projects" style="padding:3.5rem 0;">
       <div class="container">
-        <h2 class="section-title reveal">Projects</h2>
-        <p class="section-sub reveal">
-          Projects that make abstract concepts concrete and teach through building.
-        </p>
+        <h2 class="section-title" style="font-family:Poppins;font-size:1.4rem;margin-bottom:0.4rem;">Projects</h2>
+        <p class="section-sub" style="color:var(--muted);margin-bottom:1.25rem;">Projects that make abstract concepts concrete and teach through building.</p>
 
-        <div class="projects-grid">
-          <!-- Project 1 -->
-          <article class="project-card reveal" data-delay="0.05" aria-labelledby="p1">
-            <div class="project-meta">Algorithms • Visualization</div>
-            <h3 id="p1" class="project-title">Algorithm Visual Playground</h3>
-            <p class="project-description">
-              Interactive visualizations for sorting, recursion, BFS/DFS, and pathfinding to compare strategies and step counts.
+        <div class="projects-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+          <!-- Project 1: Algorithm Visual Playground -->
+          <article class="project-card reveal" data-delay="0.05" aria-labelledby="proj1" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 12px 40px rgba(15,23,42,0.08);border:1px solid rgba(15,23,42,0.03);">
+            <div class="project-meta" style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Algorithms • Visualization</div>
+            <h3 id="proj1" class="project-title" style="margin:0 0 0.5rem;font-family:Poppins;">Algorithm Visual Playground</h3>
+
+            <p class="project-description" style="color:var(--muted);margin-bottom:0.6rem;">
+              An interactive playground that visualizes sorting algorithms, recursion trees, BFS/DFS, and pathfinding.
+              The demo below shows a small sorting visualization implemented in vanilla JS. The goal is to help learners
+              see how local operations produce global order and to compare step counts across strategies.
             </p>
-            <div class="project-tags">
-              <span class="project-tag">Sorting</span>
-              <span class="project-tag">Recursion</span>
-              <span class="project-tag">Pathfinding</span>
+
+            <!-- Demo panel: canvas + controls + code snippet -->
+            <div class="demo-panel" style="background:linear-gradient(180deg, rgba(240,244,255,0.6), rgba(255,255,255,0.6));padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.03);margin-bottom:0.6rem;">
+              <div class="demo-controls" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+                <button class="demo-btn" data-demo="shuffle" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Shuffle</button>
+                <button class="demo-btn" data-demo="bubble" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Bubble Sort</button>
+                <button class="demo-btn" data-demo="insertion" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Insertion Sort</button>
+              </div>
+
+              <canvas class="demo-canvas" width="420" height="120" aria-hidden="true" style="display:block;width:100%;height:120px;border-radius:6px;background:#fff;border:1px solid rgba(15,23,42,0.03);"></canvas>
+
+              <pre class="demo-code" aria-hidden="true" style="background:#f8fafc;padding:0.6rem;border-radius:6px;font-size:0.82rem;overflow:auto;margin-top:0.6rem;">
+// Example: bubble sort step generator (simplified)
+function* bubbleSteps(arr) {
+  let a = arr.slice();
+  for (let i = 0; i < a.length; i++) {
+    for (let j = 0; j < a.length - 1 - i; j++) {
+      if (a[j] > a[j+1]) {
+        [a[j], a[j+1]] = [a[j+1], a[j]];
+        yield a.slice();
+      }
+    }
+  }
+  return a;
+}
+              </pre>
             </div>
-            <div class="project-tech-icons">Python / JavaScript • Canvas • Data Structures</div>
-            <div class="project-actions">
-              <a class="project-link" href="#" aria-label="Open Algorithm Visual Playground">Live demo</a>
-              <a class="project-link" href="#" aria-label="View repository for Algorithm Visual Playground">Source</a>
+
+            <div class="project-tags" style="margin-bottom:0.6rem;">
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Sorting</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Recursion</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);font-size:0.78rem;">Pathfinding</span>
+            </div>
+
+            <div class="project-links" style="display:flex;gap:0.6rem;">
+              <a class="link" href="#" aria-label="Algorithm Visual Playground demo" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Live demo</a>
+              <a class="link" href="#" aria-label="Algorithm Visual Playground source" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Source</a>
             </div>
           </article>
 
-          <!-- Project 2 -->
-          <article class="project-card reveal" data-delay="0.12" aria-labelledby="p2">
-            <div class="project-meta">Text Analysis • Similarity</div>
-            <h3 id="p2" class="project-title">Plagiarism Checker</h3>
-            <p class="project-description">
-              Compares documents using Jaccard, cosine similarity, and sequence matching to highlight overlaps and encourage original work.
+          <!-- Project 2: Plagiarism Checker -->
+          <article class="project-card reveal" data-delay="0.12" aria-labelledby="proj2" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 12px 40px rgba(15,23,42,0.08);border:1px solid rgba(15,23,42,0.03);">
+            <div class="project-meta" style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Text Analysis • Similarity</div>
+            <h3 id="proj2" class="project-title" style="margin:0 0 0.5rem;font-family:Poppins;">Plagiarism Checker</h3>
+
+            <p class="project-description" style="color:var(--muted);margin-bottom:0.6rem;">
+              A tool that compares documents using Jaccard similarity and sequence matching to highlight overlaps.
+              The backend prototype uses Python and difflib; the front-end demo below shows a simple token overlap check.
             </p>
-            <div class="project-tags">
-              <span class="project-tag">Jaccard</span>
-              <span class="project-tag">Cosine</span>
-              <span class="project-tag">Sequence</span>
+
+            <div class="project-snippet" style="background:#f8fafc;padding:0.6rem;border-radius:6px;font-size:0.82rem;overflow:auto;margin-bottom:0.6rem;">
+<pre>
+// Simple Jaccard similarity (JS)
+function jaccard(a, b) {
+  const A = new Set(a.split(/\s+/));
+  const B = new Set(b.split(/\s+/));
+  const inter = new Set([...A].filter(x => B.has(x)));
+  const union = new Set([...A, ...B]);
+  return inter.size / union.size;
+}
+</pre>
             </div>
-            <div class="project-tech-icons">Python • difflib • Optional SQL</div>
-            <div class="project-actions">
-              <a class="project-link" href="#" aria-label="Open Plagiarism Checker demo">Live demo</a>
-              <a class="project-link" href="#" aria-label="View repository for Plagiarism Checker">Source</a>
+
+            <div class="project-tags" style="margin-bottom:0.6rem;">
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Jaccard</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Cosine</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);font-size:0.78rem;">Sequence</span>
+            </div>
+
+            <div class="project-links" style="display:flex;gap:0.6rem;">
+              <a class="link" href="#" aria-label="Plagiarism Checker demo" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Live demo</a>
+              <a class="link" href="#" aria-label="Plagiarism Checker source" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Source</a>
             </div>
           </article>
 
-          <!-- Project 3 -->
-          <article class="project-card reveal" data-delay="0.19" aria-labelledby="p3">
-            <div class="project-meta">Assessment • OOP</div>
-            <h3 id="p3" class="project-title">Quiz App</h3>
-            <p class="project-description">
-              Multiple-choice quiz with scoring, question bank, and performance summary designed with OOP principles.
+          <!-- Project 3 and 4 will continue in Part 2 to keep this file split evenly and to allow Part 2 to include extended content, closing tags, and additional interactive elements. -->
+        </div> <!-- end projects-grid -->
+
+        <!-- NOTE:
+             - Part 1 intentionally includes the first two project cards and the full header, hero, about, and skills sections.
+             - Part 2 will include the remaining project cards, contact form, footer, and the remainder of the document including scripts and closing tags.
+             - This split keeps each part manageable and allows the second part to include the full script.js inline or linked, plus any additional long-form content requested.
+        -->
+      </div> <!-- end container -->
+    </section> <!-- end projects -->
+
+    <!-- End of Part 1 content. Part 2 will continue here with additional projects, contact, footer, and scripts. -->
+
+  </main>
+
+  <!-- Minimal inline script to ensure basic interactions (will be expanded in Part 2) -->
+  <script>
+    // Basic nav toggle visibility for small screens (this is a minimal helper; full JS will be in Part 2)
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const primaryNav = document.getElementById('primaryNav');
+      function updateToggleVisibility() {
+        if (window.innerWidth <= 880) {
+          navToggle.style.display = 'block';
+        } else {
+          navToggle.style.display = 'none';
+          if (primaryNav) primaryNav.classList.remove('open');
+        }
+      }
+      window.addEventListener('resize', updateToggleVisibility);
+      updateToggleVisibility();
+      if (navToggle) {
+        navToggle.addEventListener('click', () => {
+          if (!primaryNav) return;
+          const open = primaryNav.classList.toggle('open');
+          navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
+
+      // Smooth scroll for buttons with data-scroll (basic)
+      document.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-scroll]');
+        if (!btn) return;
+        const target = document.querySelector(btn.getAttribute('data-scroll'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      // Basic reveal-on-load fallback for users without JS IntersectionObserver (full observer in Part 2)
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.reveal').forEach(function(el) {
+          // small stagger based on data-delay attribute
+          const d = parseFloat(el.getAttribute('data-delay') || 0);
+          setTimeout(function() { el.classList.add('visible'); }, d * 1000 + 200);
+        });
+      });
+    })();
+  </script>
+
+  <!--
+  PART 2 of 2
+  File: index.html (part 2)
+  Purpose: Second half of a long, fully-detailed, light-themed portfolio HTML for "Kashish"
+  Notes:
+    - This file continues from Part 1. If you saved Part 1 as index-part1.html, append this content
+      (Part 2) to the end of Part 1 to form the complete HTML document.
+    - Part 2 includes the remaining project cards, contact form, footer, and a comprehensive inline
+      script that implements interactivity, accessibility features, demo logic, and many comments.
+    - The content is intentionally verbose and commented to reach the requested "substantial" size.
+    - After concatenation, you may optionally move the inline script into script.js and the inline
+      critical styles into styles.css for cleaner separation.
+-->
+
+<!-- CONTINUATION: Projects grid (Project 3 and Project 4) -->
+          <!-- Project 3: Quiz App -->
+          <article class="project-card reveal" data-delay="0.19" aria-labelledby="proj3" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 12px 40px rgba(15,23,42,0.08);border:1px solid rgba(15,23,42,0.03);">
+            <div class="project-meta" style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Assessment • OOP</div>
+            <h3 id="proj3" class="project-title" style="margin:0 0 0.5rem;font-family:Poppins;">Quiz App</h3>
+
+            <p class="project-description" style="color:var(--muted);margin-bottom:0.6rem;">
+              A multiple-choice quiz application with scoring, question bank, and performance summary.
+              Designed to practice object-oriented design and separation of concerns. The demo below is a small
+              interactive quiz implemented in vanilla JS to demonstrate UI and scoring logic.
             </p>
-            <div class="project-tags">
-              <span class="project-tag">Question Bank</span>
-              <span class="project-tag">Scoring</span>
-              <span class="project-tag">OOP</span>
+
+            <!-- Demo panel: small interactive quiz -->
+            <div class="demo-panel" style="background:linear-gradient(180deg, rgba(240,244,255,0.6), rgba(255,255,255,0.6));padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.03);margin-bottom:0.6rem;">
+              <div class="quiz-demo" aria-live="polite" style="display:flex;flex-direction:column;gap:0.6rem;">
+                <div class="quiz-question" style="font-weight:600;">What is the time complexity of binary search on a sorted array?</div>
+                <div class="quiz-options" style="display:flex;flex-direction:column;gap:0.4rem;">
+                  <button class="quiz-opt" data-answer="O(log n)" style="padding:0.5rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">O(log n)</button>
+                  <button class="quiz-opt" data-answer="O(n)" style="padding:0.5rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">O(n)</button>
+                  <button class="quiz-opt" data-answer="O(n log n)" style="padding:0.5rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">O(n log n)</button>
+                </div>
+                <div class="quiz-feedback" style="color:var(--muted);font-size:0.9rem;">Select an answer to see feedback.</div>
+                <div class="quiz-controls" style="display:flex;gap:0.5rem;">
+                  <button class="quiz-next" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Next</button>
+                  <button class="quiz-reset" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Reset</button>
+                </div>
+              </div>
+
+              <pre class="demo-code" aria-hidden="true" style="background:#f8fafc;padding:0.6rem;border-radius:6px;font-size:0.82rem;overflow:auto;margin-top:0.6rem;">
+// Quiz model (simplified)
+const questions = [
+  { q: "What is binary search complexity?", choices: ["O(log n)","O(n)","O(n log n)"], answer: "O(log n)" }
+];
+// UI binds to model and updates score.
+              </pre>
             </div>
-            <div class="project-tech-icons">Python / Java • CLI or GUI</div>
-            <div class="project-actions">
-              <a class="project-link" href="#" aria-label="Open Quiz App demo">Live demo</a>
-              <a class="project-link" href="#" aria-label="View repository for Quiz App">Source</a>
+
+            <div class="project-tags" style="margin-bottom:0.6rem;">
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Question Bank</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">Scoring</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);font-size:0.78rem;">OOP</span>
+            </div>
+
+            <div class="project-links" style="display:flex;gap:0.6rem;">
+              <a class="link" href="#" aria-label="Quiz App demo" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Live demo</a>
+              <a class="link" href="#" aria-label="Quiz App source" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Source</a>
             </div>
           </article>
 
-          <!-- Project 4 -->
-          <article class="project-card reveal" data-delay="0.26" aria-labelledby="p4">
-            <div class="project-meta">Data • Habits</div>
-            <h3 id="p4" class="project-title">Student Study Analyzer</h3>
-            <p class="project-description">
-              Tracks study sessions and visualizes productivity patterns to help students reason about their habits.
+          <!-- Project 4: Student Study Analyzer -->
+          <article class="project-card reveal" data-delay="0.26" aria-labelledby="proj4" style="background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 12px 40px rgba(15,23,42,0.08);border:1px solid rgba(15,23,42,0.03);">
+            <div class="project-meta" style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Data • Habits</div>
+            <h3 id="proj4" class="project-title" style="margin:0 0 0.5rem;font-family:Poppins;">Student Study Analyzer</h3>
+
+            <p class="project-description" style="color:var(--muted);margin-bottom:0.6rem;">
+              Tracks study sessions and visualizes productivity patterns. Uses CSV/JSON input and simple charts to show trends.
+              The demo below shows a small aggregation and chart placeholder to illustrate the idea.
             </p>
-            <div class="project-tags">
-              <span class="project-tag">CSV</span>
-              <span class="project-tag">JSON</span>
-              <span class="project-tag">Charts</span>
+
+            <div class="demo-panel" style="background:linear-gradient(180deg, rgba(240,244,255,0.6), rgba(255,255,255,0.6));padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.03);margin-bottom:0.6rem;">
+              <div class="analyzer-controls" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+                <input type="file" id="studyCsv" accept=".csv,.json" style="padding:0.4rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;">
+                <button id="analyzeBtn" style="padding:0.4rem 0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.04);background:transparent;cursor:pointer;">Analyze</button>
+              </div>
+
+              <div class="chart-placeholder" style="width:100%;height:120px;border-radius:8px;background:#fff;border:1px solid rgba(15,23,42,0.03);display:flex;align-items:center;justify-content:center;color:var(--muted);">
+                Chart preview (demo)
+              </div>
+
+              <pre class="demo-code" aria-hidden="true" style="background:#f8fafc;padding:0.6rem;border-radius:6px;font-size:0.82rem;overflow:auto;margin-top:0.6rem;">
+// Aggregate study time per subject (JS)
+function aggregateSessions(sessions) {
+  return sessions.reduce((acc, s) => {
+    acc[s.subject] = (acc[s.subject] || 0) + s.minutes;
+    return acc;
+  }, {});
+}
+              </pre>
             </div>
-            <div class="project-tech-icons">Python • CSV/JSON • Charts</div>
-            <div class="project-actions">
-              <a class="project-link" href="#" aria-label="Open Student Study Analyzer demo">Live demo</a>
-              <a class="project-link" href="#" aria-label="View repository for Student Study Analyzer">Source</a>
+
+            <div class="project-tags" style="margin-bottom:0.6rem;">
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">CSV</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);margin-right:0.4rem;font-size:0.78rem;">JSON</span>
+              <span style="display:inline-block;padding:0.2rem 0.5rem;border-radius:999px;background:linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));border:1px solid rgba(193,205,255,0.04);font-size:0.78rem;">Charts</span>
+            </div>
+
+            <div class="project-links" style="display:flex;gap:0.6rem;">
+              <a class="link" href="#" aria-label="Student Study Analyzer demo" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Live demo</a>
+              <a class="link" href="#" aria-label="Student Study Analyzer source" style="color:#0f172a;text-decoration:none;border:1px solid rgba(15,23,42,0.06);padding:0.4rem 0.7rem;border-radius:8px;background:transparent;">Source</a>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section" aria-label="Contact">
+        </div> <!-- end projects-grid -->
+      </div> <!-- end container -->
+    </section> <!-- end projects -->
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section contact" aria-label="Contact" style="padding:3.5rem 0;">
       <div class="container">
-        <h2 class="section-title reveal">Contact</h2>
-        <p class="section-sub reveal">
-          I’m open to conversations about algorithms, systems, and educational tools.
-        </p>
+        <h2 class="section-title" style="font-family:Poppins;font-size:1.4rem;margin-bottom:0.4rem;">Contact</h2>
+        <p class="section-sub" style="color:var(--muted);margin-bottom:1.25rem;">I’m open to conversations about algorithms, systems, and educational tools.</p>
 
-        <div class="contact-grid">
-          <div class="contact-links reveal" data-delay="0.05">
-            <div class="contact-item">📧 <a href="mailto:kashish@example.com">kashish@example.com</a></div>
-            <div class="contact-item">🔗 <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">linkedin.com/in/kashish</a></div>
-            <div class="contact-item">💻 <a href="https://github.com" target="_blank" rel="noreferrer">github.com/kashish</a></div>
+        <div class="contact-grid" style="display:grid;grid-template-columns:1fr 360px;gap:1rem;align-items:start;">
+          <div class="contact-info reveal" data-delay="0.05" style="color:var(--muted);">
+            <p class="contact-item">📧 <a href="mailto:kashish@example.com" style="color:var(--text);text-decoration:none;">kashish@example.com</a></p>
+            <p class="contact-item">🔗 <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" style="color:var(--text);text-decoration:none;">linkedin.com/in/kashish</a></p>
+            <p class="contact-item">💻 <a href="https://github.com" target="_blank" rel="noreferrer" style="color:var(--text);text-decoration:none;">github.com/kashish</a></p>
+
+            <p style="margin-top:1rem;color:var(--muted);">If you'd like to discuss any project in detail, I'm happy to share implementation notes, test cases, and design trade-offs.</p>
           </div>
 
-          <aside class="contact-card reveal" data-delay="0.12">
-            <strong>What I’m looking for</strong>
-            <p>
-              Opportunities that value curiosity and rigor equally: clean abstractions, thoughtful systems,
-              and educational impact.
-            </p>
-          </aside>
+          <form id="contactForm" class="contact-form reveal" data-delay="0.12" aria-label="Contact form" novalidate style="display:flex;flex-direction:column;gap:0.6rem;">
+            <label for="name" style="font-size:0.85rem;color:var(--muted);">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required style="padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;">
+
+            <label for="email" style="font-size:0.85rem;color:var(--muted);">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required style="padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;">
+
+            <label for="message" style="font-size:0.85rem;color:var(--muted);">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Short message" required style="padding:0.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;"></textarea>
+
+            <div class="form-actions" style="display:flex;gap:0.6rem;margin-top:0.4rem;">
+              <button type="submit" class="btn btn-primary" style="font-weight:600;border-radius:999px;padding:0.6rem 1rem;border:1px solid rgba(15,23,42,0.06);background:linear-gradient(90deg,#cfe8ff,#eafaf6);cursor:pointer;">Send</button>
+              <button type="reset" class="btn btn-ghost" style="font-weight:600;border-radius:999px;padding:0.6rem 1rem;border:1px solid rgba(15,23,42,0.06);background:transparent;cursor:pointer;">Reset</button>
+            </div>
+
+            <p class="form-note" style="font-size:0.85rem;color:var(--muted);margin-top:0.6rem;">This form is a demo. Replace with a backend endpoint or mailto as needed.</p>
+          </form>
         </div>
 
-        <footer id="siteFooter" class="site-footer" role="contentinfo">
-          © <span class="footer-name">Kashish</span> 2025 | Ahmedabad, India
+        <!-- Footer -->
+        <footer id="siteFooter" class="site-footer" role="contentinfo" aria-label="Footer" style="margin-top:1.6rem;padding-top:1rem;border-top:1px solid rgba(15,23,42,0.03);color:var(--muted);text-align:center;opacity:0;transform:translateY(12px);transition:all .6s;">
+          <p>© <strong>Kashish</strong> 2025 | Ahmedabad, India</p>
         </footer>
       </div>
     </section>
+
   </main>
 
-  <!-- =========================
-       SCRIPTS
-       ========================= -->
-  <script src="script.js" defer></script>
-</body>
-</html>
+  <!--
+    Inline script: comprehensive interactivity for the portfolio.
+    This script is intentionally long and commented to provide a realistic, educational codebase.
+    It includes:
+      - DOM utilities
+      - Navigation toggle and mobile behavior
+      - Smooth scrolling and active link highlighting
+      - Reveal-on-scroll with IntersectionObserver and stagger support
+      - Demo logic for sorting visualization, quiz, and study analyzer
+      - Tooltip handling for skill pills
+      - Contact form validation (demo)
+      - Accessibility helpers and keyboard shortcuts
+      - Scroll progress bar updates
+      - Performance considerations and reduced-motion respect
+  -->
+  <script>
+  /* =========================
+     Inline script for Part 2
+     ========================= */
+
+  /* -------------------------
+     Utility helpers
+     ------------------------- */
+  (function() {
+    'use strict';
+
+    // Simple selector helpers
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+    // Throttle utility to limit frequency of function calls
+    function throttle(fn, wait = 50) {
+      let last = 0;
+      return function (...args) {
+        const now = Date.now();
+        if (now - last >= wait) {
+          last = now;
+          fn.apply(this, args);
+        }
+      };
+    }
+
+    // Debounce utility for events like resize
+    function debounce(fn, wait = 150) {
+      let t;
+      return function (...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    // Safe attribute getter
+    function getData(el, key, fallback = null) {
+      if (!el) return fallback;
+      return el.getAttribute('data-' + key) || fallback;
+    }
+
+    // Simple ARIA announce helper for live regions (used for quiz feedback)
+    function ariaAnnounce(text) {
+      let region = document.getElementById('aria-live-region');
+      if (!region) {
+        region = document.createElement('div');
+        region.id = 'aria-live-region';
+        region.setAttribute('aria-live', 'polite');
+        region.setAttribute('aria-atomic', 'true');
+        region.style.position = 'absolute';
+        region.style.left = '-9999px';
+        document.body.appendChild(region);
+      }
+      region.textContent = text;
+    }
+
+    /* -------------------------
+       Navigation: toggle, active link, and responsive behavior
+       ------------------------- */
+    const navToggle = $('#navToggle');
+    const primaryNav = $('#primaryNav');
+    const navLinks = $$('.nav-link');
+
+    function updateNavForViewport() {
+      if (!navToggle || !primaryNav) return;
+      if (window.innerWidth <= 880) {
+        navToggle.style.display = 'block';
+      } else {
+        navToggle.style.display = 'none';
+        primaryNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // Initialize nav visibility
+    updateNavForViewport();
+    window.addEventListener('resize', debounce(updateNavForViewport, 120));
+
+    // Toggle handler
+    if (navToggle && primaryNav) {
+      navToggle.addEventListener('click', () => {
+        const open = primaryNav.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    // Smooth scroll for elements with data-scroll attribute
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-scroll]');
+      if (!btn) return;
+      const targetSelector = btn.getAttribute('data-scroll');
+      if (!targetSelector) return;
+      const target = document.querySelector(targetSelector);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Close mobile nav if open
+      if (primaryNav && primaryNav.classList.contains('open')) {
+        primaryNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Active link highlighting using IntersectionObserver
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+    if ('IntersectionObserver' in window && sections.length) {
+      const observerOptions = { root: null, threshold: 0.32 };
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const link = document.querySelector('.nav-link[href="#' + id + '"]');
+          if (!link) return;
+          if (entry.isIntersecting) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        });
+      }, observerOptions);
+      sections.forEach(s => sectionObserver.observe(s));
+    } else {
+      // Fallback: highlight based on scroll position
+      window.addEventListener('scroll', throttle(() => {
+        const scrollPos = window.scrollY + 120;
+        sections.forEach(sec => {
+          const top = sec.offsetTop;
+          const height = sec.offsetHeight;
+          const link = document.querySelector('.nav-link[href="#' + sec.id + '"]');
+          if (!link) return;
+          if (scrollPos >= top && scrollPos < top + height) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        });
+      }, 100));
+    }
+
+    /* -------------------------
+       Reveal-on-scroll with stagger support
+       ------------------------- */
+    const revealEls = $$('.reveal');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = parseFloat(el.getAttribute('data-delay') || 0);
+            if (delay) el.style.transitionDelay = `${delay}s`;
+            el.classList.add('visible');
+            obs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      revealEls.forEach(el => revealObserver.observe(el));
+    } else {
+      // Reduced motion or no observer: reveal all immediately
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+
+    /* -------------------------
+       Scroll progress bar
+       ------------------------- */
+    const progress = $('#scrollProgress');
+    function updateProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight ? (scrollTop / docHeight) * 100 : 0;
+      if (progress) progress.style.width = `${pct}%`;
+    }
+    window.addEventListener('scroll', throttle(updateProgress, 20));
+    updateProgress();
+
+    /* -------------------------
+       Tooltip for skill pills
+       ------------------------- */
+    $$('.pill').forEach(p => {
+      p.addEventListener('mouseenter', (e) => {
+        const text = p.dataset.tooltip || p.textContent.trim();
+        if (!text) return;
+        const tip = document.createElement('div');
+        tip.className = 'pill-tooltip';
+        tip.textContent = text;
+        // Basic inline style for tooltip; in production move to CSS
+        Object.assign(tip.style, {
+          position: 'fixed',
+          background: 'rgba(255,255,255,0.98)',
+          color: '#6b7280',
+          padding: '6px 10px',
+          borderRadius: '8px',
+          border: '1px solid rgba(15,23,42,0.06)',
+          boxShadow: '0 8px 24px rgba(15,23,42,0.06)',
+          fontSize: '12px',
+          zIndex: 120,
+          whiteSpace: 'nowrap',
+          transform: 'translateY(-6px)',
+          transition: 'opacity .12s'
+        });
+        document.body.appendChild(tip);
+        const rect = p.getBoundingClientRect();
+        // Position centered above the pill
+        tip.style.left = Math.max(8, (rect.left + rect.width / 2) - (tip.offsetWidth / 2)) + 'px';
+        tip.style.top = Math.max(8, rect.top - tip.offsetHeight - 8) + 'px';
+        p._tooltip = tip;
+      });
+      p.addEventListener('mouseleave', () => {
+        if (p._tooltip) { p._tooltip.remove(); p._tooltip = null; }
+      });
+    });
+
+    /* -------------------------
+       Demo: Sorting visualization (detailed)
+       - This section implements a small but robust demo for educational purposes.
+       - It includes generators for algorithm steps, an animation runner, and controls.
+       ------------------------- */
+    (function sortingDemo() {
+      const canvas = document.querySelector('.demo-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let arr = [];
+      const N = 28; // number of bars
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(320, rect.width);
+        canvas.height = 120;
+        draw(arr);
+      }
+
+      function randomArray() {
+        const a = [];
+        for (let i = 0; i < N; i++) a.push(10 + Math.round(Math.random() * 90));
+        return a;
+      }
+
+      function draw(a, highlight = []) {
+        if (!ctx) return;
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        const barW = w / a.length;
+        a.forEach((v, i) => {
+          const x = i * barW;
+          const barH = (v / 100) * (h - 10);
+          ctx.fillStyle = highlight.includes(i) ? '#ffdfe8' : '#cfe8ff';
+          roundRect(ctx, x + 2, h - barH - 6, barW - 4, barH, 4);
+        });
+      }
+
+      function roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Generators for steps
+      function* bubbleSteps(a) {
+        const arr = a.slice();
+        for (let i = 0; i < arr.length; i++) {
+          for (let j = 0; j < arr.length - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+              yield { arr: arr.slice(), highlight: [j, j + 1] };
+            }
+          }
+        }
+        return { arr, highlight: [] };
+      }
+
+      function* insertionSteps(a) {
+        const arr = a.slice();
+        for (let i = 1; i < arr.length; i++) {
+          let j = i;
+          while (j > 0 && arr[j - 1] > arr[j]) {
+            [arr[j - 1], arr[j]] = [arr[j], arr[j - 1]];
+            yield { arr: arr.slice(), highlight: [j - 1, j] };
+            j--;
+          }
+        }
+        return { arr, highlight: [] };
+      }
+
+      // Animation runner
+      let anim = null;
+      function runSteps(gen) {
+        if (anim) cancelAnimationFrame(anim);
+        const step = () => {
+          const next = gen.next();
+          if (!next.done) {
+            draw(next.value.arr, next.value.highlight);
+            anim = requestAnimationFrame(() => setTimeout(step, 40));
+          } else {
+            draw(next.value.arr, []);
+          }
+        };
+        step();
+      }
+
+      // Controls
+      document.querySelectorAll('.demo-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.getAttribute('data-demo');
+          if (action === 'shuffle') {
+            arr = randomArray();
+            draw(arr);
+          } else if (action === 'bubble') {
+            runSteps(bubbleSteps(arr));
+          } else if (action === 'insertion') {
+            runSteps(insertionSteps(arr));
+          }
+        });
+      });
+
+      // Initialize
+      arr = randomArray();
+      resizeCanvas();
+      window.addEventListener('resize', throttle(resizeCanvas, 120));
+    })();
+
+    /* -------------------------
+       Demo: Quiz app logic (simple, accessible)
+       - Handles option selection, feedback, and reset.
+       ------------------------- */
+    (function quizDemo() {
+      const quizRoot = document.querySelector('.quiz-demo');
+      if (!quizRoot) return;
+      const opts = Array.from(quizRoot.querySelectorAll('.quiz-opt'));
+      const feedback = quizRoot.querySelector('.quiz-feedback');
+      const nextBtn = quizRoot.querySelector('.quiz-next');
+      const resetBtn = quizRoot.querySelector('.quiz-reset');
+
+      // Simple question model for demo
+      const question = {
+        prompt: "What is the time complexity of binary search on a sorted array?",
+        choices: ["O(log n)", "O(n)", "O(n log n)"],
+        answer: "O(log n)"
+      };
+
+      // Track state
+      let answered = false;
+      let score = 0;
+
+      // Option click handler
+      opts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          if (answered) return;
+          const val = opt.getAttribute('data-answer');
+          answered = true;
+          if (val === question.answer) {
+            feedback.textContent = 'Correct — binary search runs in O(log n).';
+            feedback.style.color = '#0f172a';
+            score += 1;
+            ariaAnnounce('Correct answer selected.');
+          } else {
+            feedback.textContent = 'Not quite — the correct answer is O(log n).';
+            feedback.style.color = '#6b7280';
+            ariaAnnounce('Incorrect answer selected.');
+          }
+          // Visual highlight
+          opts.forEach(o => o.style.opacity = (o === opt ? '1' : '0.7'));
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        // For demo, simply show a short summary
+        feedback.textContent = `Demo complete. Score: ${score}/1.`;
+        ariaAnnounce(`Demo complete. Score ${score} out of 1.`);
+      });
+
+      resetBtn.addEventListener('click', () => {
+        answered = false;
+        score = 0;
+        feedback.textContent = 'Select an answer to see feedback.';
+        feedback.style.color = '#6b7280';
+        opts.forEach(o => { o.style.opacity = '1'; });
+      });
+    })();
+
+    /* -------------------------
+       Demo: Study Analyzer file input handling (demo only)
+       - Parses a simple CSV or JSON and aggregates study minutes per subject.
+       - For privacy and simplicity, this demo runs entirely in the browser.
+       ------------------------- */
+    (function studyAnalyzerDemo() {
+      const fileInput = document.getElementById('studyCsv');
+      const analyzeBtn = document.getElementById('analyzeBtn');
+      const chartPlaceholder = document.querySelector('.chart-placeholder');
+
+      if (!fileInput || !analyzeBtn || !chartPlaceholder) return;
+
+      function parseCSV(text) {
+        // Very small CSV parser for demo: expects header subject,minutes
+        const lines = text.trim().split(/\r?\n/);
+        const header = lines.shift().split(',');
+        const subjectIdx = header.indexOf('subject');
+        const minutesIdx = header.indexOf('minutes');
+        if (subjectIdx === -1 || minutesIdx === -1) return null;
+        const rows = lines.map(line => {
+          const cols = line.split(',');
+          return { subject: cols[subjectIdx].trim(), minutes: parseInt(cols[minutesIdx], 10) || 0 };
+        });
+        return rows;
+      }
+
+      function aggregateSessions(sessions) {
+        return sessions.reduce((acc, s) => {
+          acc[s.subject] = (acc[s.subject] || 0) + s.minutes;
+          return acc;
+        }, {});
+      }
+
+      analyzeBtn.addEventListener('click', () => {
+        const file = fileInput.files[0];
+        if (!file) {
+          alert('Please choose a CSV or JSON file (demo).');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const text = e.target.result;
+          let sessions = null;
+          if (file.name.endsWith('.json')) {
+            try {
+              sessions = JSON.parse(text);
+            } catch (err) {
+              alert('Invalid JSON file.');
+              return;
+            }
+          } else {
+            sessions = parseCSV(text);
+            if (!sessions) {
+              alert('CSV must have header: subject,minutes');
+              return;
+            }
+          }
+          const agg = aggregateSessions(sessions);
+          // Simple textual chart rendering for demo
+          chartPlaceholder.innerHTML = '';
+          const ul = document.createElement('ul');
+          ul.style.listStyle = 'none';
+          ul.style.padding = '0';
+          Object.keys(agg).forEach(sub => {
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.gap = '0.6rem';
+            li.style.marginBottom = '0.4rem';
+            const label = document.createElement('div');
+            label.textContent = sub;
+            label.style.width = '110px';
+            label.style.color = '#6b7280';
+            const bar = document.createElement('div');
+            bar.style.flex = '1';
+            bar.style.height = '10px';
+            bar.style.background = 'linear-gradient(90deg,#cfe8ff,#eafaf6)';
+            bar.style.borderRadius = '999px';
+            bar.style.width = Math.min(100, Math.round((agg[sub] / 600) * 100)) + '%'; // scale demo
+            li.appendChild(label);
+            li.appendChild(bar);
+            ul.appendChild(li);
+          });
+          chartPlaceholder.appendChild(ul);
+        };
+        reader.readAsText(file);
+      });
+    })();
+
+    /* -------------------------
+       Contact form demo validation
+       ------------------------- */
+    (function contactFormDemo() {
+      const contactForm = document.getElementById('contactForm');
+      if (!contactForm) return;
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (document.getElementById('name') || {}).value || '';
+        const email = (document.getElementById('email') || {}).value || '';
+        const message = (document.getElementById('message') || {}).value || '';
+        if (!name.trim() || !email.trim() || !message.trim()) {
+          alert('Please fill all fields before sending (demo).');
+          return;
+        }
+        // Demo behavior: show success and reset
+        alert('Thanks! This is a demo form. Replace with a backend to send messages.');
+        contactForm.reset();
+      });
+    })();
+
+    /* -------------------------
+       Footer reveal observer
+       ------------------------- */
+    (function footerReveal() {
+      const footer = document.getElementById('siteFooter');
+      if (!footer) return;
+      if ('IntersectionObserver' in window) {
+        const fObs = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) footer.classList.add('visible'); });
+        }, { threshold: 0.2 });
+        fObs.observe(footer);
+      } else {
+        footer.classList.add('visible');
+      }
+    })();
+
+    /* -------------------------
+       Keyboard shortcuts (Alt+1..4) for quick navigation
+       ------------------------- */
+    window.addEventListener('keydown', (e) => {
+      if (e.altKey && !e.shiftKey) {
+        if (e.key === '1') { $('#about')?.scrollIntoView({ behavior: 'smooth' }); }
+        if (e.key === '2') { $('#skills')?.scrollIntoView({ behavior: 'smooth' }); }
+        if (e.key === '3') { $('#projects')?.scrollIntoView({ behavior: 'smooth' }); }
+        if (e.key === '4') { $('#contact')?.scrollIntoView({ behavior: 'smooth' }); }
+      }
+    });
+
+    /* -------------------------
+       Accessibility: close mobile nav on Escape
+       ------------------------- */
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (primaryNav && primaryNav.classList.contains('open')) {
+          primaryNav.classList.remove('open');
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    /* -------------------------
+       Performance: cleanup on unload
+       ------------------------- */
+    window.addEventListener('unload', () => {
+      // Remove any dynamically created tooltips or live regions
+      const tip = document.querySelectorAll('.pill-tooltip');
+      tip.forEach(t => t.remove());
+      const live = document.getElementById('aria-live-region');
+      if (live) live.remove();
+    });
+
+    /* -------------------------
+       End of inline script block
+       ------------------------- */
+  })();
+  </script>
+<html></html>
+   
+
