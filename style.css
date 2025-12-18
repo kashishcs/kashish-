@@ -666,10 +666,10 @@ body {
 }
 
 .contact-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(123, 183, 255, 0.5);
-}
-
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(123, 183, 255, 0.5) !important;
+}  
+   
 .github-btn {
     background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
@@ -899,4 +899,17 @@ body {
     .skills-grid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
+}
+.project-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1;
+}
+
+.project-card:hover {
+    transform: translateY(-10px) !important;
+}
+   .hero-name {
+    display: block !important;
+    visibility: visible !important;
 }
