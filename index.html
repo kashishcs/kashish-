@@ -1,1018 +1,306 @@
-### `index.html`
-```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kashish — Computer Science Student</title>
-  <meta name="description" content="Portfolio of Kashish — 12th grade Computer Science student. Projects, skills, and contact." />
-  <!-- Link to stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google fonts (light, modern) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kashish | Computer Science Student Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!--
-    NAVBAR
-    Fixed top, white background, left-aligned name, right links.
-    Mobile-friendly hamburger menu.
-  -->
-  <header class="site-header" id="top">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Kashish homepage">Kashish</a>
-
-      <nav class="nav" id="primary-nav" aria-label="Primary navigation">
-        <ul class="nav-list">
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-      </button>
+    <!-- Animated Galaxy Background -->
+    <div class="galaxy-background">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
     </div>
 
-    <!-- Mobile menu (simple, accessible) -->
-    <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
-      <ul class="mobile-nav-list">
-        <li><a href="#about" class="mobile-nav-link">About</a></li>
-        <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
-        <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
-      </ul>
-    </div>
-  </header>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Kashish</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-  <main>
-    <!--
-      HERO SECTION
-      Light pastel gradient background (very subtle).
-      Name fades in + moves up slightly.
-      Tagline with typewriter effect.
-      CTA fades in after tagline.
-    -->
-    <section class="hero" id="home" aria-labelledby="hero-heading">
-      <div class="container hero-inner">
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
         <div class="hero-content">
-          <h1 id="hero-heading" class="hero-title">
-            <!-- Name animation handled in JS/CSS -->
-            <span class="name">Kashish</span>
-          </h1>
-
-          <p class="hero-tagline" aria-live="polite">
-            <span id="typewriter" class="typewriter" data-text="Computer Science Student | Software, Logic & Innovation"></span>
-          </p>
-
-          <div class="hero-cta">
-            <a href="#projects" class="btn btn-primary" id="cta-projects">View Projects</a>
-            <a href="#contact" class="btn btn-ghost">Contact Me</a>
-          </div>
+            <h1 class="hero-name" id="heroName">Kashish</h1>
+            <p class="hero-tagline" id="heroTagline"></p>
+            <button class="hero-cta" id="heroCTA">View Projects</button>
         </div>
-
-        <!-- Decorative, subtle pastel shapes (non-distracting, no particles) -->
-        <div class="hero-visual" aria-hidden="true">
-          <!-- Simple layered shapes using CSS for a calm, student-authentic look -->
-          <div class="shape shape-1"></div>
-          <div class="shape shape-2"></div>
-          <div class="shape shape-3"></div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
-      </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section section-alt" aria-labelledby="about-heading">
-      <div class="container">
-        <h2 id="about-heading" class="section-title">About Me</h2>
+    <!-- About Me Section -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card fade-in" data-delay="0">
+                    <div class="card-glow"></div>
+                    <div class="card-number">01</div>
+                    <h3 class="card-heading">Why Computer Science</h3>
+                    <p class="card-text">
+                        Computer Science drew me in because it sits at the intersection of logic, creativity, and impact. I'm fascinated by how code can transform abstract ideas into tangible solutions—whether that's an algorithm that optimizes a process or a tool that simplifies someone's workflow. The field rewards both precision and imagination, and that balance resonates with how I like to approach problems.
+                    </p>
+                </div>
 
-        <div class="about-grid">
-          <!-- Four short paragraphs with subtle staggered reveal -->
-          <article class="about-card reveal">
-            <p>
-              I have always been fascinated by how simple rules and logic can create complex, meaningful systems. Computer Science appeals to me because it blends creativity with precision — building tools that solve problems and reveal patterns.
-            </p>
-          </article>
+                <div class="about-card fade-in" data-delay="100">
+                    <div class="card-glow"></div>
+                    <div class="card-number">02</div>
+                    <h3 class="card-heading">My Learning Philosophy</h3>
+                    <p class="card-text">
+                        My approach to learning is rooted in understanding fundamentals first. Rather than rushing to frameworks or shortcuts, I invest time in grasping core concepts—how data structures actually work, why certain algorithms are efficient, what makes code readable and maintainable. This foundation gives me the confidence to adapt to new tools and tackle unfamiliar challenges without relying purely on memorization.
+                    </p>
+                </div>
 
-          <article class="about-card reveal">
-            <p>
-              My approach to learning is deliberate: I focus on fundamentals first. Understanding algorithms, data structures, and core programming concepts gives me a foundation I can rely on when exploring new technologies or solving unfamiliar problems.
-            </p>
-          </article>
+                <div class="about-card fade-in" data-delay="200">
+                    <div class="card-glow"></div>
+                    <div class="card-number">03</div>
+                    <h3 class="card-heading">Building Through Projects</h3>
+                    <p class="card-text">
+                        I learn best by building. Each project I work on serves as both an experiment and a lesson—testing what I know, exposing what I don't, and pushing me to research solutions. From visualizing algorithms to analyzing data patterns, these projects aren't just portfolio pieces; they're my way of moving from theory to practice, making mistakes, and refining my understanding through iteration.
+                    </p>
+                </div>
 
-          <article class="about-card reveal">
-            <p>
-              I learn by building. Small projects let me test ideas, iterate quickly, and learn from mistakes. Each project is an opportunity to apply theory, refine design, and improve the clarity of my code and user experience.
-            </p>
-          </article>
-
-          <article class="about-card reveal">
-            <p>
-              I aim for depth over breadth. My long-term mindset is to keep learning, to dig deeper into topics that matter, and to create work that has impact — whether that means helping classmates, contributing to open-source, or building tools that make learning easier.
-            </p>
-          </article>
+                <div class="about-card fade-in" data-delay="300">
+                    <div class="card-glow"></div>
+                    <div class="card-number">04</div>
+                    <h3 class="card-heading">Long-Term Vision</h3>
+                    <p class="card-text">
+                        I'm focused on the long game. Rather than chasing trends or collecting certifications, I'm building depth—developing the kind of problem-solving intuition and technical maturity that comes from deliberate practice and sustained curiosity. My goal is to become the kind of developer who doesn't just implement solutions, but understands them deeply enough to improve, adapt, and innovate on them.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- SKILLS SECTION -->
-    <section id="skills" class="section" aria-labelledby="skills-heading">
-      <div class="container">
-        <h2 id="skills-heading" class="section-title">Skills</h2>
-
-        <!-- Exact required text before the grid -->
-        <blockquote class="skills-intro">
-          “These skills represent areas where I have working knowledge through consistent practice and project work. My focus has been on understanding core principles rather than collecting credentials—learning how things work at a fundamental level, then applying that understanding to solve real problems. I view this as an ongoing process of building depth, not a finished skill set.”
-        </blockquote>
-
-        <div class="skills-grid">
-          <!-- Card 1 -->
-          <div class="skill-card reveal">
-            <div class="skill-accent" style="background: linear-gradient(90deg, #7bb7ff 0%, #baf2e9 100%);"></div>
-            <div class="skill-body">
-              <h3 class="skill-title">Programming Foundations</h3>
-              <p class="skill-list">Python; JavaScript; C++; Java</p>
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="section-container">
+            <h2 class="section-title fade-in">Skills & Expertise</h2>
+            
+            <div class="skills-intro fade-in">
+                <p>These skills represent areas where I have working knowledge through consistent practice and project work. My focus has been on understanding core principles rather than collecting credentials—learning how things work at a fundamental level, then applying that understanding to solve real problems. I view this as an ongoing process of building depth, not a finished skill set.</p>
             </div>
-          </div>
 
-          <!-- Card 2 -->
-          <div class="skill-card reveal">
-            <div class="skill-accent" style="background: linear-gradient(90deg, #c7b8ff 0%, #ffd6c9 100%);"></div>
-            <div class="skill-body">
-              <h3 class="skill-title">Computational Thinking</h3>
-              <p class="skill-list">Data Structures; Algorithms; Problem Solving; Code Readability</p>
-            </div>
-          </div>
+            <div class="skills-grid">
+                <div class="skill-card fade-in" data-delay="0">
+                    <div class="skill-icon">💻</div>
+                    <h3 class="skill-title">Programming Foundations</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Java</span>
+                    </div>
+                </div>
 
-          <!-- Card 3 -->
-          <div class="skill-card reveal">
-            <div class="skill-accent" style="background: linear-gradient(90deg, #baf2e9 0%, #7bb7ff 100%);"></div>
-            <div class="skill-body">
-              <h3 class="skill-title">Tools & Environment</h3>
-              <p class="skill-list">Git & Version Control; VS Code; Command Line; Linux Basics</p>
-            </div>
-          </div>
+                <div class="skill-card fade-in" data-delay="100">
+                    <div class="skill-icon">🧠</div>
+                    <h3 class="skill-title">Computational Thinking</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data Structures</span>
+                        <span class="skill-tag">Algorithms</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Code Readability</span>
+                    </div>
+                </div>
 
-          <!-- Card 4 -->
-          <div class="skill-card reveal">
-            <div class="skill-accent" style="background: linear-gradient(90deg, #ffd6c9 0%, #c7b8ff 100%);"></div>
-            <div class="skill-body">
-              <h3 class="skill-title">Web Development</h3>
-              <p class="skill-list">HTML; CSS; JavaScript DOM; React Basics; Node.js Basics</p>
+                <div class="skill-card fade-in" data-delay="200">
+                    <div class="skill-icon">🛠️</div>
+                    <h3 class="skill-title">Tools & Environment</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git & Version Control</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Command Line</span>
+                        <span class="skill-tag">Linux Basics</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in" data-delay="300">
+                    <div class="skill-icon">🌐</div>
+                    <h3 class="skill-title">Web Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript DOM</span>
+                        <span class="skill-tag">React Basics</span>
+                        <span class="skill-tag">Node.js Basics</span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects" class="section section-alt" aria-labelledby="projects-heading">
-      <div class="container">
-        <h2 id="projects-heading" class="section-title">Featured Projects</h2>
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="section-container">
+            <h2 class="section-title fade-in">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in" data-delay="0">
+                    <div class="project-header">
+                        <h3 class="project-title">Algorithm Visual Playground</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/kashishcs" target="_blank" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                            <a href="#" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        An interactive visualization tool for sorting and pathfinding algorithms, designed to make complex concepts tangible and understandable through real-time visual feedback.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">HTML Canvas</span>
+                        <span class="tech-badge">CSS</span>
+                        <span class="tech-badge">Algorithms</span>
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <h4>Challenge</h4>
+                            <p>Making abstract algorithmic concepts visually intuitive without oversimplifying the underlying logic.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Solution</h4>
+                            <p>Built a step-by-step visualization engine that breaks down each algorithm iteration, allowing users to control speed and see data transformations in real-time.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Learning</h4>
+                            <p>Deepened understanding of algorithm complexity and learned how visual representation can enhance comprehension of computational processes.</p>
+                        </div>
+                    </div>
+                </div>
 
-        <p class="projects-intro">Selected projects that reflect my focus on clarity, learning, and practical problem solving.</p>
+                <!-- Project 2 -->
+                <div class="project-card fade-in" data-delay="100">
+                    <div class="project-header">
+                        <h3 class="project-title">Plagiarism Checker</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/kashishcs" target="_blank" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                            <a href="#" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A text similarity detection system that analyzes documents and identifies potential plagiarism using string matching algorithms and similarity scoring.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Natural Language Processing</span>
+                        <span class="tech-badge">File I/O</span>
+                        <span class="tech-badge">Data Processing</span>
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <h4>Challenge</h4>
+                            <p>Accurately detecting similarity while avoiding false positives from common phrases and properly cited content.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Solution</h4>
+                            <p>Implemented multiple comparison algorithms including Levenshtein distance and cosine similarity, with weighted scoring based on phrase length and uniqueness.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Learning</h4>
+                            <p>Gained practical experience with string algorithms and learned how to balance precision with performance in text analysis.</p>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="projects-grid">
-          <!-- Project 1 -->
-          <article class="project-card reveal">
-            <div class="project-meta">
-              <h3 class="project-title">Algorithm Visual Playground</h3>
-              <p class="project-desc">An interactive visualizer for sorting and pathfinding algorithms designed to make algorithmic concepts intuitive and approachable.</p>
-              <div class="badges">
-                <span class="badge">JavaScript</span>
-                <span class="badge">Canvas</span>
-                <span class="badge">Algorithms</span>
-              </div>
+                <!-- Project 3 -->
+                <div class="project-card fade-in" data-delay="200">
+                    <div class="project-header">
+                        <h3 class="project-title">Student Result Analyzer</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/kashishcs" target="_blank" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            </a>
+                            <a href="#" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A data analysis tool that processes student performance data to generate insights, identify trends, and provide actionable recommendations for improvement.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Data Analysis</span>
+                        <span class="tech-badge">Statistics</span>
+                        <span class="tech-badge">Visualization</span>
+                    </div>
+                    <div class="project-details">
+                        <div class="detail-item">
+                            <h4>Challenge</h4>
+                            <p>Transforming raw grade data into meaningful insights that could guide educational decisions.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Solution</h4>
+                            <p>Created statistical analysis modules that calculate trends, identify patterns, and generate visual reports highlighting areas of strength and improvement.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Learning</h4>
+                            <p>Developed skills in data manipulation and learned how proper analysis can turn numbers into actionable educational insights.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="project-case">
-              <h4>Case Study</h4>
-              <ul>
-                <li><strong>Challenge:</strong> Students often struggle to connect code with algorithm behavior in real time.</li>
-                <li><strong>Solution:</strong> Built a lightweight visual playground with step controls, clear color-coding, and explanations for each step.</li>
-                <li><strong>Learning:</strong> Improved UI clarity, performance optimization for animations, and pedagogical design for learning tools.</li>
-              </ul>
-
-              <div class="project-actions">
-                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
-                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="project-card reveal">
-            <div class="project-meta">
-              <h3 class="project-title">Plagiarism Checker</h3>
-              <p class="project-desc">A text similarity detection tool that compares documents and highlights likely overlaps with clear scoring and explanations.</p>
-              <div class="badges">
-                <span class="badge">Python</span>
-                <span class="badge">NLP</span>
-                <span class="badge">Cosine Similarity</span>
-              </div>
-            </div>
-
-            <div class="project-case">
-              <h4>Case Study</h4>
-              <ul>
-                <li><strong>Challenge:</strong> Detecting meaningful similarity while avoiding false positives from common phrases.</li>
-                <li><strong>Solution:</strong> Implemented tokenization, stop-word handling, and weighted similarity scoring with a clear UI for reviewers.</li>
-                <li><strong>Learning:</strong> Gained practical experience with text preprocessing, evaluation metrics, and user-centered reporting.</li>
-              </ul>
-
-              <div class="project-actions">
-                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
-                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="project-card reveal">
-            <div class="project-meta">
-              <h3 class="project-title">Student Result Analyzer</h3>
-              <p class="project-desc">A small analytics tool that ingests student performance data and surfaces trends, outliers, and actionable insights.</p>
-              <div class="badges">
-                <span class="badge">Python</span>
-                <span class="badge">Pandas</span>
-                <span class="badge">Data Viz</span>
-              </div>
-            </div>
-
-            <div class="project-case">
-              <h4>Case Study</h4>
-              <ul>
-                <li><strong>Challenge:</strong> Teachers needed a quick way to spot students who might need support and to visualize class trends.</li>
-                <li><strong>Solution:</strong> Built a pipeline to clean data, compute metrics, and render simple charts with clear explanations.</li>
-                <li><strong>Learning:</strong> Learned about data cleaning, aggregation, and communicating insights to non-technical users.</li>
-              </ul>
-
-              <div class="project-actions">
-                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
-                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
-              </div>
-            </div>
-          </article>
         </div>
-      </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section" aria-labelledby="contact-heading">
-      <div class="container">
-        <h2 id="contact-heading" class="section-title">Contact</h2>
-
-        <p class="contact-lead">I’m open to collaboration, mentorship, and opportunities to learn. Feel free to reach out.</p>
-
-        <div class="contact-grid reveal">
-          <div class="contact-card">
-            <h3>Email</h3>
-            <a href="mailto:kashish@example.com" class="contact-link">kashish@example.com</a>
-          </div>
-
-          <div class="contact-card">
-            <h3>GitHub</h3>
-            <a href="#" class="contact-link" aria-disabled="true">github.com/kashish</a>
-          </div>
-
-          <div class="contact-card">
-            <h3>LinkedIn</h3>
-            <a href="#" class="contact-link" aria-disabled="true">linkedin.com/in/kashish</a>
-          </div>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <p class="contact-subtitle fade-in">I'm always open to discussing new projects, opportunities, or ideas. Feel free to reach out!</p>
+            
+            <div class="contact-buttons fade-in">
+                <a href="mailto:kashish.cs@outlook.com" class="contact-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Email Me
+                </a>
+                <a href="https://github.com/kashishcs" target="_blank" class="contact-btn github-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    GitHub
+                </a>
+            </div>
         </div>
-
-        <div class="contact-actions">
-          <a href="mailto:kashish@example.com" class="btn btn-primary">Email Me</a>
-          <a href="#projects" class="btn btn-ghost">See Projects</a>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">© Kashish 2025 | Ahmedabad, India</p>
-      <nav class="footer-nav" aria-label="Footer">
-        <a href="#top" class="footer-link">Back to top</a>
-      </nav>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© Kashish 2025 | Ahmedabad, India</p>
+        </div>
+    </footer>
 
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
-```
-
----
-
-### `style.css`
-```css
-/* ==========================================================================
-   style.css
-   Clean, modular CSS for Kashish portfolio
-   - Light, airy, admissions-friendly aesthetic
-   - Uses only the locked color system
-   ========================================================================== */
-
-/* -------------------------
-   Color system (locked)
-   ------------------------- */
-:root{
-  --bg: #ffffff;                 /* page background */
-  --section-bg-1: #fbfdff;       /* subtle section background */
-  --section-bg-2: #fdfefe;       /* alternate section background */
-  --accent: #7bb7ff;             /* primary accent (soft sky blue) */
-  --accent-2: #c7b8ff;           /* secondary accent (light lavender) */
-  --highlight: #ffd6c9;          /* pastel peach */
-  --mint: #baf2e9;               /* optional mint accent */
-  --text: #1f2937;               /* dark gray text (not black) */
-
-  --radius: 12px;
-  --soft-shadow: 0 6px 18px rgba(31,41,55,0.04); /* very soft shadow */
-  --soft-shadow-2: 0 10px 30px rgba(31,41,55,0.03);
-  --glass: rgba(255,255,255,0.6);
-  --max-width: 1100px;
-  --container-padding: 28px;
-  --ease: cubic-bezier(.2,.9,.3,1);
-}
-
-/* -------------------------
-   Base reset & typography
-   ------------------------- */
-* { box-sizing: border-box; }
-html,body { height:100%; }
-body{
-  margin:0;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color:var(--text);
-  background:var(--bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.6;
-  font-size:16px;
-  scroll-behavior:smooth;
-}
-
-/* Container utility */
-.container{
-  width:100%;
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding: 48px var(--container-padding);
-}
-
-/* Headings */
-h1,h2,h3,h4{
-  color:var(--text);
-  margin:0 0 12px 0;
-  line-height:1.05;
-}
-h1{
-  font-family: "Playfair Display", serif;
-  font-weight:700;
-  font-size:clamp(36px, 6vw, 64px);
-  letter-spacing:-0.02em;
-}
-h2{
-  font-size:28px;
-  font-weight:700;
-}
-h3{
-  font-size:18px;
-  font-weight:600;
-}
-p{ margin:0 0 16px 0; color:var(--text); }
-
-/* Links and buttons */
-a{ color:inherit; text-decoration:none; }
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 16px;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  transition: transform .28s var(--ease), box-shadow .28s var(--ease), opacity .2s;
-  text-decoration:none;
-  color:var(--text);
-  background:transparent;
-  border:1px solid transparent;
-}
-.btn:focus{ outline:3px solid rgba(123,183,255,0.18); outline-offset:2px; border-radius:10px; }
-
-.btn-primary{
-  background: linear-gradient(180deg, rgba(123,183,255,0.12), rgba(123,183,255,0.06));
-  color:var(--accent);
-  border:1px solid rgba(123,183,255,0.18);
-  box-shadow: var(--soft-shadow);
-}
-.btn-primary:hover{
-  transform:translateY(-4px);
-  box-shadow: var(--soft-shadow-2);
-}
-
-.btn-ghost{
-  background:transparent;
-  color:var(--accent-2);
-  border:1px solid rgba(199,184,255,0.18);
-}
-.btn-outline{
-  background:transparent;
-  border:1px solid rgba(31,41,55,0.06);
-  color:var(--text);
-}
-.btn-outline:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow); }
-
-/* -------------------------
-   Header / Navbar
-   ------------------------- */
-.site-header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:60;
-  background:var(--bg);
-  border-bottom:1px solid rgba(31,41,55,0.04);
-  backdrop-filter: blur(6px);
-}
-.header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:14px var(--container-padding);
-  max-width:var(--max-width);
-  margin:0 auto;
-}
-
-/* Brand */
-.brand{
-  font-weight:700;
-  font-size:18px;
-  color:var(--text);
-  letter-spacing:0.02em;
-}
-
-/* Desktop nav */
-.nav-list{
-  display:flex;
-  gap:18px;
-  list-style:none;
-  margin:0;
-  padding:0;
-}
-.nav-link{
-  padding:8px 10px;
-  border-radius:8px;
-  color:var(--text);
-  font-weight:600;
-  transition: color .2s, background .2s, transform .2s;
-}
-.nav-link:hover{ color:var(--accent); transform:translateY(-2px); }
-.nav-link.active{
-  color:var(--accent);
-  box-shadow: inset 0 -3px 0 0 rgba(123,183,255,0.18);
-}
-
-/* Hamburger (mobile) */
-.hamburger{
-  display:none;
-  background:transparent;
-  border:0;
-  padding:8px;
-  cursor:pointer;
-}
-.hamburger-box{ width:28px; height:18px; display:inline-block; position:relative; }
-.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after{
-  width:28px; height:2px; background:var(--text); display:block; border-radius:2px; position:absolute; left:0; transition: transform .25s var(--ease), opacity .2s;
-}
-.hamburger-inner{ top:50%; transform:translateY(-50%); }
-.hamburger-inner::before{ content:""; top:-8px; }
-.hamburger-inner::after{ content:""; top:8px; }
-
-/* Mobile menu */
-.mobile-menu{
-  display:none;
-  background:var(--section-bg-1);
-  border-top:1px solid rgba(31,41,55,0.03);
-  padding:12px var(--container-padding);
-}
-.mobile-nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
-.mobile-nav-link{
-  padding:10px 12px;
-  border-radius:8px;
-  color:var(--text);
-  font-weight:600;
-  background:transparent;
-}
-.mobile-nav-link:hover{ background:rgba(123,183,255,0.06); color:var(--accent); transform:translateY(-2px); }
-
-/* -------------------------
-   HERO
-   ------------------------- */
-.hero{
-  padding-top:120px; /* account for fixed header */
-  padding-bottom:120px;
-  background: linear-gradient(180deg, rgba(123,183,255,0.03), rgba(199,184,255,0.02));
-  position:relative;
-  overflow:hidden;
-}
-.hero-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:40px;
-  position:relative;
-}
-
-/* Hero content */
-.hero-content{ max-width:640px; }
-.hero-title{ font-size:clamp(40px, 8vw, 84px); margin-bottom:12px; color:var(--text); opacity:0; transform:translateY(12px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.hero-title .name{ display:inline-block; padding:6px 8px; border-radius:8px; background:transparent; color:var(--text); }
-
-/* Typewriter */
-.hero-tagline{ font-size:18px; color:rgba(31,41,55,0.9); margin-bottom:20px; min-height:28px; opacity:0; transform:translateY(8px); transition: opacity .9s .2s var(--ease), transform .9s .2s var(--ease); }
-.typewriter::after{
-  content:"";
-  display:inline-block;
-  width:2px;
-  height:1.1em;
-  background:var(--text);
-  margin-left:6px;
-  vertical-align:middle;
-  animation: blink 1.2s steps(2, start) infinite;
-  opacity:0.9;
-}
-@keyframes blink{ 50%{ opacity:0; } }
-
-/* Hero CTA */
-.hero-cta{ display:flex; gap:12px; margin-top:8px; opacity:0; transform:translateY(8px); transition: opacity .9s .6s var(--ease), transform .9s .6s var(--ease); }
-
-/* Hero visual shapes */
-.hero-visual{ width:320px; height:240px; position:relative; display:block; }
-.shape{
-  position:absolute;
-  border-radius:18px;
-  filter: blur(0.6px);
-  opacity:0.95;
-  box-shadow: var(--soft-shadow);
-}
-.shape-1{ width:160px; height:160px; left:40px; top:10px; background:linear-gradient(180deg, rgba(123,183,255,0.12), rgba(123,183,255,0.06)); transform:rotate(-6deg); }
-.shape-2{ width:120px; height:120px; right:10px; top:40px; background:linear-gradient(180deg, rgba(199,184,255,0.12), rgba(199,184,255,0.06)); transform:rotate(8deg); }
-.shape-3{ width:80px; height:80px; left:120px; bottom:10px; background:linear-gradient(180deg, rgba(255,214,201,0.12), rgba(255,214,201,0.06)); }
-
-/* -------------------------
-   Sections
-   ------------------------- */
-.section{ padding:72px 0; background:var(--section-bg-2); }
-.section-alt{ background:var(--section-bg-1); }
-.section-title{ margin-bottom:18px; }
-
-/* ABOUT */
-.about-grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:20px;
-}
-.about-card{
-  background:var(--bg);
-  border-radius:14px;
-  padding:20px;
-  box-shadow:var(--soft-shadow);
-  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
-}
-.about-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
-
-/* SKILLS */
-.skills-intro{
-  margin:0 0 20px 0;
-  padding:18px;
-  border-left:4px solid var(--accent);
-  background:linear-gradient(180deg, rgba(123,183,255,0.03), rgba(199,184,255,0.02));
-  border-radius:10px;
-  color:var(--text);
-  font-style:normal;
-}
-
-.skills-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:18px;
-  margin-top:18px;
-}
-.skill-card{
-  background:var(--bg);
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:var(--soft-shadow);
-  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
-  display:flex;
-  flex-direction:column;
-}
-.skill-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
-.skill-accent{ height:8px; width:100%; }
-.skill-body{ padding:16px; }
-.skill-title{ margin-bottom:6px; }
-.skill-list{ color:rgba(31,41,55,0.8); font-size:14px; }
-
-/* PROJECTS */
-.projects-intro{ margin-bottom:18px; color:rgba(31,41,55,0.9); }
-.projects-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:20px;
-}
-.project-card{
-  background:var(--bg);
-  border-radius:14px;
-  padding:18px;
-  box-shadow:var(--soft-shadow);
-  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.project-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
-.project-meta{ border-bottom:1px dashed rgba(31,41,55,0.04); padding-bottom:12px; }
-.project-title{ margin-bottom:6px; }
-.project-desc{ color:rgba(31,41,55,0.8); font-size:14px; margin-bottom:8px; }
-.badges{ display:flex; gap:8px; flex-wrap:wrap; }
-.badge{
-  background:linear-gradient(180deg, rgba(123,183,255,0.08), rgba(199,184,255,0.04));
-  color:var(--accent);
-  padding:6px 8px;
-  border-radius:999px;
-  font-weight:600;
-  font-size:13px;
-  border:1px solid rgba(123,183,255,0.08);
-}
-
-/* Project case study */
-.project-case h4{ margin:8px 0; font-size:15px; }
-.project-case ul{ margin:0; padding-left:18px; color:rgba(31,41,55,0.85); }
-.project-actions{ display:flex; gap:10px; margin-top:12px; }
-
-/* CONTACT */
-.contact-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:18px;
-  margin-top:18px;
-}
-.contact-card{
-  background:var(--bg);
-  border-radius:12px;
-  padding:16px;
-  box-shadow:var(--soft-shadow);
-}
-.contact-link{ color:var(--accent); font-weight:600; }
-
-/* FOOTER */
-.site-footer{
-  padding:20px 0;
-  background:var(--section-bg-2);
-  border-top:1px solid rgba(31,41,55,0.03);
-}
-.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-
-/* -------------------------
-   Reveal animations (on-scroll)
-   ------------------------- */
-.reveal{
-  opacity:0;
-  transform:translateY(12px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease);
-}
-.reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* -------------------------
-   Small screens
-   ------------------------- */
-@media (max-width: 980px){
-  .hero-inner{ flex-direction:column; align-items:flex-start; gap:24px; }
-  .hero-visual{ display:none; }
-  .projects-grid{ grid-template-columns: 1fr; }
-  .skills-grid{ grid-template-columns: repeat(2, 1fr); }
-  .about-grid{ grid-template-columns: 1fr; }
-  .contact-grid{ grid-template-columns: 1fr; }
-  .nav-list{ display:none; }
-  .hamburger{ display:block; }
-  .mobile-menu{ display:block; }
-  .header-inner{ padding:12px var(--container-padding); }
-}
-
-/* -------------------------
-   Larger screens
-   ------------------------- */
-@media (min-width: 981px){
-  .mobile-menu{ display:none; }
-}
-
-/* -------------------------
-   Accessibility helpers
-   ------------------------- */
-.sr-only{
-  position:absolute !important;
-  width:1px; height:1px;
-  padding:0; margin:-1px;
-  overflow:hidden; clip:rect(0,0,0,0);
-  white-space:nowrap; border:0;
-}
-
-/* -------------------------
-   Small visual polish
-   ------------------------- */
-.footer-link{ color:rgba(31,41,55,0.7); font-size:14px; }
-.projects-intro{ margin-bottom:18px; }
-
-/* End of style.css */
-```
-
----
-
-### `script.js`
-```javascript
-/* ==========================================================================
-   script.js
-   Interactivity and animations for Kashish portfolio
-   - Typewriter effect
-   - Smooth reveal on scroll (IntersectionObserver)
-   - Navbar active link tracking
-   - Mobile menu toggle
-   - Gentle entrance animations for hero
-   ========================================================================== */
-
-/* -------------------------
-   Utilities
-   ------------------------- */
-const q = (sel, ctx = document) => ctx.querySelector(sel);
-const qAll = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-
-/* -------------------------
-   Typewriter effect (slow, calm, elegant)
-   - Reads data-text attribute from #typewriter
-   - Types slowly, with slight pause, then stops (no loop)
-   ------------------------- */
-function typewriterEffect(el, speed = 40, pause = 600) {
-  if (!el) return;
-  const text = el.getAttribute('data-text') || '';
-  el.textContent = '';
-  let i = 0;
-
-  function step() {
-    if (i <= text.length) {
-      el.textContent = text.slice(0, i);
-      i++;
-      setTimeout(step, speed + (i % 6 === 0 ? 20 : 0)); // slight variation
-    } else {
-      // finished typing, small pause then reveal CTA
-      setTimeout(() => {
-        document.querySelector('.hero-cta').classList.add('visible');
-      }, pause);
-    }
-  }
-  // small initial delay for calm entrance
-  setTimeout(step, 420);
-}
-
-/* -------------------------
-   Hero entrance animation
-   - Name fades in + moves up slightly
-   - Tagline handled by typewriter
-   - CTA fades in after tagline (handled in typewriter)
-   ------------------------- */
-function heroEntrance() {
-  const title = q('.hero-title');
-  const tagline = q('.hero-tagline');
-
-  // reveal title
-  requestAnimationFrame(() => {
-    title.style.opacity = '1';
-    title.style.transform = 'translateY(0)';
-  });
-
-  // reveal tagline after a short delay (typewriter will fill text)
-  setTimeout(() => {
-    tagline.style.opacity = '1';
-    tagline.style.transform = 'translateY(0)';
-  }, 420);
-
-  // ensure CTA is hidden until typewriter triggers it
-  const cta = q('.hero-cta');
-  cta.style.opacity = '0';
-  cta.style.transform = 'translateY(8px)';
-}
-
-/* -------------------------
-   Reveal on scroll
-   - Uses IntersectionObserver to add .visible to .reveal elements
-   - Staggered reveal for children
-   ------------------------- */
-function setupRevealOnScroll() {
-  const reveals = qAll('.reveal');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // add visible with slight stagger based on index
-        const el = entry.target;
-        el.classList.add('visible');
-        observer.unobserve(el);
-      }
-    });
-  }, {
-    root: null,
-    rootMargin: '0px 0px -8% 0px',
-    threshold: 0.08
-  });
-
-  reveals.forEach((r, i) => {
-    // small stagger via transition delay
-    r.style.transitionDelay = `${Math.min(i * 60, 300)}ms`;
-    observer.observe(r);
-  });
-}
-
-/* -------------------------
-   Navbar active link tracking
-   - Highlights the nav link corresponding to the current section
-   - Smooth scroll is handled by CSS, but we update active state on scroll
-   ------------------------- */
-function setupActiveNav() {
-  const sections = qAll('main section[id]');
-  const navLinks = qAll('.nav-link');
-  const mobileLinks = qAll('.mobile-nav-link');
-
-  const sectionMap = sections.map(s => ({
-    id: s.id,
-    top: () => s.getBoundingClientRect().top + window.scrollY
-  }));
-
-  function updateActive() {
-    const scrollPos = window.scrollY + 120; // offset for header
-    let current = sectionMap[0].id;
-    for (let i = 0; i < sectionMap.length; i++) {
-      if (scrollPos >= sectionMap[i].top()) {
-        current = sectionMap[i].id;
-      }
-    }
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
-    mobileLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
-  }
-
-  window.addEventListener('scroll', throttle(updateActive, 120));
-  window.addEventListener('resize', throttle(updateActive, 200));
-  // initial
-  updateActive();
-}
-
-/* -------------------------
-   Mobile menu toggle
-   - Simple accessible toggle
-   ------------------------- */
-function setupMobileMenu() {
-  const hamburger = q('#hamburger');
-  const mobileMenu = q('#mobile-menu');
-
-  function openMenu() {
-    hamburger.setAttribute('aria-expanded', 'true');
-    mobileMenu.setAttribute('aria-hidden', 'false');
-    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-    hamburger.classList.add('open');
-    // animate hamburger to X
-    q('.hamburger-inner').style.transform = 'rotate(45deg)';
-    q('.hamburger-inner::before');
-  }
-
-  function closeMenu() {
-    hamburger.setAttribute('aria-expanded', 'false');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    mobileMenu.style.maxHeight = '0px';
-    hamburger.classList.remove('open');
-    q('.hamburger-inner').style.transform = 'rotate(0deg)';
-  }
-
-  hamburger.addEventListener('click', () => {
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    if (expanded) closeMenu();
-    else openMenu();
-  });
-
-  // Close mobile menu when a link is clicked
-  qAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      closeMenu();
-    });
-  });
-
-  // Close on outside click (for mobile)
-  document.addEventListener('click', (e) => {
-    const target = e.target;
-    if (!target.closest('.header-inner') && !target.closest('#mobile-menu')) {
-      closeMenu();
-    }
-  });
-}
-
-/* -------------------------
-   Throttle utility
-   ------------------------- */
-function throttle(fn, wait) {
-  let last = 0;
-  return function(...args) {
-    const now = Date.now();
-    if (now - last >= wait) {
-      last = now;
-      fn.apply(this, args);
-    }
-  };
-}
-
-/* -------------------------
-   Small helper: ensure hero CTA becomes visible
-   when .hero-cta.visible is added by typewriter
-   ------------------------- */
-function observeCTAVisibility() {
-  const cta = q('.hero-cta');
-  const observer = new MutationObserver(() => {
-    if (cta.classList.contains('visible')) {
-      cta.style.opacity = '1';
-      cta.style.transform = 'translateY(0)';
-    }
-  });
-  observer.observe(cta, { attributes: true, attributeFilter: ['class'] });
-}
-
-/* -------------------------
-   Smooth scroll for internal links (enhanced)
-   - Adds small offset to account for fixed header
-   ------------------------- */
-function setupSmoothScrollOffset() {
-  const links = qAll('a[href^="#"]');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        const headerOffset = 84; // approximate header height
-        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-        const offsetPosition = elementPosition - headerOffset;
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-}
-
-/* -------------------------
-   Initialize everything on DOMContentLoaded
-   ------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  // Hero entrance
-  heroEntrance();
-
-  // Typewriter
-  typewriterEffect(document.getElementById('typewriter'), 40, 700);
-
-  // Reveal on scroll
-  setupRevealOnScroll();
-
-  // Active nav tracking
-  setupActiveNav();
-
-  // Mobile menu
-  setupMobileMenu();
-
-  // Observe CTA visibility
-  observeCTAVisibility();
-
-  // Smooth scroll offset
-  setupSmoothScrollOffset();
-
-  // Make sure hero CTA becomes visible if typewriter already finished
-  setTimeout(() => {
-    const cta = document.querySelector('.hero-cta');
-    if (cta && cta.classList.contains('visible')) {
-      cta.style.opacity = '1';
-      cta.style.transform = 'translateY(0)';
-    }
-  }, 2000);
-});
 
    
 
