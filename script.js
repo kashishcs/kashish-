@@ -182,13 +182,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ================================
-    // CURSOR TRAIL EFFECT (OPTIONAL)
+    // CURSOR TRAIL EFFECT
     // ================================
     
     let mouseX = 0;
     let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
     
     // Create cursor trail elements
     const trailCount = 5;
@@ -280,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.style.boxShadow = '0 10px 30px rgba(123, 183, 255, 0.3)';
     });
     
-  
     // ================================
     // SKILL TAGS ANIMATION ON HOVER
     // ================================
@@ -336,7 +333,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ================================
     
     // Debounce scroll events
-    let scrollTimeout;
     let ticking = false;
     
     function optimizedScroll() {
@@ -431,6 +427,3 @@ fadeOutStyle.textContent = `
     }
 `;
 document.head.appendChild(fadeOutStyle);
-
-
-
