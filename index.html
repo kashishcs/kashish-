@@ -1,927 +1,1018 @@
-
-
+### `index.html`
+```html
 <!doctype html>
 <html lang="en">
 <head>
-  <!--
-    Kashish — Light Galaxy Portfolio
-    Admissions-ready portfolio template (index.html)
-    - Semantic, accessible, and modular structure
-    - Connects to style.css and script.js
-    - Designed for top CS program admissions: emphasizes depth, case studies, and technical clarity
-  -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Kashish — Computer Science student portfolio. Projects: Algorithm Visual Playground, Plagiarism Checker, Student Result Analyzer. Admissions-ready case studies and technical depth." />
-  <meta name="author" content="Kashish" />
-  <title>Kashish — Computer Science Student | Portfolio</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Theme color for mobile -->
-  <meta name="theme-color" content="#f5f7fa">
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Preload critical assets -->
-  <link rel="preload" href="style.css" as="style">
-  <link rel="preload" href="script.js" as="script">
-
-  <!-- Accessibility: prefer-reduced-motion support -->
-  <style>
-    @media (prefers-reduced-motion: reduce) {
-      :root { --motion-scale: 0; }
-    }
-  </style>
+  <title>Kashish — Computer Science Student</title>
+  <meta name="description" content="Portfolio of Kashish — 12th grade Computer Science student. Projects, skills, and contact." />
+  <!-- Link to stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google fonts (light, modern) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body class="light-galaxy">
+<body>
   <!--
-    Global layout:
-    - Header (nav)
-    - Main (hero, about, skills, projects, contact)
-    - Footer
-    - Modals and UI overlays
-    - Decorative canvas layers for parallax and stars
+    NAVBAR
+    Fixed top, white background, left-aligned name, right links.
+    Mobile-friendly hamburger menu.
   -->
-
-  <!-- Scroll progress indicator -->
-  <div id="scroll-progress" aria-hidden="true"></div>
-
-  <!-- Decorative parallax layers -->
-  <div id="parallax">
-    <canvas id="stars-layer" class="layer" aria-hidden="true"></canvas>
-    <canvas id="nebula-layer" class="layer" aria-hidden="true"></canvas>
-    <div id="floating-shapes" class="layer" aria-hidden="true">
-      <!-- subtle SVG shapes for depth -->
-      <svg class="shape shape-1" viewBox="0 0 200 200" aria-hidden="true">
-        <defs>
-          <linearGradient id="g1" x1="0" x2="1">
-            <stop offset="0" stop-color="#ffd6e0" stop-opacity="0.25"/>
-            <stop offset="1" stop-color="#cfe9ff" stop-opacity="0.15"/>
-          </linearGradient>
-        </defs>
-        <circle cx="100" cy="100" r="80" fill="url(#g1)"></circle>
-      </svg>
-      <svg class="shape shape-2" viewBox="0 0 200 200" aria-hidden="true">
-        <defs>
-          <linearGradient id="g2" x1="0" x2="1">
-            <stop offset="0" stop-color="#e6f7ff" stop-opacity="0.18"/>
-            <stop offset="1" stop-color="#fff0f0" stop-opacity="0.12"/>
-          </linearGradient>
-        </defs>
-        <rect x="10" y="10" width="180" height="180" rx="36" fill="url(#g2)"></rect>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Header / Navigation -->
-  <header id="site-header" class="site-header" role="banner">
+  <header class="site-header" id="top">
     <div class="container header-inner">
-      <a href="#hero" class="brand" aria-label="Kashish portfolio home">
-        <span class="brand-mark" aria-hidden="true">✦</span>
-        <span class="brand-text">Kashish</span>
-        <span class="brand-sub">Computer Science</span>
-      </a>
+      <a class="brand" href="#top" aria-label="Kashish homepage">Kashish</a>
 
-      <nav id="main-nav" class="main-nav" role="navigation" aria-label="Primary">
+      <nav class="nav" id="primary-nav" aria-label="Primary navigation">
         <ul class="nav-list">
-          <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#projects">Projects</a></li>
-          <li><a class="nav-link" href="#skills">Skills</a></li>
-          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
       </nav>
 
-      <!-- Hamburger for mobile -->
-      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-        <span class="hamburger">
-          <span class="bar bar-1"></span>
-          <span class="bar bar-2"></span>
-          <span class="bar bar-3"></span>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
         </span>
       </button>
     </div>
 
-    <!-- Mobile menu (fade-in vertical) -->
-    <div id="mobile-menu" class="mobile-menu" role="menu" aria-hidden="true">
+    <!-- Mobile menu (simple, accessible) -->
+    <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
       <ul class="mobile-nav-list">
-        <li><a class="mobile-nav-link" href="#about">About</a></li>
-        <li><a class="mobile-nav-link" href="#projects">Projects</a></li>
-        <li><a class="mobile-nav-link" href="#skills">Skills</a></li>
-        <li><a class="mobile-nav-link" href="#contact">Contact</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+        <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
       </ul>
-      <div class="mobile-cta">
-        <a href="#projects" class="btn btn-ghost">View Projects</a>
-      </div>
     </div>
   </header>
 
-  <main id="main" role="main">
-    <!-- HERO -->
-    <section id="hero" class="hero-section" aria-label="Introduction">
+  <main>
+    <!--
+      HERO SECTION
+      Light pastel gradient background (very subtle).
+      Name fades in + moves up slightly.
+      Tagline with typewriter effect.
+      CTA fades in after tagline.
+    -->
+    <section class="hero" id="home" aria-labelledby="hero-heading">
       <div class="container hero-inner">
-        <div class="hero-left">
-          <h1 id="hero-name" class="hero-name" aria-live="polite">
-            <!-- Animated name -->
-            <span class="name-first">Kashish</span>
-            <span class="name-dot">.</span>
+        <div class="hero-content">
+          <h1 id="hero-heading" class="hero-title">
+            <!-- Name animation handled in JS/CSS -->
+            <span class="name">Kashish</span>
           </h1>
 
-          <p id="hero-tagline" class="hero-tagline" aria-hidden="false">
-            <span class="typewriter" data-text="Computer Science Student | Software, Logic & Innovation"></span>
+          <p class="hero-tagline" aria-live="polite">
+            <span id="typewriter" class="typewriter" data-text="Computer Science Student | Software, Logic & Innovation"></span>
           </p>
 
-          <p class="hero-summary">
-            I build tools and visualizations that make algorithms tangible, transform data into actionable insights, and design systems with clarity and correctness. My work focuses on core CS principles, clean engineering, and reproducible results.
-          </p>
-
-          <div class="hero-ctas">
-            <a href="#projects" class="btn btn-primary" id="cta-projects">View My Projects</a>
-            <a href="#contact" class="btn btn-outline">Get in Touch</a>
-          </div>
-
-          <div class="hero-meta">
-            <span class="meta-item">Grade 12 • Ahmedabad, India</span>
-            <span class="meta-sep">|</span>
-            <span class="meta-item">Available for internships & research</span>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary" id="cta-projects">View Projects</a>
+            <a href="#contact" class="btn btn-ghost">Contact Me</a>
           </div>
         </div>
 
-        <div class="hero-right" aria-hidden="true">
-          <!-- Interactive illustration: floating laptop + code lines -->
-          <div class="illustration">
-            <svg class="laptop" viewBox="0 0 600 400" role="img" aria-hidden="true">
-              <defs>
-                <linearGradient id="screenGrad" x1="0" x2="1">
-                  <stop offset="0" stop-color="#e6f7ff" stop-opacity="0.9"/>
-                  <stop offset="1" stop-color="#fff0f0" stop-opacity="0.9"/>
-                </linearGradient>
-              </defs>
-              <rect x="40" y="40" width="520" height="300" rx="18" fill="url(#screenGrad)" class="screen"></rect>
-              <rect x="80" y="320" width="440" height="20" rx="6" fill="#e9eefb" class="base"></rect>
-              <!-- code lines -->
-              <g class="code-lines" transform="translate(80,60)">
-                <rect x="0" y="0" width="360" height="12" rx="6" fill="#fff" opacity="0.9"></rect>
-                <rect x="0" y="22" width="300" height="12" rx="6" fill="#fff" opacity="0.85"></rect>
-                <rect x="0" y="44" width="240" height="12" rx="6" fill="#fff" opacity="0.8"></rect>
-                <rect x="0" y="66" width="320" height="12" rx="6" fill="#fff" opacity="0.75"></rect>
-              </g>
-            </svg>
-
-            <!-- small floating badges -->
-            <div class="badges">
-              <span class="badge">Python</span>
-              <span class="badge">Algorithms</span>
-              <span class="badge">Canvas</span>
-            </div>
-          </div>
+        <!-- Decorative, subtle pastel shapes (non-distracting, no particles) -->
+        <div class="hero-visual" aria-hidden="true">
+          <!-- Simple layered shapes using CSS for a calm, student-authentic look -->
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="about-section" aria-labelledby="about-heading">
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section section-alt" aria-labelledby="about-heading">
       <div class="container">
-        <h2 id="about-heading" class="section-heading">About</h2>
-        <p class="section-intro">
-          I approach Computer Science as a craft: precise, iterative, and evidence-driven. Below are four focused perspectives that describe how I learn, build, and plan to contribute to research and engineering.
-        </p>
+        <h2 id="about-heading" class="section-title">About Me</h2>
 
         <div class="about-grid">
-          <!-- Card 1: Why CS -->
-          <article class="about-card" data-animate="slide-up" aria-labelledby="whycs-title">
-            <header>
-              <h3 id="whycs-title">Why Computer Science</h3>
-            </header>
-            <div class="card-body">
-              <p>
-                I was drawn to CS by the clarity of algorithms and the elegance of well-structured systems. The ability to model complex problems and prove properties about them—correctness, complexity, and robustness—resonates with my analytical mindset.
-              </p>
-              <p>
-                I enjoy translating abstract ideas into working systems: from algorithm visualizations that make recursion intuitive to tools that analyze student performance data.
-              </p>
-            </div>
-            <footer class="card-footer">
-              <small>Core interests: algorithms, systems, data visualization</small>
-            </footer>
+          <!-- Four short paragraphs with subtle staggered reveal -->
+          <article class="about-card reveal">
+            <p>
+              I have always been fascinated by how simple rules and logic can create complex, meaningful systems. Computer Science appeals to me because it blends creativity with precision — building tools that solve problems and reveal patterns.
+            </p>
           </article>
 
-          <!-- Card 2: How I Learn -->
-          <article class="about-card" data-animate="slide-up" aria-labelledby="learn-title">
-            <header>
-              <h3 id="learn-title">How I Learn</h3>
-            </header>
-            <div class="card-body">
-              <p>
-                My learning process is project-driven: I pick a focused problem, research foundational papers or documentation, prototype, and iterate. I prioritize understanding over memorization—reading source code, writing tests, and benchmarking.
-              </p>
-              <p>
-                I use a combination of algorithmic problem solving, code reviews with peers, and reading academic material to deepen my understanding.
-              </p>
-            </div>
-            <footer class="card-footer">
-              <small>Methods: deliberate practice, code reviews, benchmarking</small>
-            </footer>
+          <article class="about-card reveal">
+            <p>
+              My approach to learning is deliberate: I focus on fundamentals first. Understanding algorithms, data structures, and core programming concepts gives me a foundation I can rely on when exploring new technologies or solving unfamiliar problems.
+            </p>
           </article>
 
-          <!-- Card 3: Current Focus / Projects -->
-          <article class="about-card" data-animate="slide-up" aria-labelledby="focus-title">
-            <header>
-              <h3 id="focus-title">Current Focus & Projects</h3>
-            </header>
-            <div class="card-body">
-              <p>
-                I am actively developing three major projects: an Algorithm Visual Playground, a Plagiarism Checker, and a Student Result Analyzer. Each project targets a different technical domain—visualization, text processing, and analytics—and together they demonstrate breadth and depth.
-              </p>
-              <p>
-                I emphasize reproducibility: each project includes tests, documentation, and performance benchmarks.
-              </p>
-            </div>
-            <footer class="card-footer">
-              <small>Stack: Python, JavaScript, Canvas, Chart.js, Node.js</small>
-            </footer>
+          <article class="about-card reveal">
+            <p>
+              I learn by building. Small projects let me test ideas, iterate quickly, and learn from mistakes. Each project is an opportunity to apply theory, refine design, and improve the clarity of my code and user experience.
+            </p>
           </article>
 
-          <!-- Card 4: Long-Term Perspective -->
-          <article class="about-card" data-animate="slide-up" aria-labelledby="longterm-title">
-            <header>
-              <h3 id="longterm-title">Long-Term Perspective</h3>
-            </header>
-            <div class="card-body">
-              <p>
-                I aim to contribute to research and engineering that improves how people learn and reason about computation. In the near term, I seek mentorship and research opportunities to deepen my understanding of algorithms and systems.
-              </p>
-              <p>
-                Long-term, I want to build tools that make complex ideas accessible and verifiable.
-              </p>
-            </div>
-            <footer class="card-footer">
-              <small>Goal: research internships, open-source contributions, and collaborative projects</small>
-            </footer>
+          <article class="about-card reveal">
+            <p>
+              I aim for depth over breadth. My long-term mindset is to keep learning, to dig deeper into topics that matter, and to create work that has impact — whether that means helping classmates, contributing to open-source, or building tools that make learning easier.
+            </p>
           </article>
-        </div>
-
-        <!-- Interactive timeline (compact) -->
-        <div class="timeline" aria-hidden="false">
-          <h4 class="timeline-heading">Learning Timeline</h4>
-          <ol class="timeline-list">
-            <li>
-              <time>2019</time>
-              <div class="timeline-content">
-                <strong>First programs</strong>
-                <p>Started with Python; solved basic algorithmic problems and built small scripts.</p>
-              </div>
-            </li>
-            <li>
-              <time>2021</time>
-              <div class="timeline-content">
-                <strong>Data structures & algorithms</strong>
-                <p>Studied core DS & algorithms; implemented trees, graphs, and sorting visualizations.</p>
-              </div>
-            </li>
-            <li>
-              <time>2023</time>
-              <div class="timeline-content">
-                <strong>Projects & tooling</strong>
-                <p>Built the first versions of the Algorithm Visual Playground and Student Result Analyzer.</p>
-              </div>
-            </li>
-            <li>
-              <time>2024–2025</time>
-              <div class="timeline-content">
-                <strong>Optimization & research</strong>
-                <p>Focused on algorithmic optimization, text similarity algorithms, and visualization clarity.</p>
-              </div>
-            </li>
-          </ol>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="skills-section" aria-labelledby="skills-heading">
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="section" aria-labelledby="skills-heading">
       <div class="container">
-        <h2 id="skills-heading" class="section-heading">Skills</h2>
+        <h2 id="skills-heading" class="section-title">Skills</h2>
 
-        <p class="skills-summary">
-          These skills represent areas where I have working knowledge through consistent practice and project work. My focus is on understanding core principles rather than collecting credentials—learning how things work at a fundamental level, then applying that understanding to solve real problems. I view this as an ongoing process of building depth, not a finished skill set.
-        </p>
+        <!-- Exact required text before the grid -->
+        <blockquote class="skills-intro">
+          “These skills represent areas where I have working knowledge through consistent practice and project work. My focus has been on understanding core principles rather than collecting credentials—learning how things work at a fundamental level, then applying that understanding to solve real problems. I view this as an ongoing process of building depth, not a finished skill set.”
+        </blockquote>
 
         <div class="skills-grid">
-          <!-- Skill Card 1 -->
-          <div class="skill-card" data-skill="languages" tabindex="0" aria-labelledby="skill-languages">
-            <div class="skill-front">
-              <h3 id="skill-languages">Programming Languages</h3>
+          <!-- Card 1 -->
+          <div class="skill-card reveal">
+            <div class="skill-accent" style="background: linear-gradient(90deg, #7bb7ff 0%, #baf2e9 100%);"></div>
+            <div class="skill-body">
+              <h3 class="skill-title">Programming Foundations</h3>
               <p class="skill-list">Python; JavaScript; C++; Java</p>
-              <div class="skill-prog" aria-hidden="true">
-                <div class="prog-bar" style="--value:85"><span>85%</span></div>
-              </div>
-            </div>
-            <div class="skill-back" aria-hidden="true">
-              <h4>Representative Work</h4>
-              <ul>
-                <li>Algorithm Visual Playground (Python + JS)</li>
-                <li>Plagiarism Checker (Python text processing)</li>
-                <li>Performance-critical C++ prototypes</li>
-              </ul>
             </div>
           </div>
 
-          <!-- Skill Card 2 -->
-          <div class="skill-card" data-skill="concepts" tabindex="0" aria-labelledby="skill-concepts">
-            <div class="skill-front">
-              <h3 id="skill-concepts">Core CS Concepts</h3>
-              <p class="skill-list">Data Structures; Algorithms; Problem Decomposition; Code Readability</p>
-              <div class="skill-prog" aria-hidden="true">
-                <div class="prog-bar" style="--value:90"><span>90%</span></div>
-              </div>
-            </div>
-            <div class="skill-back" aria-hidden="true">
-              <h4>Examples</h4>
-              <ul>
-                <li>Implemented BFS/DFS visualizations with step-by-step tracing</li>
-                <li>Optimized sorting visualizations to demonstrate complexity tradeoffs</li>
-              </ul>
+          <!-- Card 2 -->
+          <div class="skill-card reveal">
+            <div class="skill-accent" style="background: linear-gradient(90deg, #c7b8ff 0%, #ffd6c9 100%);"></div>
+            <div class="skill-body">
+              <h3 class="skill-title">Computational Thinking</h3>
+              <p class="skill-list">Data Structures; Algorithms; Problem Solving; Code Readability</p>
             </div>
           </div>
 
-          <!-- Skill Card 3 -->
-          <div class="skill-card" data-skill="tools" tabindex="0" aria-labelledby="skill-tools">
-            <div class="skill-front">
-              <h3 id="skill-tools">Development Tools</h3>
-              <p class="skill-list">Git; Command Line; VS Code; Linux Fundamentals</p>
-              <div class="skill-prog" aria-hidden="true">
-                <div class="prog-bar" style="--value:80"><span>80%</span></div>
-              </div>
-            </div>
-            <div class="skill-back" aria-hidden="true">
-              <h4>Workflow</h4>
-              <ul>
-                <li>Feature branches, PR reviews, and CI checks</li>
-                <li>Shell scripting for automation and reproducible builds</li>
-              </ul>
+          <!-- Card 3 -->
+          <div class="skill-card reveal">
+            <div class="skill-accent" style="background: linear-gradient(90deg, #baf2e9 0%, #7bb7ff 100%);"></div>
+            <div class="skill-body">
+              <h3 class="skill-title">Tools & Environment</h3>
+              <p class="skill-list">Git & Version Control; VS Code; Command Line; Linux Basics</p>
             </div>
           </div>
 
-          <!-- Skill Card 4 -->
-          <div class="skill-card" data-skill="web" tabindex="0" aria-labelledby="skill-web">
-            <div class="skill-front">
-              <h3 id="skill-web">Web Development</h3>
-              <p class="skill-list">HTML & CSS; React Basics; JS DOM; Node.js Basics</p>
-              <div class="skill-prog" aria-hidden="true">
-                <div class="prog-bar" style="--value:75"><span>75%</span></div>
-              </div>
-            </div>
-            <div class="skill-back" aria-hidden="true">
-              <h4>Projects</h4>
-              <ul>
-                <li>Interactive visualizations using Canvas and React</li>
-                <li>Server-side data processing with Node.js</li>
-              </ul>
+          <!-- Card 4 -->
+          <div class="skill-card reveal">
+            <div class="skill-accent" style="background: linear-gradient(90deg, #ffd6c9 0%, #c7b8ff 100%);"></div>
+            <div class="skill-body">
+              <h3 class="skill-title">Web Development</h3>
+              <p class="skill-list">HTML; CSS; JavaScript DOM; React Basics; Node.js Basics</p>
             </div>
           </div>
-        </div>
-
-        <!-- Optional radial proficiency visualization -->
-        <div class="radial-visuals" aria-hidden="true">
-          <div class="radial" data-label="Algorithms" data-value="90"></div>
-          <div class="radial" data-label="Systems" data-value="75"></div>
-          <div class="radial" data-label="Visualization" data-value="85"></div>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="projects-section" aria-labelledby="projects-heading">
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section section-alt" aria-labelledby="projects-heading">
       <div class="container">
-        <h2 id="projects-heading" class="section-heading">Projects</h2>
-        <p class="section-intro">
-          Three in-depth projects with case studies: challenge, solution, and learning. Each card opens a modal with technical details, architecture diagrams, and live mini-demos.
-        </p>
+        <h2 id="projects-heading" class="section-title">Featured Projects</h2>
+
+        <p class="projects-intro">Selected projects that reflect my focus on clarity, learning, and practical problem solving.</p>
 
         <div class="projects-grid">
           <!-- Project 1 -->
-          <article class="project-card" data-project="algo-playground" tabindex="0" aria-labelledby="proj1-title">
-            <div class="project-media" aria-hidden="true">
-              <canvas class="project-canvas" data-demo="algo" width="600" height="360"></canvas>
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <h3 class="project-title">Algorithm Visual Playground</h3>
+              <p class="project-desc">An interactive visualizer for sorting and pathfinding algorithms designed to make algorithmic concepts intuitive and approachable.</p>
+              <div class="badges">
+                <span class="badge">JavaScript</span>
+                <span class="badge">Canvas</span>
+                <span class="badge">Algorithms</span>
+              </div>
             </div>
-            <div class="project-body">
-              <h3 id="proj1-title">Algorithm Visual Playground</h3>
-              <p class="project-excerpt">
-                Interactive visualizations for sorting, BFS/DFS, and recursion. Designed to teach algorithmic thinking through animation and stepwise execution.
-              </p>
-              <div class="project-meta">
-                <span class="tech">Canvas; JavaScript; Python</span>
-                <button class="btn btn-sm btn-modal" data-open="modal-proj1">Read Case Study</button>
+
+            <div class="project-case">
+              <h4>Case Study</h4>
+              <ul>
+                <li><strong>Challenge:</strong> Students often struggle to connect code with algorithm behavior in real time.</li>
+                <li><strong>Solution:</strong> Built a lightweight visual playground with step controls, clear color-coding, and explanations for each step.</li>
+                <li><strong>Learning:</strong> Improved UI clarity, performance optimization for animations, and pedagogical design for learning tools.</li>
+              </ul>
+
+              <div class="project-actions">
+                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
+                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
               </div>
             </div>
           </article>
 
           <!-- Project 2 -->
-          <article class="project-card" data-project="plagiarism-checker" tabindex="0" aria-labelledby="proj2-title">
-            <div class="project-media" aria-hidden="true">
-              <svg class="project-illustration" viewBox="0 0 600 360" aria-hidden="true">
-                <rect x="0" y="0" width="600" height="360" rx="12" fill="#fff"></rect>
-                <!-- stylized text blocks -->
-                <g transform="translate(24,24)">
-                  <rect x="0" y="0" width="520" height="18" rx="8" fill="#f5f7fa"></rect>
-                  <rect x="0" y="30" width="420" height="18" rx="8" fill="#f5f7fa"></rect>
-                  <rect x="0" y="60" width="480" height="18" rx="8" fill="#f5f7fa"></rect>
-                </g>
-              </svg>
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <h3 class="project-title">Plagiarism Checker</h3>
+              <p class="project-desc">A text similarity detection tool that compares documents and highlights likely overlaps with clear scoring and explanations.</p>
+              <div class="badges">
+                <span class="badge">Python</span>
+                <span class="badge">NLP</span>
+                <span class="badge">Cosine Similarity</span>
+              </div>
             </div>
-            <div class="project-body">
-              <h3 id="proj2-title">Plagiarism Checker</h3>
-              <p class="project-excerpt">
-                A robust code and text similarity detection system that balances accuracy and performance for large inputs.
-              </p>
-              <div class="project-meta">
-                <span class="tech">Python; NLP; Hashing</span>
-                <button class="btn btn-sm btn-modal" data-open="modal-proj2">Read Case Study</button>
+
+            <div class="project-case">
+              <h4>Case Study</h4>
+              <ul>
+                <li><strong>Challenge:</strong> Detecting meaningful similarity while avoiding false positives from common phrases.</li>
+                <li><strong>Solution:</strong> Implemented tokenization, stop-word handling, and weighted similarity scoring with a clear UI for reviewers.</li>
+                <li><strong>Learning:</strong> Gained practical experience with text preprocessing, evaluation metrics, and user-centered reporting.</li>
+              </ul>
+
+              <div class="project-actions">
+                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
+                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
               </div>
             </div>
           </article>
 
           <!-- Project 3 -->
-          <article class="project-card" data-project="result-analyzer" tabindex="0" aria-labelledby="proj3-title">
-            <div class="project-media" aria-hidden="true">
-              <canvas class="project-chart" width="600" height="360"></canvas>
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <h3 class="project-title">Student Result Analyzer</h3>
+              <p class="project-desc">A small analytics tool that ingests student performance data and surfaces trends, outliers, and actionable insights.</p>
+              <div class="badges">
+                <span class="badge">Python</span>
+                <span class="badge">Pandas</span>
+                <span class="badge">Data Viz</span>
+              </div>
             </div>
-            <div class="project-body">
-              <h3 id="proj3-title">Student Result Analyzer</h3>
-              <p class="project-excerpt">
-                Study tracking and analytics with interactive charts, insights, and personalized recommendations for learning improvement.
-              </p>
-              <div class="project-meta">
-                <span class="tech">Chart.js; Node.js; Python</span>
-                <button class="btn btn-sm btn-modal" data-open="modal-proj3">Read Case Study</button>
+
+            <div class="project-case">
+              <h4>Case Study</h4>
+              <ul>
+                <li><strong>Challenge:</strong> Teachers needed a quick way to spot students who might need support and to visualize class trends.</li>
+                <li><strong>Solution:</strong> Built a pipeline to clean data, compute metrics, and render simple charts with clear explanations.</li>
+                <li><strong>Learning:</strong> Learned about data cleaning, aggregation, and communicating insights to non-technical users.</li>
+              </ul>
+
+              <div class="project-actions">
+                <a class="btn btn-outline" href="#" aria-disabled="true">GitHub</a>
+                <a class="btn btn-outline" href="#" aria-disabled="true">Live Demo</a>
               </div>
             </div>
           </article>
         </div>
-
-        <!-- Project modals (hidden by default) -->
-        <div id="modals" aria-hidden="true">
-          <!-- Modal 1 -->
-          <dialog id="modal-proj1" class="project-modal" aria-labelledby="modal-proj1-title">
-            <div class="modal-inner">
-              <header class="modal-header">
-                <h3 id="modal-proj1-title">Algorithm Visual Playground — Case Study</h3>
-                <button class="modal-close" data-close aria-label="Close">✕</button>
-              </header>
-              <div class="modal-body">
-                <section class="case-study">
-                  <h4>Challenge</h4>
-                  <p>
-                    Teaching algorithmic intuition is difficult because students often see code but not the state transitions. The challenge was to create a responsive, accurate visualization engine that can animate algorithms step-by-step while remaining performant for large inputs.
-                  </p>
-
-                  <h4>Solution</h4>
-                  <p>
-                    Built a Canvas-based engine with an event-driven state machine. Algorithms are instrumented to emit state snapshots; the renderer consumes snapshots and animates transitions using requestAnimationFrame. To maintain performance, I implemented incremental diffing and batched DOM updates.
-                  </p>
-
-                  <h4>Technical Details</h4>
-                  <ul>
-                    <li>Renderer: Canvas + layered compositing for nodes, edges, and UI overlays.</li>
-                    <li>State management: immutable snapshots with efficient diffing to compute minimal redraws.</li>
-                    <li>Algorithms: visual implementations of QuickSort, MergeSort, BFS, DFS, and recursive tree traversals with step controls and breakpoints.</li>
-                  </ul>
-
-                  <h4>Learning</h4>
-                  <p>
-                    I learned how to balance correctness and performance, how to design an API for instrumenting algorithms, and how to present complexity trade-offs visually.
-                  </p>
-
-                  <h4>Live Demo</h4>
-                  <div class="modal-demo" id="demo-algo">
-                    <!-- small interactive demo placeholder (script will attach) -->
-                    <canvas id="demo-algo-canvas" width="560" height="240" aria-label="Algorithm demo canvas"></canvas>
-                    <div class="demo-controls">
-                      <button class="btn btn-sm" data-demo-action="start">Start</button>
-                      <button class="btn btn-sm" data-demo-action="step">Step</button>
-                      <button class="btn btn-sm" data-demo-action="reset">Reset</button>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <footer class="modal-footer">
-                <small>Tech stack: JavaScript (Canvas), Python for backend data generation, Webpack, Jest tests for algorithm correctness.</small>
-              </footer>
-            </div>
-          </dialog>
-
-          <!-- Modal 2 -->
-          <dialog id="modal-proj2" class="project-modal" aria-labelledby="modal-proj2-title">
-            <div class="modal-inner">
-              <header class="modal-header">
-                <h3 id="modal-proj2-title">Plagiarism Checker — Case Study</h3>
-                <button class="modal-close" data-close aria-label="Close">✕</button>
-              </header>
-              <div class="modal-body">
-                <section class="case-study">
-                  <h4>Challenge</h4>
-                  <p>
-                    Detecting similarity across large codebases and long text documents requires algorithms that are both accurate and efficient. The system must handle obfuscation, variable renaming, and formatting differences.
-                  </p>
-
-                  <h4>Solution</h4>
-                  <p>
-                    Implemented a hybrid approach combining tokenization, normalized hashing (rolling hash / Rabin-Karp), and semantic fingerprinting using n-grams. For code, AST-based normalization reduces false positives due to formatting. For text, TF-IDF and cosine similarity are used for ranking.
-                  </p>
-
-                  <h4>Technical Details</h4>
-                  <ul>
-                    <li>Preprocessing: lexical normalization, AST parsing for code, stopword removal for text.</li>
-                    <li>Algorithms: rolling hash for substring detection; MinHash + LSH for scalable similarity search.</li>
-                    <li>Performance: chunked processing, streaming I/O, and parallelization using multiprocessing.</li>
-                  </ul>
-
-                  <h4>Learning</h4>
-                  <p>
-                    I learned about trade-offs between precision and recall, the importance of normalization, and how to scale similarity detection to larger datasets.
-                  </p>
-
-                  <h4>Mini Demo</h4>
-                  <div class="modal-demo" id="demo-plag">
-                    <textarea id="demo-plag-input" placeholder="Paste two short texts or code snippets to compare..." aria-label="Plagiarism demo input"></textarea>
-                    <div class="demo-controls">
-                      <button class="btn btn-sm" data-demo-action="compare">Compare</button>
-                      <div id="demo-plag-result" class="demo-result" aria-live="polite"></div>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <footer class="modal-footer">
-                <small>Tech stack: Python (NLTK, scikit-learn), AST parsing, MinHash, Flask for API.</small>
-              </footer>
-            </div>
-          </dialog>
-
-          <!-- Modal 3 -->
-          <dialog id="modal-proj3" class="project-modal" aria-labelledby="modal-proj3-title">
-            <div class="modal-inner">
-              <header class="modal-header">
-                <h3 id="modal-proj3-title">Student Result Analyzer — Case Study</h3>
-                <button class="modal-close" data-close aria-label="Close">✕</button>
-              </header>
-              <div class="modal-body">
-                <section class="case-study">
-                  <h4>Challenge</h4>
-                  <p>
-                    Presenting student performance data in a way that surfaces actionable insights without overwhelming the user. The system must handle missing data, noisy inputs, and provide clear recommendations.
-                  </p>
-
-                  <h4>Solution</h4>
-                  <p>
-                    Built a pipeline that ingests CSV data, cleans and normalizes scores, computes derived metrics (moving averages, variance, subject correlations), and renders interactive charts with Chart.js. The UI includes filters, drill-downs, and exportable reports.
-                  </p>
-
-                  <h4>Technical Details</h4>
-                  <ul>
-                    <li>Data pipeline: Python scripts for ETL, Pandas for cleaning, and Node.js for serving processed JSON.</li>
-                    <li>Visualization: Chart.js with custom plugins for annotations and trendlines.</li>
-                    <li>UX: progressive disclosure of insights and contextual recommendations.</li>
-                  </ul>
-
-                  <h4>Learning</h4>
-                  <p>
-                    I learned how to design metrics that are interpretable, how to handle missing data responsibly, and how to communicate uncertainty to users.
-                  </p>
-
-                  <h4>Interactive Chart</h4>
-                  <div class="modal-demo" id="demo-chart">
-                    <canvas id="demo-chart-canvas" width="560" height="240" aria-label="Result analyzer demo chart"></canvas>
-                    <div class="demo-controls">
-                      <button class="btn btn-sm" data-demo-action="toggle-series">Toggle Series</button>
-                      <button class="btn btn-sm" data-demo-action="export">Export CSV</button>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <footer class="modal-footer">
-                <small>Tech stack: Chart.js, Pandas, Node.js, REST API, unit tests for analytics functions.</small>
-              </footer>
-            </div>
-          </dialog>
-        </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section" aria-labelledby="contact-heading">
       <div class="container">
-        <h2 id="contact-heading" class="section-heading">Contact</h2>
-        <p class="section-intro">
-          I'm open to research mentorship, internships, and collaborative projects. Below are ways to reach me.
-        </p>
+        <h2 id="contact-heading" class="section-title">Contact</h2>
 
-        <div class="contact-grid">
-          <div class="contact-card" data-animate="fade-in">
+        <p class="contact-lead">I’m open to collaboration, mentorship, and opportunities to learn. Feel free to reach out.</p>
+
+        <div class="contact-grid reveal">
+          <div class="contact-card">
             <h3>Email</h3>
-            <p><a href="mailto:kashish@example.com" class="contact-link">kashish@example.com</a></p>
+            <a href="mailto:kashish@example.com" class="contact-link">kashish@example.com</a>
           </div>
 
-          <div class="contact-card" data-animate="fade-in">
+          <div class="contact-card">
             <h3>GitHub</h3>
-            <p><a href="https://github.com/kashish" class="contact-link" target="_blank" rel="noopener">github.com/kashish</a></p>
+            <a href="#" class="contact-link" aria-disabled="true">github.com/kashish</a>
           </div>
 
-          <div class="contact-card" data-animate="fade-in">
+          <div class="contact-card">
             <h3>LinkedIn</h3>
-            <p><a href="https://linkedin.com/in/kashish" class="contact-link" target="_blank" rel="noopener">linkedin.com/in/kashish</a></p>
+            <a href="#" class="contact-link" aria-disabled="true">linkedin.com/in/kashish</a>
           </div>
+        </div>
 
-          <div class="contact-card form-card" data-animate="fade-in" aria-labelledby="form-title">
-            <h3 id="form-title">Message</h3>
-            <form id="contact-form" class="contact-form" novalidate>
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Your name" required>
-
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required>
-
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="4" placeholder="Brief message or inquiry" required></textarea>
-
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Send Message</button>
-                <button type="reset" class="btn btn-ghost">Reset</button>
-              </div>
-
-              <div id="form-status" class="form-status" aria-live="polite"></div>
-            </form>
-          </div>
+        <div class="contact-actions">
+          <a href="mailto:kashish@example.com" class="btn btn-primary">Email Me</a>
+          <a href="#projects" class="btn btn-ghost">See Projects</a>
         </div>
       </div>
     </section>
   </main>
 
   <!-- FOOTER -->
-  <footer id="site-footer" class="site-footer" role="contentinfo">
+  <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-left">
-        <p>© Kashish 2025 | Ahmedabad, India</p>
-      </div>
-      <div class="footer-right">
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="#projects" class="footer-link">Projects</a>
-          <a href="#skills" class="footer-link">Skills</a>
-          <a href="#contact" class="footer-link">Contact</a>
-        </nav>
-      </div>
+      <p class="footer-text">© Kashish 2025 | Ahmedabad, India</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#top" class="footer-link">Back to top</a>
+      </nav>
     </div>
   </footer>
 
-  <!-- Live region for announcements -->
-  <div id="aria-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
   <!-- Scripts -->
   <script src="script.js" defer></script>
-    
-<!-- ======= Extended Academic & Admissions Sections ======= -->
-<main aria-hidden="false" id="extended-main" class="extended-main container" style="margin-top:32px;">
-  <!-- Resume / CV (print-friendly) -->
-  <section id="resume" class="resume-section" aria-labelledby="resume-heading">
-    <h2 id="resume-heading" class="section-heading">Resume & Academic Summary</h2>
-    <p class="section-intro">
-      A concise, printable summary of academic achievements, coursework, awards, and technical contributions.
-      Designed for admissions reviewers who want a quick, structured overview.
-    </p>
-
-    <article class="resume-card" role="article" aria-label="Resume">
-      <header class="resume-header" style="display:flex;align-items:flex-start;gap:18px;">
-        <div style="flex:1;">
-          <h3 style="margin:0;font-family:var(--font-display);font-size:20px;">Kashish</h3>
-          <p style="margin:4px 0;color:var(--muted-text);">Grade 12 • Computer Science • Ahmedabad, India</p>
-        </div>
-        <div style="text-align:right;">
-          <p style="margin:0;font-weight:700;color:var(--accent-1);">Contact</p>
-          <p style="margin:4px 0;"><a href="mailto:kashish@example.com">kashish@example.com</a></p>
-          <p style="margin:4px 0;"><a href="https://github.com/kashish" target="_blank" rel="noopener">github.com/kashish</a></p>
-        </div>
-      </header>
-
-      <section class="resume-body" style="margin-top:12px;display:grid;grid-template-columns:1fr 320px;gap:18px;">
-        <div>
-          <h4 style="margin:0 0 8px 0;">Education</h4>
-          <div class="edu-item" style="margin-bottom:12px;">
-            <strong>Higher Secondary (Grade 12)</strong>
-            <div style="color:var(--muted-text);font-size:14px;">Expected 2025 — Ahmedabad, India</div>
-            <ul style="margin:8px 0 0 18px;color:var(--muted-text);">
-              <li>Computer Science specialization; coursework in Data Structures, Algorithms, Discrete Math</li>
-              <li>Independent study: algorithmic complexity, systems fundamentals, and data visualization</li>
-            </ul>
-          </div>
-
-          <h4 style="margin:0 0 8px 0;">Selected Coursework & Topics</h4>
-          <ul style="margin:8px 0 12px 18px;color:var(--muted-text);">
-            <li>Data Structures & Algorithms (graphs, trees, dynamic programming)</li>
-            <li>Discrete Mathematics & Proof Techniques</li>
-            <li>Systems fundamentals: processes, memory, and basic networking</li>
-            <li>Software engineering: testing, version control, and reproducible builds</li>
-          </ul>
-
-          <h4 style="margin:0 0 8px 0;">Awards & Recognition</h4>
-          <ul style="margin:8px 0 12px 18px;color:var(--muted-text);">
-            <li>Regional Programming Contest — Top 10 finalist (2024)</li>
-            <li>School Science Fair — 1st Prize for Algorithm Visualization Project (2023)</li>
-            <li>Open-source contributor recognition for visualization library (2024)</li>
-          </ul>
-
-          <h4 style="margin:0 0 8px 0;">Publications & Technical Writing</h4>
-          <ul style="margin:8px 0 12px 18px;color:var(--muted-text);">
-            <li><strong>Algorithm Visual Playground — Design Notes</strong> — A technical write-up describing the renderer architecture, snapshot diffing, and performance benchmarks (available on GitHub).</li>
-            <li><strong>Plagiarism Detection Techniques — Notes</strong> — Comparative analysis of hashing, MinHash, and AST normalization approaches.</li>
-          </ul>
-        </div>
-
-        <aside style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-          <h4 style="margin:0 0 8px 0;">Technical Summary</h4>
-          <dl style="margin:0;color:var(--muted-text);">
-            <dt style="font-weight:700;margin-top:8px;">Languages</dt>
-            <dd>Python, JavaScript, C++, Java</dd>
-
-            <dt style="font-weight:700;margin-top:8px;">Tools</dt>
-            <dd>Git, Linux, VS Code, Node.js, Chart.js</dd>
-
-            <dt style="font-weight:700;margin-top:8px;">Interests</dt>
-            <dd>Algorithms, Visualization, Data Systems, Education Technology</dd>
-
-            <dt style="font-weight:700;margin-top:8px;">Availability</dt>
-            <dd>Internships & Research (Summer 2025)</dd>
-          </dl>
-        </aside>
-      </section>
-
-      <footer style="margin-top:12px;color:var(--muted-text);font-size:13px;">
-        <strong>Note:</strong> Full project repositories include README, tests, and reproducible benchmarks. Links are available on the Projects section and GitHub profile.
-      </footer>
-    </article>
-  </section>
-
-  <!-- Research Interests & Mentorship -->
-  <section id="research" class="research-section" aria-labelledby="research-heading" style="margin-top:28px;">
-    <h2 id="research-heading" class="section-heading">Research Interests & Mentorship</h2>
-    <p class="section-intro">
-      Short-term: algorithmic visualization, human-centered explanations for algorithmic complexity, and scalable similarity detection.
-      Long-term: research in educational tools that help learners build formal reasoning skills and reproducible experiments in CS education.
-    </p>
-
-    <div class="research-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;">
-      <div class="research-card" style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-        <h4 style="margin:0 0 6px 0;">Algorithm Visualization</h4>
-        <p style="margin:0;color:var(--muted-text);">Designing interactive renderers that reveal state transitions and complexity trade-offs for learners and researchers.</p>
-      </div>
-      <div class="research-card" style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-        <h4 style="margin:0 0 6px 0;">Similarity & NLP</h4>
-        <p style="margin:0;color:var(--muted-text);">Exploring robust text/code similarity metrics that balance precision and scalability.</p>
-      </div>
-      <div class="research-card" style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-        <h4 style="margin:0 0 6px 0;">Data-Driven Learning</h4>
-        <p style="margin:0;color:var(--muted-text);">Using analytics to provide actionable feedback and personalized study recommendations.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Teaching & Outreach -->
-  <section id="outreach" class="outreach-section" aria-labelledby="outreach-heading" style="margin-top:28px;">
-    <h2 id="outreach-heading" class="section-heading">Teaching & Outreach</h2>
-    <p class="section-intro">
-      I mentor junior students in algorithmic thinking, run small workshops on visualization, and contribute to open-source educational tools.
-    </p>
-
-    <ul style="margin-top:12px;color:var(--muted-text);">
-      <li>Weekly algorithm study group — curriculum: recursion, graph algorithms, dynamic programming.</li>
-      <li>Workshop: Building interactive visualizations with Canvas and JavaScript (2024).</li>
-      <li>Open-source contributions: documentation, tests, and small feature patches to visualization libraries.</li>
-    </ul>
-  </section>
-
-  <!-- References (academic & technical) -->
-  <section id="references" class="references-section" aria-labelledby="references-heading" style="margin-top:28px;">
-    <h2 id="references-heading" class="section-heading">References</h2>
-    <p class="section-intro">Available upon request. Typical references include teachers, mentors, and project collaborators who can speak to technical depth and collaborative skills.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;">
-      <div style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-        <strong>Dr. A. Mentor</strong>
-        <div style="color:var(--muted-text);font-size:14px;">Research Mentor — Topic: Algorithmic Education</div>
-        <div style="margin-top:8px;color:var(--muted-text);font-size:13px;">Contact available on request</div>
-      </div>
-      <div style="background:var(--card-bg);padding:12px;border-radius:12px;box-shadow:var(--shadow-1);">
-        <strong>Ms. B. Teacher</strong>
-        <div style="color:var(--muted-text);font-size:14px;">Computer Science Teacher — School</div>
-        <div style="margin-top:8px;color:var(--muted-text);font-size:13px;">Contact available on request</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= Structured Data for Admissions Reviewers (JSON-LD) ======= -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Kashish",
-    "jobTitle": "Computer Science Student",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ahmedabad",
-      "addressRegion": "GJ",
-      "addressCountry": "IN"
-    },
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "Higher Secondary School"
-    },
-    "sameAs": [
-      "https://github.com/kashish",
-      "https://linkedin.com/in/kashish"
-    ],
-    "knowsAbout": [
-      "Algorithms",
-      "Data Structures",
-      "Visualization",
-      "Natural Language Processing",
-      "Data Analysis"
-    ],
-    "description": "Grade 12 Computer Science student focused on algorithmic visualization, similarity detection, and data-driven learning tools."
-  }
-  </script>
-
-  <!-- ======= Printable Resume Styles (inline for reliability) ======= -->
-  <style>
-    @media print {
-      body { background: #fff !important; color: #000 !important; }
-      header, nav, #parallax, .btn, .project-modal, .mobile-menu, #scroll-progress { display: none !important; }
-      .container { padding: 0 !important; max-width: 100% !important; }
-      .resume-section, .resume-card { box-shadow: none !important; background: transparent !important; border: none !important; }
-      .resume-header { page-break-inside: avoid; }
-      .resume-body { page-break-inside: avoid; }
-      .section-heading { color: #000 !important; }
-    }
-  </style>
-
-  <!-- ======= Hidden Accessibility & Debugging Panel ======= -->
-  <aside id="dev-panel" aria-hidden="true" style="margin-top:28px;display:none;">
-    <!-- This panel is hidden by default; toggle via keyboard shortcut in script.js for reviewers -->
-    <h3 style="margin:0 0 8px 0;">Developer Panel (Hidden)</h3>
-    <p style="color:var(--muted-text);">Contains debug info and quick links for reviewers. Not visible to public users.</p>
-    <ul style="color:var(--muted-text);">
-      <li><a href="#projects">Jump to Projects</a></li>
-      <li><a href="#skills">Jump to Skills</a></li>
-      <li><a href="#contact">Jump to Contact</a></li>
-    </ul>
-  </aside>
-</main>
-
-<!-- ======= Microcopy & Legal ======= -->
-<section aria-hidden="true" style="opacity:0;position:absolute;left:-9999px;">
-  <p>Portfolio content is authored by Kashish. Project descriptions summarize technical approaches and learning outcomes for admissions review.</p>
-</section>
-
-<!-- ======= Final Footer Enhancements & Micro-Interactions ======= -->
-<script>
-  // Small inline script to wire print resume shortcut and reveal dev panel for reviewers.
-  (function() {
-    // Ctrl+P (or Cmd+P) will open print dialog normally; add Ctrl+Shift+P to print resume quickly.
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'p') {
-        e.preventDefault();
-        // Scroll to resume and open print
-        const resume = document.getElementById('resume');
-        if (resume) {
-          resume.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          setTimeout(() => window.print(), 700);
-        } else {
-          window.print();
-        }
-      }
-      // Ctrl+Shift+D toggles dev panel for reviewers (hidden by default)
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'd') {
-        const panel = document.getElementById('dev-panel');
-        if (panel) {
-          panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-          panel.setAttribute('aria-hidden', panel.style.display === 'none' ? 'true' : 'false');
-        }
-      }
-    });
-  })();
-</script>
-
-<!-- ======= Closing notes for integrators =======
-  - If you are appending this Part 2 to an existing index.html, ensure there is only one <main> element or merge as appropriate.
-  - The JSON-LD block provides structured metadata useful for automated indexing and admissions systems.
-  - The print stylesheet is intentionally inline to ensure resume prints consistently across environments.
-  - The small inline script provides reviewer shortcuts without requiring additional network requests.
--->
-
-<!-- If this is a standalone continuation, ensure the following closing tags exist in the main document:
 </body>
 </html>
--->
+```
+
+---
+
+### `style.css`
+```css
+/* ==========================================================================
+   style.css
+   Clean, modular CSS for Kashish portfolio
+   - Light, airy, admissions-friendly aesthetic
+   - Uses only the locked color system
+   ========================================================================== */
+
+/* -------------------------
+   Color system (locked)
+   ------------------------- */
+:root{
+  --bg: #ffffff;                 /* page background */
+  --section-bg-1: #fbfdff;       /* subtle section background */
+  --section-bg-2: #fdfefe;       /* alternate section background */
+  --accent: #7bb7ff;             /* primary accent (soft sky blue) */
+  --accent-2: #c7b8ff;           /* secondary accent (light lavender) */
+  --highlight: #ffd6c9;          /* pastel peach */
+  --mint: #baf2e9;               /* optional mint accent */
+  --text: #1f2937;               /* dark gray text (not black) */
+
+  --radius: 12px;
+  --soft-shadow: 0 6px 18px rgba(31,41,55,0.04); /* very soft shadow */
+  --soft-shadow-2: 0 10px 30px rgba(31,41,55,0.03);
+  --glass: rgba(255,255,255,0.6);
+  --max-width: 1100px;
+  --container-padding: 28px;
+  --ease: cubic-bezier(.2,.9,.3,1);
+}
+
+/* -------------------------
+   Base reset & typography
+   ------------------------- */
+* { box-sizing: border-box; }
+html,body { height:100%; }
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+  font-size:16px;
+  scroll-behavior:smooth;
+}
+
+/* Container utility */
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding: 48px var(--container-padding);
+}
+
+/* Headings */
+h1,h2,h3,h4{
+  color:var(--text);
+  margin:0 0 12px 0;
+  line-height:1.05;
+}
+h1{
+  font-family: "Playfair Display", serif;
+  font-weight:700;
+  font-size:clamp(36px, 6vw, 64px);
+  letter-spacing:-0.02em;
+}
+h2{
+  font-size:28px;
+  font-weight:700;
+}
+h3{
+  font-size:18px;
+  font-weight:600;
+}
+p{ margin:0 0 16px 0; color:var(--text); }
+
+/* Links and buttons */
+a{ color:inherit; text-decoration:none; }
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease), opacity .2s;
+  text-decoration:none;
+  color:var(--text);
+  background:transparent;
+  border:1px solid transparent;
+}
+.btn:focus{ outline:3px solid rgba(123,183,255,0.18); outline-offset:2px; border-radius:10px; }
+
+.btn-primary{
+  background: linear-gradient(180deg, rgba(123,183,255,0.12), rgba(123,183,255,0.06));
+  color:var(--accent);
+  border:1px solid rgba(123,183,255,0.18);
+  box-shadow: var(--soft-shadow);
+}
+.btn-primary:hover{
+  transform:translateY(-4px);
+  box-shadow: var(--soft-shadow-2);
+}
+
+.btn-ghost{
+  background:transparent;
+  color:var(--accent-2);
+  border:1px solid rgba(199,184,255,0.18);
+}
+.btn-outline{
+  background:transparent;
+  border:1px solid rgba(31,41,55,0.06);
+  color:var(--text);
+}
+.btn-outline:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow); }
+
+/* -------------------------
+   Header / Navbar
+   ------------------------- */
+.site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:60;
+  background:var(--bg);
+  border-bottom:1px solid rgba(31,41,55,0.04);
+  backdrop-filter: blur(6px);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px var(--container-padding);
+  max-width:var(--max-width);
+  margin:0 auto;
+}
+
+/* Brand */
+.brand{
+  font-weight:700;
+  font-size:18px;
+  color:var(--text);
+  letter-spacing:0.02em;
+}
+
+/* Desktop nav */
+.nav-list{
+  display:flex;
+  gap:18px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.nav-link{
+  padding:8px 10px;
+  border-radius:8px;
+  color:var(--text);
+  font-weight:600;
+  transition: color .2s, background .2s, transform .2s;
+}
+.nav-link:hover{ color:var(--accent); transform:translateY(-2px); }
+.nav-link.active{
+  color:var(--accent);
+  box-shadow: inset 0 -3px 0 0 rgba(123,183,255,0.18);
+}
+
+/* Hamburger (mobile) */
+.hamburger{
+  display:none;
+  background:transparent;
+  border:0;
+  padding:8px;
+  cursor:pointer;
+}
+.hamburger-box{ width:28px; height:18px; display:inline-block; position:relative; }
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after{
+  width:28px; height:2px; background:var(--text); display:block; border-radius:2px; position:absolute; left:0; transition: transform .25s var(--ease), opacity .2s;
+}
+.hamburger-inner{ top:50%; transform:translateY(-50%); }
+.hamburger-inner::before{ content:""; top:-8px; }
+.hamburger-inner::after{ content:""; top:8px; }
+
+/* Mobile menu */
+.mobile-menu{
+  display:none;
+  background:var(--section-bg-1);
+  border-top:1px solid rgba(31,41,55,0.03);
+  padding:12px var(--container-padding);
+}
+.mobile-nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.mobile-nav-link{
+  padding:10px 12px;
+  border-radius:8px;
+  color:var(--text);
+  font-weight:600;
+  background:transparent;
+}
+.mobile-nav-link:hover{ background:rgba(123,183,255,0.06); color:var(--accent); transform:translateY(-2px); }
+
+/* -------------------------
+   HERO
+   ------------------------- */
+.hero{
+  padding-top:120px; /* account for fixed header */
+  padding-bottom:120px;
+  background: linear-gradient(180deg, rgba(123,183,255,0.03), rgba(199,184,255,0.02));
+  position:relative;
+  overflow:hidden;
+}
+.hero-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  position:relative;
+}
+
+/* Hero content */
+.hero-content{ max-width:640px; }
+.hero-title{ font-size:clamp(40px, 8vw, 84px); margin-bottom:12px; color:var(--text); opacity:0; transform:translateY(12px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.hero-title .name{ display:inline-block; padding:6px 8px; border-radius:8px; background:transparent; color:var(--text); }
+
+/* Typewriter */
+.hero-tagline{ font-size:18px; color:rgba(31,41,55,0.9); margin-bottom:20px; min-height:28px; opacity:0; transform:translateY(8px); transition: opacity .9s .2s var(--ease), transform .9s .2s var(--ease); }
+.typewriter::after{
+  content:"";
+  display:inline-block;
+  width:2px;
+  height:1.1em;
+  background:var(--text);
+  margin-left:6px;
+  vertical-align:middle;
+  animation: blink 1.2s steps(2, start) infinite;
+  opacity:0.9;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* Hero CTA */
+.hero-cta{ display:flex; gap:12px; margin-top:8px; opacity:0; transform:translateY(8px); transition: opacity .9s .6s var(--ease), transform .9s .6s var(--ease); }
+
+/* Hero visual shapes */
+.hero-visual{ width:320px; height:240px; position:relative; display:block; }
+.shape{
+  position:absolute;
+  border-radius:18px;
+  filter: blur(0.6px);
+  opacity:0.95;
+  box-shadow: var(--soft-shadow);
+}
+.shape-1{ width:160px; height:160px; left:40px; top:10px; background:linear-gradient(180deg, rgba(123,183,255,0.12), rgba(123,183,255,0.06)); transform:rotate(-6deg); }
+.shape-2{ width:120px; height:120px; right:10px; top:40px; background:linear-gradient(180deg, rgba(199,184,255,0.12), rgba(199,184,255,0.06)); transform:rotate(8deg); }
+.shape-3{ width:80px; height:80px; left:120px; bottom:10px; background:linear-gradient(180deg, rgba(255,214,201,0.12), rgba(255,214,201,0.06)); }
+
+/* -------------------------
+   Sections
+   ------------------------- */
+.section{ padding:72px 0; background:var(--section-bg-2); }
+.section-alt{ background:var(--section-bg-1); }
+.section-title{ margin-bottom:18px; }
+
+/* ABOUT */
+.about-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
+}
+.about-card{
+  background:var(--bg);
+  border-radius:14px;
+  padding:20px;
+  box-shadow:var(--soft-shadow);
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+}
+.about-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
+
+/* SKILLS */
+.skills-intro{
+  margin:0 0 20px 0;
+  padding:18px;
+  border-left:4px solid var(--accent);
+  background:linear-gradient(180deg, rgba(123,183,255,0.03), rgba(199,184,255,0.02));
+  border-radius:10px;
+  color:var(--text);
+  font-style:normal;
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:18px;
+  margin-top:18px;
+}
+.skill-card{
+  background:var(--bg);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:var(--soft-shadow);
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+  display:flex;
+  flex-direction:column;
+}
+.skill-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
+.skill-accent{ height:8px; width:100%; }
+.skill-body{ padding:16px; }
+.skill-title{ margin-bottom:6px; }
+.skill-list{ color:rgba(31,41,55,0.8); font-size:14px; }
+
+/* PROJECTS */
+.projects-intro{ margin-bottom:18px; color:rgba(31,41,55,0.9); }
+.projects-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+}
+.project-card{
+  background:var(--bg);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:var(--soft-shadow);
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.project-card:hover{ transform:translateY(-4px); box-shadow:var(--soft-shadow-2); }
+.project-meta{ border-bottom:1px dashed rgba(31,41,55,0.04); padding-bottom:12px; }
+.project-title{ margin-bottom:6px; }
+.project-desc{ color:rgba(31,41,55,0.8); font-size:14px; margin-bottom:8px; }
+.badges{ display:flex; gap:8px; flex-wrap:wrap; }
+.badge{
+  background:linear-gradient(180deg, rgba(123,183,255,0.08), rgba(199,184,255,0.04));
+  color:var(--accent);
+  padding:6px 8px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:13px;
+  border:1px solid rgba(123,183,255,0.08);
+}
+
+/* Project case study */
+.project-case h4{ margin:8px 0; font-size:15px; }
+.project-case ul{ margin:0; padding-left:18px; color:rgba(31,41,55,0.85); }
+.project-actions{ display:flex; gap:10px; margin-top:12px; }
+
+/* CONTACT */
+.contact-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+  margin-top:18px;
+}
+.contact-card{
+  background:var(--bg);
+  border-radius:12px;
+  padding:16px;
+  box-shadow:var(--soft-shadow);
+}
+.contact-link{ color:var(--accent); font-weight:600; }
+
+/* FOOTER */
+.site-footer{
+  padding:20px 0;
+  background:var(--section-bg-2);
+  border-top:1px solid rgba(31,41,55,0.03);
+}
+.footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+/* -------------------------
+   Reveal animations (on-scroll)
+   ------------------------- */
+.reveal{
+  opacity:0;
+  transform:translateY(12px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* -------------------------
+   Small screens
+   ------------------------- */
+@media (max-width: 980px){
+  .hero-inner{ flex-direction:column; align-items:flex-start; gap:24px; }
+  .hero-visual{ display:none; }
+  .projects-grid{ grid-template-columns: 1fr; }
+  .skills-grid{ grid-template-columns: repeat(2, 1fr); }
+  .about-grid{ grid-template-columns: 1fr; }
+  .contact-grid{ grid-template-columns: 1fr; }
+  .nav-list{ display:none; }
+  .hamburger{ display:block; }
+  .mobile-menu{ display:block; }
+  .header-inner{ padding:12px var(--container-padding); }
+}
+
+/* -------------------------
+   Larger screens
+   ------------------------- */
+@media (min-width: 981px){
+  .mobile-menu{ display:none; }
+}
+
+/* -------------------------
+   Accessibility helpers
+   ------------------------- */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0);
+  white-space:nowrap; border:0;
+}
+
+/* -------------------------
+   Small visual polish
+   ------------------------- */
+.footer-link{ color:rgba(31,41,55,0.7); font-size:14px; }
+.projects-intro{ margin-bottom:18px; }
+
+/* End of style.css */
+```
+
+---
+
+### `script.js`
+```javascript
+/* ==========================================================================
+   script.js
+   Interactivity and animations for Kashish portfolio
+   - Typewriter effect
+   - Smooth reveal on scroll (IntersectionObserver)
+   - Navbar active link tracking
+   - Mobile menu toggle
+   - Gentle entrance animations for hero
+   ========================================================================== */
+
+/* -------------------------
+   Utilities
+   ------------------------- */
+const q = (sel, ctx = document) => ctx.querySelector(sel);
+const qAll = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+/* -------------------------
+   Typewriter effect (slow, calm, elegant)
+   - Reads data-text attribute from #typewriter
+   - Types slowly, with slight pause, then stops (no loop)
+   ------------------------- */
+function typewriterEffect(el, speed = 40, pause = 600) {
+  if (!el) return;
+  const text = el.getAttribute('data-text') || '';
+  el.textContent = '';
+  let i = 0;
+
+  function step() {
+    if (i <= text.length) {
+      el.textContent = text.slice(0, i);
+      i++;
+      setTimeout(step, speed + (i % 6 === 0 ? 20 : 0)); // slight variation
+    } else {
+      // finished typing, small pause then reveal CTA
+      setTimeout(() => {
+        document.querySelector('.hero-cta').classList.add('visible');
+      }, pause);
+    }
+  }
+  // small initial delay for calm entrance
+  setTimeout(step, 420);
+}
+
+/* -------------------------
+   Hero entrance animation
+   - Name fades in + moves up slightly
+   - Tagline handled by typewriter
+   - CTA fades in after tagline (handled in typewriter)
+   ------------------------- */
+function heroEntrance() {
+  const title = q('.hero-title');
+  const tagline = q('.hero-tagline');
+
+  // reveal title
+  requestAnimationFrame(() => {
+    title.style.opacity = '1';
+    title.style.transform = 'translateY(0)';
+  });
+
+  // reveal tagline after a short delay (typewriter will fill text)
+  setTimeout(() => {
+    tagline.style.opacity = '1';
+    tagline.style.transform = 'translateY(0)';
+  }, 420);
+
+  // ensure CTA is hidden until typewriter triggers it
+  const cta = q('.hero-cta');
+  cta.style.opacity = '0';
+  cta.style.transform = 'translateY(8px)';
+}
+
+/* -------------------------
+   Reveal on scroll
+   - Uses IntersectionObserver to add .visible to .reveal elements
+   - Staggered reveal for children
+   ------------------------- */
+function setupRevealOnScroll() {
+  const reveals = qAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // add visible with slight stagger based on index
+        const el = entry.target;
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -8% 0px',
+    threshold: 0.08
+  });
+
+  reveals.forEach((r, i) => {
+    // small stagger via transition delay
+    r.style.transitionDelay = `${Math.min(i * 60, 300)}ms`;
+    observer.observe(r);
+  });
+}
+
+/* -------------------------
+   Navbar active link tracking
+   - Highlights the nav link corresponding to the current section
+   - Smooth scroll is handled by CSS, but we update active state on scroll
+   ------------------------- */
+function setupActiveNav() {
+  const sections = qAll('main section[id]');
+  const navLinks = qAll('.nav-link');
+  const mobileLinks = qAll('.mobile-nav-link');
+
+  const sectionMap = sections.map(s => ({
+    id: s.id,
+    top: () => s.getBoundingClientRect().top + window.scrollY
+  }));
+
+  function updateActive() {
+    const scrollPos = window.scrollY + 120; // offset for header
+    let current = sectionMap[0].id;
+    for (let i = 0; i < sectionMap.length; i++) {
+      if (scrollPos >= sectionMap[i].top()) {
+        current = sectionMap[i].id;
+      }
+    }
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
+    mobileLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
+  }
+
+  window.addEventListener('scroll', throttle(updateActive, 120));
+  window.addEventListener('resize', throttle(updateActive, 200));
+  // initial
+  updateActive();
+}
+
+/* -------------------------
+   Mobile menu toggle
+   - Simple accessible toggle
+   ------------------------- */
+function setupMobileMenu() {
+  const hamburger = q('#hamburger');
+  const mobileMenu = q('#mobile-menu');
+
+  function openMenu() {
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+    hamburger.classList.add('open');
+    // animate hamburger to X
+    q('.hamburger-inner').style.transform = 'rotate(45deg)';
+    q('.hamburger-inner::before');
+  }
+
+  function closeMenu() {
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.style.maxHeight = '0px';
+    hamburger.classList.remove('open');
+    q('.hamburger-inner').style.transform = 'rotate(0deg)';
+  }
+
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    if (expanded) closeMenu();
+    else openMenu();
+  });
+
+  // Close mobile menu when a link is clicked
+  qAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  // Close on outside click (for mobile)
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!target.closest('.header-inner') && !target.closest('#mobile-menu')) {
+      closeMenu();
+    }
+  });
+}
+
+/* -------------------------
+   Throttle utility
+   ------------------------- */
+function throttle(fn, wait) {
+  let last = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - last >= wait) {
+      last = now;
+      fn.apply(this, args);
+    }
+  };
+}
+
+/* -------------------------
+   Small helper: ensure hero CTA becomes visible
+   when .hero-cta.visible is added by typewriter
+   ------------------------- */
+function observeCTAVisibility() {
+  const cta = q('.hero-cta');
+  const observer = new MutationObserver(() => {
+    if (cta.classList.contains('visible')) {
+      cta.style.opacity = '1';
+      cta.style.transform = 'translateY(0)';
+    }
+  });
+  observer.observe(cta, { attributes: true, attributeFilter: ['class'] });
+}
+
+/* -------------------------
+   Smooth scroll for internal links (enhanced)
+   - Adds small offset to account for fixed header
+   ------------------------- */
+function setupSmoothScrollOffset() {
+  const links = qAll('a[href^="#"]');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const headerOffset = 84; // approximate header height
+        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+/* -------------------------
+   Initialize everything on DOMContentLoaded
+   ------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  // Hero entrance
+  heroEntrance();
+
+  // Typewriter
+  typewriterEffect(document.getElementById('typewriter'), 40, 700);
+
+  // Reveal on scroll
+  setupRevealOnScroll();
+
+  // Active nav tracking
+  setupActiveNav();
+
+  // Mobile menu
+  setupMobileMenu();
+
+  // Observe CTA visibility
+  observeCTAVisibility();
+
+  // Smooth scroll offset
+  setupSmoothScrollOffset();
+
+  // Make sure hero CTA becomes visible if typewriter already finished
+  setTimeout(() => {
+    const cta = document.querySelector('.hero-cta');
+    if (cta && cta.classList.contains('visible')) {
+      cta.style.opacity = '1';
+      cta.style.transform = 'translateY(0)';
+    }
+  }, 2000);
+});
 
    
 
