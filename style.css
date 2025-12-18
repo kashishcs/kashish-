@@ -913,3 +913,30 @@ body {
     display: block !important;
     visibility: visible !important;
 }
+/* ================================
+   EMERGENCY VISIBILITY FIXES
+   ================================ */
+
+.skill-card,
+.project-card,
+.hero-name,
+.contact-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.skills-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.projects-grid {
+    display: grid !important;
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
