@@ -1,1005 +1,720 @@
-```css
-/*
-  styles.css - Part 1 of 1 (requested as a single long file)
-  Purpose: Light-themed, pastel, professional portfolio styles for "Kashish"
-  Notes:
-    - This file is intentionally long and detailed to provide a rich, realistic styling baseline.
-    - It includes variables, layout, components, animations, accessibility tweaks, responsive rules,
-      utility classes, and comments explaining design choices.
-    - Part 1 only requested; this file is self-contained and ready to use with the provided HTML.
-    - For maintainability, consider splitting into partials (variables, layout, components, utilities).
-*/
+/* ===================================
+   LIGHT GALAXY PASTEL PORTFOLIO
+   Professional MIT-Level Styling
+   =================================== */
 
-/* ==========================================================================
-   0. Table of Contents (visual)
-   1. CSS Variables and Palette
-   2. Reset and Base Typography
-   3. Layout Utilities and Containers
-   4. Header / Navigation
-   5. Hero Section
-   6. Sections and Content Blocks
-   7. Cards: Skills, Projects, About
-   8. Demo Panels and Code Blocks
-   9. Forms and Contact
-   10. Footer
-   11. Animations and Keyframes
-   12. Accessibility and Reduced Motion
-   13. Responsive Breakpoints
-   14. Utility Classes
-   15. Print and Misc
-   ========================================================================== */
-
-/* ==========================================================================
-   1. CSS Variables and Palette
-   ========================================================================== */
-:root{
-  /* Core palette */
-  --bg-1: #f7fbff;            /* page background top */
-  --bg-2: #f0f4ff;            /* page background bottom */
-  --card: #ffffff;            /* card background */
-  --muted: #6b7280;           /* muted text */
-  --text: #0f172a;            /* primary text */
-  --accent-1: #cfe8ff;        /* pastel blue */
-  --accent-2: #ffeef3;        /* pastel pink */
-  --accent-3: #eafaf6;        /* pastel mint */
-  --accent-4: #fbe8ff;        /* soft lavender */
-  --glass: rgba(255,255,255,0.7);
-  --glass-2: rgba(240,244,255,0.85);
-
-  /* Shadows & radii */
-  --shadow-soft: 0 8px 24px rgba(15,23,42,0.06);
-  --shadow-strong: 0 12px 40px rgba(15,23,42,0.08);
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-
-  /* Layout */
-  --max-w: 1100px;
-  --nav-h: 72px;
-  --gutter: 1.25rem;
-
-  /* Timing */
-  --ease: cubic-bezier(.2,.9,.2,1);
-  --fast: 160ms;
-  --med: 320ms;
-  --slow: 600ms;
-
-  /* Accessibility */
-  --focus-ring: 3px solid rgba(99,102,241,0.12);
+/* ===== CSS RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ==========================================================================
-   2. Reset and Base Typography
-   ========================================================================== */
-/* Box sizing and base reset */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-html, body {
-  height: 100%;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
-  color: var(--text);
-  line-height: 1.5;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Remove default margins */
-body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
-  margin: 0;
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e0f0ff 100%);
+    position: relative;
 }
 
-/* Links */
-a { color: inherit; text-decoration: none; }
-a:focus { outline: none; }
-
-/* Images */
-img, picture, svg { max-width: 100%; display: block; }
-
-/* Lists */
-ul, ol { padding-left: 1.25rem; }
-
-/* Buttons */
-button { font: inherit; cursor: pointer; }
-
-/* Form elements */
-input, textarea, select { font: inherit; }
-
-/* Accessibility: focus outlines for keyboard users */
-:focus { outline: none; }
-.show-focus-outlines :focus { outline: var(--focus-ring); outline-offset: 3px; }
-
-/* ==========================================================================
-   3. Layout Utilities and Containers
-   ========================================================================== */
-.container {
-  max-width: var(--max-w);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--gutter);
-  padding-right: var(--gutter);
-}
-
-/* Sections */
-.section {
-  padding: 4.5rem 0;
-}
-
-/* Small helper */
-.center { text-align: center; }
-
-/* Grid helpers */
-.grid {
-  display: grid;
-  gap: 1.25rem;
-}
-
-/* Two-column responsive grid */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 2rem;
-  align-items: start;
-}
-@media (max-width: 980px) {
-  .grid-2 { grid-template-columns: 1fr; }
-}
-
-/* Simple row */
-.row { display:flex; gap:1rem; align-items:center; }
-
-/* Spacing utilities */
-.mt-1 { margin-top: .5rem; }
-.mt-2 { margin-top: 1rem; }
-.mb-1 { margin-bottom: .5rem; }
-.mb-2 { margin-bottom: 1rem; }
-
-/* ==========================================================================
-   4. Header / Navigation
-   ========================================================================== */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--nav-h);
-  z-index: 80;
-  background: linear-gradient(180deg, rgba(255,255,255,0.95), var(--glass-2));
-  border-bottom: 1px solid rgba(15,23,42,0.04);
-  display: flex;
-  align-items: center;
-  backdrop-filter: blur(6px);
-}
-
-/* Nav inner container */
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-/* Brand */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-.logo {
-  font-family: Poppins, Inter, system-ui;
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--text);
-  letter-spacing: .02em;
-}
-.role {
-  font-size: .85rem;
-  color: var(--muted);
-}
-
-/* Nav links */
-.nav-links {
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
-}
-.nav-link {
-  color: var(--muted);
-  padding: 8px 0;
-  position: relative;
-  transition: color var(--fast) var(--ease), transform var(--fast) var(--ease);
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  height: 2px;
-  width: 0;
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
-  border-radius: 2px;
-  transition: width .22s var(--ease);
-}
-.nav-link:hover { color: var(--text); transform: translateY(-2px); }
-.nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-/* Mobile nav toggle */
-.nav-toggle {
-  display: none;
-  background: none;
-  border: 0;
-  padding: 8px;
-  cursor: pointer;
-}
-.nav-toggle .bar {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text);
-  margin: 4px 0;
-  border-radius: 2px;
-  transition: transform .18s var(--ease), opacity .18s var(--ease);
-}
-@media (max-width: 880px) {
-  .nav-links {
+/* ===== LIGHT GALAXY BACKGROUND ===== */
+body::before {
+    content: '';
     position: fixed;
-    top: var(--nav-h);
+    top: 0;
     left: 0;
-    right: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(240,244,255,0.98));
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 20% 30%, rgba(108, 99, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(51, 217, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 159, 128, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: nebulaPulse 15s ease-in-out infinite;
+}
+
+@keyframes nebulaPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+}
+
+/* Twinkling stars */
+.navbar::after,
+.hero::after,
+.about::after,
+.skills::after,
+.projects::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #6c63ff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 3s infinite;
+}
+
+.navbar::after { top: 20%; right: 15%; animation-delay: 0s; }
+.hero::after { top: 30%; right: 25%; animation-delay: 1s; }
+.about::after { top: 15%; left: 20%; animation-delay: 2s; background: #33d9ff; }
+.skills::after { top: 40%; right: 30%; animation-delay: 1.5s; background: #ff9f80; }
+.projects::after { top: 25%; left: 10%; animation-delay: 0.5s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== NAVIGATION BAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(108, 99, 255, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6c63ff, #33d9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6c63ff, #33d9ff);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #6c63ff;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
     flex-direction: column;
-    padding: 1rem var(--gutter);
-    transform: translateY(-100%);
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #6c63ff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+}
+
+.hero-name {
+    font-size: 5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6c63ff, #33d9ff, #6c63ff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInScale 1s ease-out 0.5s forwards, subtleFloat 4s ease-in-out 2s infinite;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-tagline {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1.5s forwards;
+    min-height: 2rem;
+}
+
+.typewriter {
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    color: #6c63ff;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #6c63ff, #33d9ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 3s forwards;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+}
+
+/* ===== SECTION TITLES ===== */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #6c63ff, #33d9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.about-paragraph {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.about-paragraph p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.about-illustration {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.about-illustration svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(108, 99, 255, 0.15));
+}
+
+/* ===== SKILLS SECTION ===== */
+.skills {
+    padding: 6rem 0;
+    background: rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(108, 99, 255, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
+}
+
+.skill-category h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: #6c63ff;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skill-tag {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(51, 217, 255, 0.1));
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c63ff;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(51, 217, 255, 0.2));
+    transform: scale(1.05);
+}
+
+.skill-tag::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: #2c3e50;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: transform .28s var(--ease), opacity .28s var(--ease);
-  }
-  .nav-links.open {
-    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover::after {
+    transform: translateX(-50%) scale(1);
     opacity: 1;
-    pointer-events: auto;
-  }
-  .nav-toggle { display: block; }
 }
 
-/* ==========================================================================
-   5. Hero Section
-   ========================================================================== */
-.hero {
-  min-height: calc(100vh - var(--nav-h));
-  padding-top: calc(var(--nav-h) + 2rem);
-  display: flex;
-  align-items: center;
-}
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 2.25rem;
-  align-items: center;
-}
-@media (max-width: 980px) {
-  .hero-inner { grid-template-columns: 1fr; }
+/* ===== PROJECTS SECTION ===== */
+.projects {
+    padding: 6rem 0;
+    position: relative;
 }
 
-/* Eyebrow */
-.eyebrow {
-  font-size: .9rem;
-  color: var(--muted);
-  margin-bottom: .6rem;
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
 }
-
-/* Name */
-.hero-name {
-  font-family: Poppins, Inter, system-ui;
-  font-weight: 700;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  margin: 0 0 .6rem;
-  opacity: 0;
-  transform: scale(.98);
-  animation: heroName 900ms var(--ease) forwards 0.5s;
-}
-
-/* Tagline */
-.hero-tagline {
-  font-weight: 600;
-  color: var(--muted);
-  opacity: 0;
-  animation: fadeIn 1200ms var(--ease) forwards 1.5s;
-}
-
-/* Description */
-.hero-desc {
-  color: var(--muted);
-  max-width: 56ch;
-  margin-top: 1rem;
-  margin-bottom: 1.2rem;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fadeUp .9s var(--ease) forwards 2.3s;
-}
-
-/* CTAs */
-.hero-ctas { display:flex; gap:.8rem; opacity:0; transform:translateY(10px); animation:fadeUp .8s var(--ease) forwards 3s; }
-.btn {
-  font-weight: 600;
-  border-radius: 999px;
-  padding: .6rem 1rem;
-  border: 1px solid rgba(15,23,42,0.06);
-  cursor: pointer;
-  transition: transform .12s var(--ease), box-shadow .12s var(--ease);
-}
-.btn-primary {
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
-  color: var(--text);
-  box-shadow: var(--shadow-soft);
-}
-.btn-primary:hover { transform: translateY(-3px); }
-.btn-ghost { background: transparent; color: var(--text); }
-
-/* Hero visual card */
-.illustration-card {
-  background: var(--card);
-  border-radius: var(--radius-md);
-  padding: 1rem;
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .6rem;
-}
-.illustration-caption { font-size: .85rem; color: var(--muted); }
-
-/* ==========================================================================
-   6. Sections and Content Blocks
-   ========================================================================== */
-.section-title {
-  font-family: Poppins, Inter, system-ui;
-  font-weight: 600;
-  font-size: 1.4rem;
-  margin-bottom: .4rem;
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-.section-sub { color: var(--muted); margin-bottom: 1.25rem; }
-
-/* About grid */
-.about-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.6rem; align-items: start; }
-@media (max-width: 980px) { .about-grid { grid-template-columns: 1fr; } }
-
-/* About card */
-.card {
-  background: var(--card);
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(15,23,42,0.03);
-}
-
-/* Paragraph reveals */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ==========================================================================
-   7. Cards: Skills, Projects, About
-   ========================================================================== */
-/* Skills grid */
-.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-@media (max-width: 980px) { .skills-grid { grid-template-columns: 1fr; } }
-
-.skills-card {
-  background: var(--card);
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(15,23,42,0.03);
-  transition: transform .18s var(--ease), box-shadow .18s var(--ease);
-}
-.skills-card:hover { transform: translateY(-6px); }
-
-/* Card title and description */
-.card-title { font-weight: 600; margin-bottom: .4rem; }
-.card-desc { color: var(--muted); margin-bottom: .6rem; }
-
-/* Skill pills */
-.skill-pills { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.8rem; }
-.pill {
-  background: linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));
-  border-radius: 999px;
-  padding: .35rem .6rem;
-  border: 1px solid rgba(15,23,42,0.04);
-  cursor: default;
-  transition: transform .12s var(--ease), box-shadow .12s var(--ease);
-}
-.pill:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15,23,42,0.04); }
-
-/* Skill bars */
-.skill-bars { margin-top: .6rem; }
-.skill-bar { display:flex; align-items:center; gap:.6rem; margin-bottom:.5rem; }
-.skill-bar label { width: 110px; font-size: .85rem; color: var(--muted); }
-.skill-bar .bar { flex:1; height:10px; background: linear-gradient(90deg, rgba(15,23,42,0.04), rgba(15,23,42,0.02)); border-radius: 999px; overflow:hidden; }
-.skill-bar .fill { height:100%; background: linear-gradient(90deg, var(--accent-1), var(--accent-3)); border-radius: 999px; transition: width var(--med) var(--ease); }
-
-/* Projects grid */
-.projects-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1rem; }
-@media (max-width: 980px) { .projects-grid { grid-template-columns: 1fr; } }
 
 .project-card {
-  background: var(--card);
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-strong);
-  border: 1px solid rgba(15,23,42,0.03);
-  transition: transform .18s var(--ease);
-}
-.project-card:hover { transform: translateY(-8px); }
-
-.project-meta { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
-.project-title { margin: 0 0 .5rem; font-family: Poppins; }
-.project-description { color: var(--muted); margin-bottom: .6rem; }
-.project-tags span { display:inline-block; padding:.2rem .5rem; border-radius:999px; background: linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6)); border:1px solid rgba(193,205,255,0.04); margin-right:.4rem; font-size:.78rem; }
-
-/* Project links */
-.project-links { display:flex; gap:.6rem; }
-.link { color: var(--accent-1); text-decoration: none; border: 1px solid rgba(15,23,42,0.06); padding: .4rem .7rem; border-radius:8px; background: transparent; transition: transform .12s var(--ease); }
-.link:hover { transform: translateY(-3px); }
-
-/* ==========================================================================
-   8. Demo Panels and Code Blocks
-   ========================================================================== */
-.demo-panel {
-  background: linear-gradient(180deg, rgba(240,244,255,0.6), rgba(255,255,255,0.6));
-  padding: .6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(15,23,42,0.03);
-  margin-bottom: .6rem;
-}
-.demo-controls { display:flex; gap:.5rem; margin-bottom:.5rem; }
-.demo-btn {
-  padding: .4rem .6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(15,23,42,0.04);
-  background: transparent;
-  cursor: pointer;
-}
-.demo-canvas {
-  display:block;
-  width:100%;
-  height:120px;
-  border-radius:6px;
-  background:#fff;
-  border:1px solid rgba(15,23,42,0.03);
-}
-.demo-code {
-  background: #f8fafc;
-  padding: .6rem;
-  border-radius: 6px;
-  font-size: .82rem;
-  overflow: auto;
-  margin-top: .6rem;
-  color: #0f172a;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(108, 99, 255, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
 }
 
-/* ==========================================================================
-   9. Forms and Contact
-   ========================================================================== */
-.contact-grid { display:grid; grid-template-columns: 1fr 360px; gap:1rem; align-items:start; }
-@media (max-width: 980px) { .contact-grid { grid-template-columns: 1fr; } }
-
-.contact-item { color: var(--muted); margin-bottom: .6rem; }
-.contact-form { display:flex; flex-direction:column; gap:.6rem; }
-.contact-form label { font-size: .85rem; color: var(--muted); }
-.contact-form input, .contact-form textarea {
-  padding: .6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(15,23,42,0.06);
-  background: transparent;
-  color: var(--text);
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
 }
-.form-actions { display:flex; gap:.6rem; margin-top:.4rem; }
-.form-note { font-size: .85rem; color: var(--muted); margin-top: .6rem; }
 
-/* Form validation states */
-.input-error { border-color: #fca5a5; box-shadow: 0 6px 18px rgba(249,115,22,0.06); }
-.input-success { border-color: #86efac; }
-
-/* ==========================================================================
-   10. Footer
-   ========================================================================== */
-.site-footer {
-  margin-top: 1.6rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(15,23,42,0.03);
-  color: var(--muted);
-  text-align: center;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: all .6s var(--ease);
+.project-header {
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(51, 217, 255, 0.05));
 }
-.site-footer.visible { opacity: 1; transform: translateY(0); }
 
-/* ==========================================================================
-   11. Animations and Keyframes
-   ========================================================================== */
-@keyframes heroName {
-  from { opacity: 0; transform: scale(.9); }
-  to { opacity: 1; transform: scale(1); }
+.project-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #6c63ff;
 }
+
+.project-demo {
+    height: 150px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Project Demo Animations */
+.sorting-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+    padding: 1rem;
+}
+
+.bar {
+    width: 30px;
+    background: linear-gradient(180deg, #6c63ff, #33d9ff);
+    border-radius: 5px 5px 0 0;
+    animation: sortingAnimation 2s ease-in-out infinite;
+}
+
+@keyframes sortingAnimation {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.6); }
+}
+
+.plagiarism-display {
+    padding: 1rem;
+    width: 100%;
+}
+
+.text-sample {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.text-sample .highlight {
+    background: rgba(255, 159, 128, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    animation: highlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes highlightPulse {
+    0%, 100% { background: rgba(255, 159, 128, 0.3); }
+    50% { background: rgba(255, 159, 128, 0.6); }
+}
+
+.chart-display {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    height: 100%;
+    padding: 1rem;
+}
+
+.chart-bar {
+    width: 40px;
+    background: linear-gradient(180deg, #33d9ff, #6c63ff);
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    animation: chartGrow 2s ease-in-out infinite;
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #555;
+}
+
+@keyframes chartGrow {
+    0%, 100% { transform: scaleY(0.8); }
+    50% { transform: scaleY(1); }
+}
+
+.project-description {
+    padding: 1.5rem 2rem;
+    color: #555;
+    line-height: 1.7;
+}
+
+.tech-stack {
+    padding: 0 2rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.3s forwards;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* subtle pulse for primary CTA */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(207,232,255,0.0); }
-  70% { box-shadow: 0 0 0 12px rgba(207,232,255,0.06); }
-  100% { box-shadow: 0 0 0 0 rgba(207,232,255,0.0); }
+.tech-icon {
+    padding: 0.4rem 0.8rem;
+    background: rgba(108, 99, 255, 0.1);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: #6c63ff;
+    font-weight: 500;
 }
 
-/* small floating effect for illustration */
-@keyframes floatY {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
+.project-links {
+    padding: 0 2rem 2rem;
+    display: flex;
+    gap: 1rem;
 }
 
-/* ==========================================================================
-   12. Accessibility and Reduced Motion
-   ========================================================================== */
-/* Respect prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+.project-link {
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #6c63ff;
+    color: #6c63ff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-/* Focus-visible polyfill style */
-:focus-visible { outline: var(--focus-ring); outline-offset: 3px; }
-
-/* High contrast mode tweaks */
-@media (forced-colors: active) {
-  :root { --accent-1: #bde0ff; --accent-3: #dff7f0; }
-  .nav-link::after { background: Highlight; }
+.project-link:hover {
+    background: #6c63ff;
+    color: white;
+    transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   13. Responsive Breakpoints
-   ========================================================================== */
-/* Small screens */
-@media (max-width: 880px) {
-  .container { padding-left: .9rem; padding-right: .9rem; }
-  .hero-desc { max-width: 100%; }
-  .btn { padding: .5rem .8rem; }
+/* ===== CONTACT / FOOTER ===== */
+.contact {
+    padding: 6rem 0 3rem;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
 }
 
-/* Extra small */
-@media (max-width: 600px) {
-  .hero-name { font-size: 2.2rem; }
-  .nav-inner { padding: 0 .8rem; }
-  .illustration-card { padding: .8rem; }
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
-/* Large screens */
-@media (min-width: 1400px) {
-  .container { max-width: 1300px; }
-  .hero-inner { grid-template-columns: 1fr 480px; }
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* ==========================================================================
-   14. Utility Classes
-   ========================================================================== */
-/* Text utilities */
-.text-muted { color: var(--muted); }
-.text-accent { color: var(--accent-1); }
-
-/* Display utilities */
-.d-flex { display:flex; }
-.d-grid { display:grid; }
-
-/* Spacing */
-.p-1 { padding: .5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-
-/* Width helpers */
-.w-100 { width: 100%; }
-.max-w-600 { max-width: 600px; }
-
-/* Visibility */
-.hidden { display: none !important; }
-.visible { display: block !important; }
-
-/* Small helpers */
-.rounded { border-radius: var(--radius-md); }
-.shadow-soft { box-shadow: var(--shadow-soft); }
-.shadow-strong { box-shadow: var(--shadow-strong); }
-
-/* ==========================================================================
-   15. Print and Misc
-   ========================================================================== */
-@media print {
-  body { background: #fff; color: #000; }
-  .site-header, .nav-links, .hero-ctas, .demo-controls, .project-links { display: none !important; }
-  .container { max-width: 100%; padding: 0; }
-  .card, .project-card, .skills-card { box-shadow: none; border: 1px solid #ddd; }
+.contact-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.2);
+    color: #6c63ff;
 }
 
-/* Small helper for visually hidden content (accessibility) */
-.visually-hidden {
-  position: absolute !important;
-  height: 1px; width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-  white-space: nowrap;
-}
-```
-/*
-  styles.css - Part 2
-  Continuation of the comprehensive stylesheet for Kashish's portfolio.
-  Purpose: Additional components, extended utilities, theme variants, advanced responsive rules,
-           print tweaks, and developer helpers to complement Part 1.
-  Notes:
-    - This file is intended to be appended after Part 1 or used as a continuation.
-    - It contains advanced styles, component variants, and many helpful comments for reviewers.
-*/
-
-/* ==========================================================================
-   16. Component Variants and Extended Cards
-   ========================================================================== */
-
-/* Project card variant: featured */
-.project-card.featured {
-  border: 1px solid rgba(15,23,42,0.06);
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,250,255,0.98));
-  box-shadow: 0 18px 50px rgba(15,23,42,0.10);
-  transform: translateY(-4px);
-}
-.project-card.featured .project-title {
-  font-size: 1.15rem;
-  color: var(--text);
+.contact-link svg {
+    transition: all 0.3s ease;
 }
 
-/* Skill card variant: compact */
-.skills-card.compact {
-  padding: .75rem;
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
-}
-.skills-card.compact .skill-pills { gap: .4rem; }
-.skills-card.compact .skill-bar label { width: 90px; font-size: .82rem; }
-
-/* About visual variant: timeline */
-.about-timeline {
-  display: grid;
-  gap: .8rem;
-  grid-template-columns: 1fr;
-}
-.about-timeline .timeline-item {
-  display:flex;
-  gap:.8rem;
-  align-items:flex-start;
-}
-.timeline-dot {
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background: var(--accent-1);
-  margin-top:6px;
-  box-shadow: 0 6px 18px rgba(207,232,255,0.06);
+.contact-link:hover svg {
+    transform: scale(1.1);
 }
 
-/* ==========================================================================
-   17. Modal / Lightbox (for project screenshots or code previews)
-   ========================================================================== */
-.modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1200;
-  background: rgba(10,12,20,0.45);
-  padding: 2rem;
-}
-.modal.open { display: flex; }
-.modal .modal-card {
-  width: 100%;
-  max-width: 980px;
-  background: var(--card);
-  border-radius: 12px;
-  box-shadow: 0 24px 80px rgba(15,23,42,0.18);
-  overflow: hidden;
-  border: 1px solid rgba(15,23,42,0.04);
-}
-.modal .modal-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(15,23,42,0.03);
-}
-.modal .modal-body { padding: 1rem; max-height: 70vh; overflow:auto; }
-.modal .modal-close {
-  background: transparent;
-  border: 0;
-  padding: .4rem;
-  cursor: pointer;
-  font-size: 1.1rem;
+.footer-text {
+    color: #777;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-/* ==========================================================================
-   18. Code block enhancements and syntax-like highlighting
-   ========================================================================== */
-.code-block {
-  background: #0f172a;
-  color: #e6eef8;
-  padding: 1rem;
-  border-radius: 8px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  font-size: .9rem;
-  line-height: 1.45;
-  overflow: auto;
-  box-shadow: 0 8px 30px rgba(2,6,23,0.35);
-}
-.code-block .kw { color: #ffd6e8; }    /* keywords */
-.code-block .fn { color: #bde0ff; }    /* functions */
-.code-block .str { color: #bfffe0; }   /* strings */
-.code-block .num { color: #ffd6a5; }   /* numbers */
-.code-block .comment { color: rgba(255,255,255,0.35); font-style: italic; }
-
-/* ==========================================================================
-   19. Advanced Form Controls and Validation UI
-   ========================================================================== */
-.input-group {
-  display:flex;
-  flex-direction:column;
-  gap:.4rem;
-}
-.input-inline {
-  display:flex;
-  gap:.6rem;
-  align-items:center;
-}
-.input-inline input, .input-inline select {
-  flex:1;
-}
-.input-hint { font-size:.82rem; color:var(--muted); }
-.input-error-msg { color:#b91c1c; font-size:.85rem; margin-top:.25rem; }
-
-/* Floating label pattern */
-.floating {
-  position: relative;
-}
-.floating input, .floating textarea {
-  padding: 1rem .75rem .5rem .75rem;
-}
-.floating label {
-  position: absolute;
-  left: .75rem;
-  top: .9rem;
-  font-size: .9rem;
-  color: var(--muted);
-  transition: transform .18s var(--ease), font-size .18s var(--ease), top .18s var(--ease);
-  pointer-events: none;
-}
-.floating input:focus + label,
-.floating input:not(:placeholder-shown) + label,
-.floating textarea:focus + label,
-.floating textarea:not(:placeholder-shown) + label {
-  transform: translateY(-.9rem);
-  font-size: .78rem;
-  top: .3rem;
-  color: var(--accent-1);
+/* ===== ANIMATION CLASSES ===== */
+.fade-in {
+    animation: fadeInAnimation 0.8s ease-out forwards;
 }
 
-/* ==========================================================================
-   20. Tiny UI Widgets: badges, counters, chips
-   ========================================================================== */
-.badge {
-  display:inline-flex;
-  align-items:center;
-  gap:.4rem;
-  padding:.2rem .5rem;
-  border-radius:999px;
-  background: linear-gradient(90deg, rgba(207,232,255,0.6), rgba(234,250,246,0.6));
-  border: 1px solid rgba(15,23,42,0.04);
-  font-size:.82rem;
-  color:var(--text);
-}
-.counter {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:28px;
-  height:28px;
-  border-radius:8px;
-  background:var(--accent-3);
-  color:var(--text);
-  font-weight:600;
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ==========================================================================
-   21. Theme Variants: Soft Dark Mode (optional)
-   ========================================================================== */
-/* Soft dark mode variant for reviewers who prefer a darker palette.
-   This is intentionally subtle and pastel-friendly. */
-.theme-dark {
-  --bg-1: #0b1220;
-  --bg-2: #071022;
-  --card: #071226;
-  --muted: #9aa6d6;
-  --text: #eaf2ff;
-  --accent-1: #2bd6ff;
-  --accent-2: #ffb6e6;
-  --accent-3: #9fffe0;
-  --glass: rgba(8,10,20,0.6);
-  --shadow-soft: 0 10px 30px rgba(0,0,0,0.6);
-  --shadow-strong: 0 18px 60px rgba(0,0,0,0.7);
+.slide-up {
+    animation: slideUpAnimation 0.8s ease-out forwards;
 }
 
-/* Toggleable class for body to enable dark theme */
-body.theme-dark {
-  background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
-  color: var(--text);
+@keyframes slideUpAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* In dark theme, invert some card styles */
-body.theme-dark .card,
-body.theme-dark .project-card,
-body.theme-dark .skills-card {
-  background: linear-gradient(180deg, rgba(8,10,20,0.9), rgba(6,8,18,0.9));
-  border: 1px solid rgba(255,255,255,0.03);
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.98);
+        width: 100%;
+        padding: 2rem;
+        gap: 1rem;
+        transition: left 0.3s ease;
+        box-shadow: 0 5px 20px rgba(108, 99, 255, 0.1);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .hero-name {
+        font-size: 3rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .about-illustration {
+        order: -1;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
 }
 
-/* ==========================================================================
-   22. Advanced Responsive & Layout Tweaks
-   ========================================================================== */
-
-/* Make hero layout more spacious on large screens */
-@media (min-width: 1200px) {
-  .hero-inner { grid-template-columns: 1fr 480px; gap: 3rem; }
-  .hero-desc { max-width: 68ch; }
-}
-
-/* Improve touch targets on small screens */
 @media (max-width: 480px) {
-  .btn { padding: .8rem 1rem; }
-  .nav-link { padding: 12px 0; display:block; width:100%; }
-  .nav-links { gap: .6rem; }
+    .container {
+        padding: 0 1rem;
+    }
+
+    .hero-name {
+        font-size: 2.5rem;
+    }
+
+    .hero-tagline {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 2rem;
+    }
 }
-
-/* Grid helpers for projects: masonry-like layout for wide screens */
-@media (min-width: 1100px) {
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-  .project-card { min-height: 220px; }
-}
-
-/* ==========================================================================
-   23. Print-friendly adjustments (extended)
-   ========================================================================== */
-@media print {
-  .modal, .nav-links, .site-header, .hero-ctas, .demo-controls, .project-links, .btn { display: none !important; }
-  .project-card, .skills-card, .card { page-break-inside: avoid; }
-  .code-block { background: #fff; color: #000; box-shadow: none; border: 1px solid #ddd; }
-}
-
-/* ==========================================================================
-   24. Developer Helpers and Debugging Utilities
-   ========================================================================== */
-/* Outline helper for debugging layout */
-.debug-outline * { outline: 1px dashed rgba(99,102,241,0.12); }
-
-/* Visually show grid columns for debugging */
-.debug-grid .container { background-image: linear-gradient(90deg, rgba(99,102,241,0.02) 1px, transparent 1px); background-size: 60px 100%; }
-
-/* Small utility to hide animations for screenshots */
-.no-animations * { animation: none !important; transition: none !important; }
-
-/* ==========================================================================
-   25. Micro-interactions: subtle hover and focus states
-   ========================================================================== */
-a:hover, a:focus { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.btn:active { transform: translateY(1px) scale(.998); }
-.pill:active { transform: translateY(1px); }
-
-/* Focus ring for interactive elements */
-button:focus, a:focus, input:focus, textarea:focus {
-  box-shadow: 0 6px 20px rgba(99,102,241,0.08);
-  border-color: rgba(99,102,241,0.18);
-}
-
-/* ==========================================================================
-   26. Small Animations & Decorative Flourishes
-   ========================================================================== */
-/* Floating illustration */
-.illustration-card svg { animation: floatY 6s ease-in-out infinite; }
-
-/* CTA subtle pulse on hover focus */
-.btn-primary:hover, .btn-primary:focus {
-  animation: pulse 1.6s ease-in-out;
-}
-
-/* Reveal stagger helper (used by JS to add delays) */
-.reveal[data-delay="0.05"] { transition-delay: 0.05s; }
-.reveal[data-delay="0.12"] { transition-delay: 0.12s; }
-.reveal[data-delay="0.19"] { transition-delay: 0.19s; }
-.reveal[data-delay="0.26"] { transition-delay: 0.26s; }
-.reveal[data-delay="0.35"] { transition-delay: 0.35s; }
-.reveal[data-delay="0.45"] { transition-delay: 0.45s; }
-
-/* ==========================================================================
-   27. Accessibility: High-contrast focus and large text mode
-   ========================================================================== */
-/* Large text mode for reviewers who prefer bigger typography */
-.large-text :where(h1,h2,h3,h4,p,label,button,input,textarea) { font-size: 1.125rem; }
-
-/* High contrast mode adjustments */
-@media (prefers-contrast: more) {
-  :root {
-    --muted: #cbd5e1;
-    --text: #ffffff;
-    --card: #0b1220;
-  }
-  .nav-link::after { background: #fff; }
-}
-
-/* ==========================================================================
-   28. Iconography and small SVG helpers
-   ========================================================================== */
-/* Inline SVG icon sizing helper */
-.icon {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  vertical-align: middle;
-  fill: currentColor;
-}
-
-/* Icon button */
-.icon-btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:36px;
-  height:36px;
-  border-radius:8px;
-  background: transparent;
-  border: 1px solid rgba(15,23,42,0.04);
-}
-
-/* ==========================================================================
-   29. Microcopy and legal text
-   ========================================================================== */
-.small-muted {
-  font-size: .82rem;
-  color: var(--muted);
-}
-
-/* ==========================================================================
-   30. Endnotes and extension points
-   ========================================================================== */
-/*
-  Extension points for future enhancements:
-    - Add CSS variables for user-customizable accent colors.
-    - Add a print-specific stylesheet for multi-page printouts.
-    - Add CSS grid templates for alternate project layouts (list, gallery).
-    - Add a theme switcher UI that toggles body.theme-dark and persists preference.
-    - Consider splitting into partials: _variables.css, _layout.css, _components.css, _utilities.css.
-*/
-
-
